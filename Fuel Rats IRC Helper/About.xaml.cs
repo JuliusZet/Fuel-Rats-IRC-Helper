@@ -11,6 +11,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
+using System.Deployment.Application;
 using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
@@ -23,6 +24,19 @@ namespace Fuel_Rats_IRC_Helper
         public About()
         {
             InitializeComponent();
+        }
+
+        private void labelVersion_Initialized(object sender, System.EventArgs e)
+        {
+            try
+            {
+                labelVersion.Content = "Version " + ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString();
+            }
+
+            catch (InvalidDeploymentException)
+            {
+                labelVersion.Content = "Version 0.0.0.0 (not installed)";
+            }
         }
     }
 }
