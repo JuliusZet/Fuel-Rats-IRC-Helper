@@ -8,11 +8,11 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Fuel Rats IRC Helper")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Facilitating the use of the Fuel Rats IRC")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Fuel Rats IRC Helper")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright © 2020 Julius Zitzmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
