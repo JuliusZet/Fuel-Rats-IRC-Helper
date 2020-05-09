@@ -35,6 +35,16 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.0.4.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-09"/>
+                    <LineBreak/>
+                    <Run Text="+ Added silent automatic update-check on startup"/>
+                    <LineBreak/>
+                    <Run Text="+ Added new-update notification"/>
+                    <LineBreak/>
+                    <Run Text="+ Added way to manually check for updates"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.0.3.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-09"/>
                     <LineBreak/>

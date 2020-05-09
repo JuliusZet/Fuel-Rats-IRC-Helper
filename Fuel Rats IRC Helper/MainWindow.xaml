@@ -33,6 +33,7 @@
             <MenuItem Header="_Help">
                 <MenuItem x:Name="menuitemAbout" Header="_About Fuel Rats IRC Helper" Click="menuitemAbout_Click"/>
                 <MenuItem x:Name="menuitemChangelog" Header="_Changelog" Click="menuitemChangelog_Click"/>
+                <MenuItem x:Name="menuitemCheckForUpdates" Header="Check for _Updates" Click="menuitemCheckForUpdates_Click"/>
             </MenuItem>
         </Menu>
         <ScrollViewer Grid.Row="1">

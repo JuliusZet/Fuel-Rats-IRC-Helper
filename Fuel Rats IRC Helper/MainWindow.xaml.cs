@@ -11,7 +11,9 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
+using System;
 using System.Configuration;
+using System.Deployment.Application;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,6 +29,88 @@ namespace Fuel_Rats_IRC_Helper
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void CheckForUpdates(bool silentCheck)
+        {
+            UpdateCheckInfo updateCheckInfo = null;
+
+            if (ApplicationDeployment.IsNetworkDeployed)
+            {
+                ApplicationDeployment applicationDeployment = ApplicationDeployment.CurrentDeployment;
+
+                try
+                {
+                    updateCheckInfo = applicationDeployment.CheckForDetailedUpdate();
+                }
+
+                catch (DeploymentDownloadException deploymentDownloadException)
+                {
+                    if (silentCheck == false)
+                    {
+                        MessageBox.Show("The update can not be downloaded at this time. Please check your network connection or try again later. Error: " + deploymentDownloadException.Message, "Error");
+                    }
+                }
+
+                catch (InvalidDeploymentException invalidDeploymentException)
+                {
+                    if (silentCheck == false)
+                    {
+                        MessageBox.Show("Could not check for a new version of the application. The ClickOnce deployment is corrupt. Please reinstall the application and try again. Error: " + invalidDeploymentException.Message, "Error");
+                    }
+                }
+
+                catch (InvalidOperationException invalidOperationException)
+                {
+                    if (silentCheck == false)
+                    {
+                        MessageBox.Show("This application can not be updated. It is likely not a ClickOnce application. Error: " + invalidOperationException.Message, "Error");
+                    }
+                }
+
+                if (updateCheckInfo.UpdateAvailable)
+                {
+                    bool doUpdate = true;
+
+                    if (!updateCheckInfo.IsUpdateRequired)
+                    {
+                        System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("An update to version " + updateCheckInfo.AvailableVersion.ToString() + " is available. Do you want to update the application now?", "Update available", System.Windows.Forms.MessageBoxButtons.YesNo);
+
+                        if (dialogResult != System.Windows.Forms.DialogResult.Yes)
+                        {
+                            doUpdate = false;
+                        }
+                    }
+
+                    else
+                    {
+                        MessageBox.Show("A mandatory update to version " + updateCheckInfo.AvailableVersion.ToString() + " is available. The application will now update and restart.", "Mandatory update available");
+                    }
+
+                    if (doUpdate == true)
+                    {
+                        try
+                        {
+                            applicationDeployment.Update();
+                            MessageBox.Show("The update to version " + updateCheckInfo.AvailableVersion.ToString() + " was installed successfully. Please restart the application to see what has changed.", "Update successful");
+                            Close();
+                        }
+
+                        catch (DeploymentDownloadException deploymentDownloadException)
+                        {
+                            MessageBox.Show("Could not install the update to version " + updateCheckInfo.AvailableVersion.ToString() + ". Please check your network connection or try again later. Error: " + deploymentDownloadException.Message, "Error");
+                        }
+                    }
+                }
+
+                else
+                {
+                    if (silentCheck == false)
+                    {
+                        MessageBox.Show("There are no new updates. You are running the latest version.", "No update available");
+                    }
+                }
+            }
         }
 
         private void UncheckAllCheckboxesExceptCasenumber()
@@ -56,6 +140,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            CheckForUpdates(true);
+
             if (ConfigurationManager.AppSettings["showChangelogOnStartup"] == "yes")
             {
                 Changelog changelog = new Changelog();
@@ -78,6 +164,11 @@ namespace Fuel_Rats_IRC_Helper
         {
             Changelog changelog = new Changelog();
             changelog.ShowDialog();
+        }
+
+        private void menuitemCheckForUpdates_Click(object sender, RoutedEventArgs e)
+        {
+            CheckForUpdates(false);
         }
 
         private void checkboxCasenumber_Checked(object sender, RoutedEventArgs e)
