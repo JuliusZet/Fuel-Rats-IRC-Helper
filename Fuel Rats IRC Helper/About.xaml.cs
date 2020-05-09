@@ -26,7 +26,7 @@ namespace Fuel_Rats_IRC_Helper
             InitializeComponent();
         }
 
-        private void labelVersion_Initialized(object sender, System.EventArgs e)
+        private void labelVersion_Loaded(object sender, System.EventArgs e)
         {
             try
             {

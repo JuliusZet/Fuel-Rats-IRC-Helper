@@ -36,7 +36,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Fuel Rats IRC Helper"/>
-        <Label x:Name="labelVersion" Grid.Row="1" Content="Version" Initialized="labelVersion_Initialized"/>
+        <Label x:Name="labelVersion" Grid.Row="1" Content="Version" Loaded="labelVersion_Loaded"/>
         <Label Grid.Row="2" Content=""/>
         <Label Grid.Row="3" Content="Created by Julius Zitzmann on 2020-05-08."/>
         <Label Grid.Row="4" Content="Copyright © 2020 Julius Zitzmann. All rights reserved."/>

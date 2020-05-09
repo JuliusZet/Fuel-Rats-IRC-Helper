@@ -20,7 +20,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="Fuel Rats IRC Helper" Height="510" Width="800">
+        Title="Fuel Rats IRC Helper" Height="510" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -32,6 +32,7 @@
             </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem x:Name="menuitemAbout" Header="_About Fuel Rats IRC Helper" Click="menuitemAbout_Click"/>
+                <MenuItem x:Name="menuitemChangelog" Header="_Changelog" Click="menuitemChangelog_Click"/>
             </MenuItem>
         </Menu>
         <ScrollViewer Grid.Row="1">

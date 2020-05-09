@@ -11,6 +11,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
+using System.Configuration;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -53,6 +54,15 @@ namespace Fuel_Rats_IRC_Helper
             UncheckAllCheckboxesExceptCasenumber();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ConfigurationManager.AppSettings["showChangelogOnStartup"] == "yes")
+            {
+                Changelog changelog = new Changelog();
+                changelog.ShowDialog();
+            }
+        }
+
         private void menuitemClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -62,6 +72,12 @@ namespace Fuel_Rats_IRC_Helper
         {
             About about = new About();
             about.ShowDialog();
+        }
+
+        private void menuitemChangelog_Click(object sender, RoutedEventArgs e)
+        {
+            Changelog changelog = new Changelog();
+            changelog.ShowDialog();
         }
 
         private void checkboxCasenumber_Checked(object sender, RoutedEventArgs e)
