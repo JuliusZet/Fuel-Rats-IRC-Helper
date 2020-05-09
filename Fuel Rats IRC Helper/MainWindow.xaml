@@ -327,8 +327,15 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content=""/>
-                        <TextBox x:Name="textboxMessage" Grid.Row="0" GotFocus="textboxMessage_GotFocus" LostFocus="textboxMessage_LostFocus"/>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content=""/>
+                            <TextBox x:Name="textboxMessage" Grid.Column="0" GotFocus="textboxMessage_GotFocus" LostFocus="textboxMessage_LostFocus"/>
+                            <Button x:Name="buttonClear" Grid.Column="1" Content="Clear" Margin="5,0,0,0" Padding="10,0" Click="buttonClear_Click"/>
+                        </Grid>
                         <Button x:Name="buttonSend" Grid.Row="1" Content="Send" Margin="0,5,0,0" Click="buttonSend_Click"/>
                     </Grid>
                 </GroupBox>

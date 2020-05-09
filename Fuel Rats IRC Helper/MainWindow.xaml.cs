@@ -28,6 +28,31 @@ namespace Fuel_Rats_IRC_Helper
             InitializeComponent();
         }
 
+        private void UncheckAllCheckboxesExceptCasenumber()
+        {
+            checkboxRgr.IsChecked = false;
+            checkboxRdy.IsChecked = false;
+            checkboxJumpcallout.IsChecked = false;
+            checkboxOwnPos.IsChecked = false;
+            checkboxFr.IsChecked = false;
+            checkboxOnlineStatus.IsChecked = false;
+            checkboxSysconf.IsChecked = false;
+            checkboxWr.IsChecked = false;
+            checkboxPrep.IsChecked = false;
+            checkboxNavcheck.IsChecked = false;
+            checkboxBc.IsChecked = false;
+            checkboxInst.IsChecked = false;
+            checkboxClientPos.IsChecked = false;
+            checkboxDistance.IsChecked = false;
+            checkboxFuel.IsChecked = false;
+        }
+
+        private void UncheckAllCheckboxes()
+        {
+            checkboxCasenumber.IsChecked = false;
+            UncheckAllCheckboxesExceptCasenumber();
+        }
+
         private void menuitemClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -663,24 +688,17 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
+        private void buttonClear_Click(object sender, RoutedEventArgs e)
+        {
+            UncheckAllCheckboxes();
+            message.Clear();
+            textboxMessage.Text = message.Generate();
+        }
+
         private void buttonSend_Click(object sender, RoutedEventArgs e)
         {
             message.Send(textboxMessage.Text);
-            checkboxRgr.IsChecked = false;
-            checkboxRdy.IsChecked = false;
-            checkboxJumpcallout.IsChecked = false;
-            checkboxOwnPos.IsChecked = false;
-            checkboxFr.IsChecked = false;
-            checkboxOnlineStatus.IsChecked = false;
-            checkboxSysconf.IsChecked = false;
-            checkboxWr.IsChecked = false;
-            checkboxPrep.IsChecked = false;
-            checkboxNavcheck.IsChecked = false;
-            checkboxBc.IsChecked = false;
-            checkboxInst.IsChecked = false;
-            checkboxClientPos.IsChecked = false;
-            checkboxDistance.IsChecked = false;
-            checkboxFuel.IsChecked = false;
+            UncheckAllCheckboxesExceptCasenumber();
         }
     }
 }

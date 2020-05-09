@@ -152,6 +152,19 @@ namespace Fuel_Rats_IRC_Helper
 
         //
         // Summary:
+        //   Removes all messages
+        //
+        // Returns:
+        //   Error code:
+        //     0: Everything went ok
+        public int Clear()
+        {
+            _MessagePart.Clear();
+            return 0;
+        }
+
+        //
+        // Summary:
         //   Generates the message from the message parts
         //
         // Returns:
