@@ -12,7 +12,6 @@
 
 
 using System;
-using System.Configuration;
 using System.Deployment.Application;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +24,7 @@ namespace Fuel_Rats_IRC_Helper
     public partial class MainWindow : Window
     {
         Message message = new Message();
+        Settings settings = new Settings();
 
         public MainWindow()
         {
@@ -142,7 +142,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             CheckForUpdates(true);
 
-            if (ConfigurationManager.AppSettings["showChangelogOnStartup"] == "yes")
+            if (settings.Get("showChangelogOnStartup") == "yes")
             {
                 Changelog changelog = new Changelog();
                 changelog.ShowDialog();

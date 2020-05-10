@@ -11,7 +11,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-using System.Configuration;
 using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
@@ -21,6 +20,8 @@ namespace Fuel_Rats_IRC_Helper
     /// </summary>
     public partial class Changelog : Window
     {
+        Settings settings = new Settings();
+
         public Changelog()
         {
             InitializeComponent();
@@ -28,7 +29,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxDontShowAgain_Loaded(object sender, RoutedEventArgs e)
         {
-            if (ConfigurationManager.AppSettings["showChangelogOnStartup"] == "no")
+            if (settings.Get("showChangelogOnStartup") == "no")
             {
                 checkboxDontShowAgain.IsChecked = true;
             }
@@ -36,54 +37,12 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxDontShowAgain_Checked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection settings = configuration.AppSettings.Settings;
-
-                if (settings["showChangelogOnStartup"] == null)
-                {
-                    settings.Add("showChangelogOnStartup", "no");
-                }
-
-                else
-                {
-                    settings["showChangelogOnStartup"].Value = "no";
-                }
-
-                configuration.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configuration.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                MessageBox.Show("Could not write to the config file.", "Error");
-            }
+            settings.Set("showChangelogOnStartup", "no");
         }
 
         private void checkboxDontShowAgain_Unchecked(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                KeyValueConfigurationCollection settings = configuration.AppSettings.Settings;
-
-                if (settings["showChangelogOnStartup"] == null)
-                {
-                    settings.Add("showChangelogOnStartup", "yes");
-                }
-
-                else
-                {
-                    settings["showChangelogOnStartup"].Value = "yes";
-                }
-
-                configuration.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configuration.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                MessageBox.Show("Could not write to the config file.", "Error");
-            }
+            settings.Set("showChangelogOnStartup", "yes");
         }
 
         private void butonClose_Click(object sender, RoutedEventArgs e)

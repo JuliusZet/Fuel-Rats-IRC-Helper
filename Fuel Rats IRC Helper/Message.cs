@@ -152,7 +152,7 @@ namespace Fuel_Rats_IRC_Helper
 
         //
         // Summary:
-        //   Removes all messages
+        //   Removes all message parts
         //
         // Returns:
         //   Error code:

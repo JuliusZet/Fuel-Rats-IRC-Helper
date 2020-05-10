@@ -35,6 +35,12 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.0.4.1" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-10"/>
+                    <LineBreak/>
+                    <Run Text="* Improved reading and writing of configuration files"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.0.4.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-09"/>
                     <LineBreak/>
