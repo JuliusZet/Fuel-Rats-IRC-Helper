@@ -30,6 +30,9 @@
             <MenuItem Header="_Fuel Rats IRC Helper">
                 <MenuItem x:Name="menuitemClose" Header="_Close" Click="menuitemClose_Click"/>
             </MenuItem>
+            <MenuItem Header="_Settings">
+                <MenuItem x:Name="menuitemPreferences" Header="_Preferences" Click="menuitemPreferences_Click"/>
+            </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem x:Name="menuitemAbout" Header="_About Fuel Rats IRC Helper" Click="menuitemAbout_Click"/>
                 <MenuItem x:Name="menuitemChangelog" Header="_Changelog" Click="menuitemChangelog_Click"/>

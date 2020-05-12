@@ -25,10 +25,12 @@ namespace Fuel_Rats_IRC_Helper
         private static extern int SetForegroundWindow(IntPtr hwnd);
 
         private List<MessagePart> _MessagePart;
+        private Settings _Settings;
 
         public Message()
         {
             _MessagePart = new List<MessagePart>();
+            _Settings = new Settings();
         }
 
         //
@@ -187,19 +189,86 @@ namespace Fuel_Rats_IRC_Helper
 
         //
         // Summary:
-        //   Sends the message to the HexChat window and focuses the Elite Dangerous window afterwards
+        //   Sends the message to the IRC client window and focuses the Elite Dangerous window afterwards
         //
         // Parameters:
         //   message:
-        //     message that should be sent to HexChat
+        //     message that should be sent to the IRC client
         //
         // Returns:
         //   Error code:
         //     0: Everything went ok
-        //     1: There is no process called "HexChat"
-        //     2: There are multiple processes called "HexChat"
+        //     1: Process names of the IRC client and/or Elite Dangerous not specified in preferences
+        //     2: IRC client process not found
+        //     3: Multiple IRC client processes found
+        //     4: IRC helper process not found (How would that even happen? I don't know. :D Why did I put this in here? I dont know. XD)
+        //     5: Multiple IRC helper processes found
+        //     6: Elite Dangerous process not found
+        //     7: Multiple Elite Dangerous processes found
         public int Send(string message)
         {
+            string processNameIrcClient = _Settings.Get("processNameIrcClient");
+            string processNameIrcHelper = "Fuel Rats IRC Helper";
+            string processNameEliteDangerous = _Settings.Get("processNameEliteDangerous");
+
+            if (processNameIrcClient == "" && processNameEliteDangerous == "")
+            {
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to select your IRC client and Elite Dangerous process names.", "Error");
+                return 1;
+            }
+
+            else if (processNameIrcClient == "")
+            {
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to select your IRC client process name.", "Error");
+                return 1;
+            }
+
+            else if (processNameEliteDangerous == "")
+            {
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to select your Elite Dangerous process name.", "Error");
+                return 1;
+            }
+
+            Process[] processIrcClient = Process.GetProcessesByName(processNameIrcClient);
+            Process[] processIrcHelper = Process.GetProcessesByName(processNameIrcHelper);
+            Process[] processEliteDangerous = Process.GetProcessesByName(processNameEliteDangerous);
+
+            if (processIrcClient.Length == 0)
+            {
+                MessageBox.Show("Your message could not be sent! There is no process called \"" + processNameIrcClient + "\"! Please open \"" + processNameIrcClient + "\" and try again.", "Error");
+                return 2;
+            }
+
+            else if (processIrcClient.Length > 1)
+            {
+                MessageBox.Show("Your message could not be sent! There are more than one processes called \"" + processNameIrcClient + "\"! Please make sure there is only one process called \"" + processNameIrcClient + "\" and try again.", "Error");
+                return 3;
+            }
+
+            if (processIrcHelper.Length == 0)
+            {
+                MessageBox.Show("Your message could not be sent! There is no process called \"" + processNameIrcHelper + "\"! Please open \"" + processNameIrcHelper + "\" and try again.", "Error");
+                return 4;
+            }
+
+            else if (processIrcHelper.Length > 1)
+            {
+                MessageBox.Show("Your message could not be sent! There are more than one processes called \"" + processNameIrcHelper + "\"! Please make sure there is only one process called \"" + processNameIrcHelper + "\" and try again.", "Error");
+                return 5;
+            }
+
+            if (processEliteDangerous.Length == 0)
+            {
+                MessageBox.Show("Your message could not be sent! There is no process called \"" + processNameEliteDangerous + "\"! Please open \"" + processNameEliteDangerous + "\" and try again.", "Error");
+                return 6;
+            }
+
+            else if (processEliteDangerous.Length > 1)
+            {
+                MessageBox.Show("Your message could not be sent! There are more than one processes called \"" + processNameEliteDangerous + "\"! Please make sure there is only one process called \"" + processNameEliteDangerous + "\" and try again.", "Error");
+                return 7;
+            }
+
             // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
             string newMessage = "";
             for (int i = 0; i < message.Length; ++i)
@@ -226,37 +295,10 @@ namespace Fuel_Rats_IRC_Helper
                 }
             }
 
-            Process[] processHexChat = Process.GetProcessesByName("HexChat");
-            Process[] processIrcHelper = Process.GetProcessesByName("Fuel Rats IRC Helper");
-            Process[] processEliteDangerous = Process.GetProcessesByName("EliteDangerous64");
-
-            if (processHexChat.Length == 1)
-            {
-                SetForegroundWindow(processHexChat.ElementAt(0).MainWindowHandle);
-                System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
-            }
-
-            else if (processHexChat.Length == 0)
-            {
-                MessageBox.Show("Could not find a process called \"HexChat\"! Please open HexChat and try again.", "Error");
-                return 1;
-            }
-
-            else
-            {
-                MessageBox.Show("There are more than one processes called \"HexChat\"! Please make sure there is only one process called \"HexChat\" and try again.", "Error");
-                return 2;
-            }
-
-            if (processIrcHelper.Length == 1)
-            {
-                SetForegroundWindow(processIrcHelper.ElementAt(0).MainWindowHandle);
-            }
-
-            if (processEliteDangerous.Length == 1)
-            {
-                SetForegroundWindow(processEliteDangerous.ElementAt(0).MainWindowHandle);
-            }
+            SetForegroundWindow(processIrcClient.ElementAt(0).MainWindowHandle);
+            System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
+            SetForegroundWindow(processIrcHelper.ElementAt(0).MainWindowHandle);
+            SetForegroundWindow(processEliteDangerous.ElementAt(0).MainWindowHandle);
 
             return 0;
         }

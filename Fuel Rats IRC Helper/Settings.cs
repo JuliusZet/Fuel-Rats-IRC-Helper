@@ -13,6 +13,7 @@
 
 using System.Configuration;
 using System.Windows;
+using System;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -48,14 +49,26 @@ namespace Fuel_Rats_IRC_Helper
         //   Value of the specified key
         public string Get(string key)
         {
-            if (key != "showChangelogOnStartup")
+            try
             {
-                return _SettingsKeyValueConfigurationCollection[key].Value;
+                if (key != "showChangelogOnStartup")
+                {
+                    _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
+                    _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
+                    return _SettingsKeyValueConfigurationCollection[key].Value;
+                }
+
+                else
+                {
+                    _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
+                    return _AppKeyValueConfigurationCollection[key].Value;
+                }
             }
 
-            else
+            catch (NullReferenceException)
             {
-                return _AppKeyValueConfigurationCollection[key].Value;
+                return "";
             }
         }
 

@@ -23,11 +23,13 @@ namespace Fuel_Rats_IRC_Helper
     /// </summary>
     public partial class MainWindow : Window
     {
-        Message message = new Message();
-        Settings settings = new Settings();
+        private Message _Message;
+        private Settings _Settings;
 
         public MainWindow()
         {
+            _Message = new Message();
+            _Settings = new Settings();
             InitializeComponent();
         }
 
@@ -140,9 +142,12 @@ namespace Fuel_Rats_IRC_Helper
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CheckForUpdates(true);
+            if (_Settings.Get("checkForUpdatesOnStartup") == "yes")
+            {
+                CheckForUpdates(true);
+            }
 
-            if (settings.Get("showChangelogOnStartup") == "yes")
+            if (_Settings.Get("showChangelogOnStartup") == "yes")
             {
                 Changelog changelog = new Changelog();
                 changelog.ShowDialog();
@@ -152,6 +157,12 @@ namespace Fuel_Rats_IRC_Helper
         private void menuitemClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void menuitemPreferences_Click(object sender, RoutedEventArgs e)
+        {
+            Preferences preferences = new Preferences();
+            preferences.ShowDialog();
         }
 
         private void menuitemAbout_Click(object sender, RoutedEventArgs e)
@@ -173,14 +184,14 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxCasenumber_Checked(object sender, RoutedEventArgs e)
         {
-            message.Prepend("Casenumber", "");
+            _Message.Prepend("Casenumber", "");
             textboxCasenumber.Focus();
         }
 
         private void checkboxCasenumber_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Casenumber");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Casenumber");
+            textboxMessage.Text = _Message.Generate();
             textboxCasenumber.Clear();
         }
 
@@ -194,8 +205,8 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxCasenumber.Text != "")
             {
                 checkboxCasenumber.IsChecked = true;
-                message.Replace("Casenumber", '#' + textboxCasenumber.Text);
-                textboxMessage.Text = message.Generate();
+                _Message.Replace("Casenumber", '#' + textboxCasenumber.Text);
+                textboxMessage.Text = _Message.Generate();
             }
 
             else
@@ -206,38 +217,38 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxRgr_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Rgr", "rgr");
-            textboxMessage.Text = message.Generate();
+            _Message.Append("Rgr", "rgr");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void checkboxRgr_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Rgr");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Rgr");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void checkboxRdy_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Rdy", "rdy");
-            textboxMessage.Text = message.Generate();
+            _Message.Append("Rdy", "rdy");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void checkboxRdy_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Rdy");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Rdy");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void checkboxJumpcallout_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Jumpcallout", "");
+            _Message.Append("Jumpcallout", "");
             textboxJumpcallout.Focus();
         }
 
         private void checkboxJumpcallout_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Jumpcallout");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Jumpcallout");
+            textboxMessage.Text = _Message.Generate();
             textboxJumpcallout.Clear();
         }
 
@@ -246,8 +257,8 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxJumpcallout.Text != "")
             {
                 checkboxJumpcallout.IsChecked = true;
-                message.Replace("Jumpcallout", textboxJumpcallout.Text + 'j');
-                textboxMessage.Text = message.Generate();
+                _Message.Replace("Jumpcallout", textboxJumpcallout.Text + 'j');
+                textboxMessage.Text = _Message.Generate();
             }
 
             else
@@ -258,7 +269,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxOwnPos_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("OwnPos", "");
+            _Message.Append("OwnPos", "");
 
             if (radiobuttonPosPlus.IsChecked != true)
             {
@@ -268,8 +279,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxOwnPos_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("OwnPos");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("OwnPos");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonSysPlus.IsChecked = false;
             radiobuttonPosPlus.IsChecked = false;
         }
@@ -277,8 +288,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonSysPlus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOwnPos.IsChecked = true;
-            message.Replace("OwnPos", "sys+");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("OwnPos", "sys+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonSysPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -289,8 +300,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonPosPlus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOwnPos.IsChecked = true;
-            message.Replace("OwnPos", "pos+");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("OwnPos", "pos+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonPosPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -300,7 +311,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxFr_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Fr", "");
+            _Message.Append("Fr", "");
 
             if (radiobuttonFrMinus.IsChecked != true)
             {
@@ -310,8 +321,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxFr_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Fr");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Fr");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonFrPlus.IsChecked = false;
             radiobuttonFrMinus.IsChecked = false;
         }
@@ -319,8 +330,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonFrPlus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxFr.IsChecked = true;
-            message.Replace("Fr", "fr+");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Fr", "fr+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonFrPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -331,8 +342,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonFrMinus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxFr.IsChecked = true;
-            message.Replace("Fr", "fr-");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Fr", "fr-");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonFrMinus_Unchecked(object sender, RoutedEventArgs e)
@@ -342,7 +353,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxOnlineStatus_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("OnlineStatus", "");
+            _Message.Append("OnlineStatus", "");
 
             if (radiobuttonOnlinestatusPg.IsChecked != true && radiobuttonOnlinestatusSolo.IsChecked != true && radiobuttonOnlinestatusMm.IsChecked != true)
             {
@@ -352,8 +363,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxOnlineStatus_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("OnlineStatus");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("OnlineStatus");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonOnlinestatusOpen.IsChecked = false;
             radiobuttonOnlinestatusPg.IsChecked = false;
             radiobuttonOnlinestatusSolo.IsChecked = false;
@@ -363,8 +374,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonOnlinestatusOpen_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            message.Replace("OnlineStatus", "in open");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("OnlineStatus", "in open");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonOnlinestatusOpen_Unchecked(object sender, RoutedEventArgs e)
@@ -375,8 +386,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonOnlinestatusPg_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            message.Replace("OnlineStatus", "in pg");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("OnlineStatus", "in pg");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonOnlinestatusPg_Unchecked(object sender, RoutedEventArgs e)
@@ -387,8 +398,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonOnlinestatusSolo_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            message.Replace("OnlineStatus", "in solo");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("OnlineStatus", "in solo");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonOnlinestatusSolo_Unchecked(object sender, RoutedEventArgs e)
@@ -399,8 +410,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonOnlinestatusMm_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            message.Replace("OnlineStatus", "in mm");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("OnlineStatus", "in mm");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonOnlinestatusMm_Unchecked(object sender, RoutedEventArgs e)
@@ -410,7 +421,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxSysconf_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Sysconf", "");
+            _Message.Append("Sysconf", "");
 
             if (radiobuttonSysconfMinus.IsChecked != true)
             {
@@ -420,8 +431,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxSysconf_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Sysconf");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Sysconf");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonSysconfPlus.IsChecked = false;
             radiobuttonSysconfMinus.IsChecked = false;
             textboxSysconfMinus.Clear();
@@ -430,8 +441,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonSysconfPlus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxSysconf.IsChecked = true;
-            message.Replace("Sysconf", "sysconf");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Sysconf", "sysconf");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonSysconfPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -443,8 +454,8 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxSysconf.IsChecked = true;
             textboxSysconfMinus.Focus();
-            message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonSysconfMinus_Unchecked(object sender, RoutedEventArgs e)
@@ -457,8 +468,8 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxSysconfMinus.Text != "")
             {
                 radiobuttonSysconfMinus.IsChecked = true;
-                message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
-                textboxMessage.Text = message.Generate();
+                _Message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
+                textboxMessage.Text = _Message.Generate();
             }
 
             else
@@ -469,7 +480,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxWr_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Wr", "");
+            _Message.Append("Wr", "");
 
             if (radiobuttonWrMinus.IsChecked != true)
             {
@@ -479,8 +490,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxWr_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Wr");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Wr");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonWrPlus.IsChecked = false;
             radiobuttonWrMinus.IsChecked = false;
         }
@@ -488,8 +499,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonWrPlus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxWr.IsChecked = true;
-            message.Replace("Wr", "wr+");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Wr", "wr+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonWrPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -500,8 +511,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonWrMinus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxWr.IsChecked = true;
-            message.Replace("Wr", "wr-");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Wr", "wr-");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonWrMinus_Unchecked(object sender, RoutedEventArgs e)
@@ -511,7 +522,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxPrep_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Prep", "");
+            _Message.Append("Prep", "");
 
             if (radiobuttonPrepMinus.IsChecked != true)
             {
@@ -521,8 +532,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxPrep_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Prep");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Prep");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonPrepPlus.IsChecked = false;
             radiobuttonPrepMinus.IsChecked = false;
         }
@@ -530,8 +541,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonPrepPlus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxPrep.IsChecked = true;
-            message.Replace("Prep", "prep+");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Prep", "prep+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonPrepPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -542,8 +553,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonPrepMinus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxPrep.IsChecked = true;
-            message.Replace("Prep", "prep-");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Prep", "prep-");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonPrepMinus_Unchecked(object sender, RoutedEventArgs e)
@@ -553,7 +564,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxNavcheck_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Navcheck", "");
+            _Message.Append("Navcheck", "");
 
             if (radiobuttonNavcheckHasJumps.IsChecked != true)
             {
@@ -563,8 +574,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxNavcheck_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Navcheck");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Navcheck");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonNavcheckNoJumps.IsChecked = false;
             radiobuttonNavcheckHasJumps.IsChecked = false;
             textboxNavcheckHasJumps.Clear();
@@ -573,8 +584,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonNavcheckNoJumps_Checked(object sender, RoutedEventArgs e)
         {
             checkboxNavcheck.IsChecked = true;
-            message.Replace("Navcheck", "navcheck: can not jump");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Navcheck", "navcheck: can not jump");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonNavcheckNoJumps_Unchecked(object sender, RoutedEventArgs e)
@@ -586,8 +597,8 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxNavcheck.IsChecked = true;
             textboxNavcheckHasJumps.Focus();
-            message.Replace("Navcheck", "navcheck: can jump " + textboxNavcheckHasJumps.Text + " ly");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Navcheck", "navcheck: can jump " + textboxNavcheckHasJumps.Text + " ly");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonNavcheckHasJumps_Unchecked(object sender, RoutedEventArgs e)
@@ -600,8 +611,8 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxNavcheckHasJumps.Text != "")
             {
                 radiobuttonNavcheckHasJumps.IsChecked = true;
-                message.Replace("Navcheck", "navcheck: can jump " + textboxNavcheckHasJumps.Text + " ly");
-                textboxMessage.Text = message.Generate();
+                _Message.Replace("Navcheck", "navcheck: can jump " + textboxNavcheckHasJumps.Text + " ly");
+                textboxMessage.Text = _Message.Generate();
             }
 
             else
@@ -612,7 +623,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxBc_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Bc", "");
+            _Message.Append("Bc", "");
 
             if (radiobuttonBcMinus.IsChecked != true)
             {
@@ -622,8 +633,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxBc_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Bc");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Bc");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonBcPlus.IsChecked = false;
             radiobuttonBcMinus.IsChecked = false;
         }
@@ -632,8 +643,8 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxBc.IsChecked = true;
             textboxDistance.Focus();
-            message.Replace("Bc", "bc+");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Bc", "bc+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonBcPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -644,8 +655,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonBcMinus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxBc.IsChecked = true;
-            message.Replace("Bc", "bc-");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Bc", "bc-");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonBcMinus_Unchecked(object sender, RoutedEventArgs e)
@@ -655,7 +666,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxInst_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Inst", "");
+            _Message.Append("Inst", "");
 
             if (radiobuttonInstMinus.IsChecked != true)
             {
@@ -665,8 +676,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxInst_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Inst");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Inst");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonInstPlus.IsChecked = false;
             radiobuttonInstMinus.IsChecked = false;
         }
@@ -674,8 +685,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonInstPlus_Checked(object sender, RoutedEventArgs e)
         {
             checkboxInst.IsChecked = true;
-            message.Replace("Inst", "inst+");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Inst", "inst+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonInstPlus_Unchecked(object sender, RoutedEventArgs e)
@@ -687,8 +698,8 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxInst.IsChecked = true;
             textboxDistance.Focus();
-            message.Replace("Inst", "inst-");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("Inst", "inst-");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonInstMinus_Unchecked(object sender, RoutedEventArgs e)
@@ -698,7 +709,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxClientPos_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("ClientPos", "");
+            _Message.Append("ClientPos", "");
 
             if (radiobuttonInSc.IsChecked != true)
             {
@@ -708,8 +719,8 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxClientPos_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("ClientPos");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("ClientPos");
+            textboxMessage.Text = _Message.Generate();
             radiobuttonInEz.IsChecked = false;
             radiobuttonInSc.IsChecked = false;
         }
@@ -718,8 +729,8 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxClientPos.IsChecked = true;
             textboxDistance.Focus();
-            message.Replace("ClientPos", "in ez");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("ClientPos", "in ez");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonInEz_Unchecked(object sender, RoutedEventArgs e)
@@ -730,8 +741,8 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonInSc_Checked(object sender, RoutedEventArgs e)
         {
             checkboxClientPos.IsChecked = true;
-            message.Replace("ClientPos", "in sc");
-            textboxMessage.Text = message.Generate();
+            _Message.Replace("ClientPos", "in sc");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonInSc_Unchecked(object sender, RoutedEventArgs e)
@@ -741,14 +752,14 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxDistance_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Distance", "");
+            _Message.Append("Distance", "");
             textboxDistance.Focus();
         }
 
         private void checkboxDistance_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Distance");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Distance");
+            textboxMessage.Text = _Message.Generate();
             textboxDistance.Clear();
         }
 
@@ -757,8 +768,8 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxDistance.Text != "")
             {
                 checkboxDistance.IsChecked = true;
-                message.Replace("Distance", textboxDistance.Text + " ls");
-                textboxMessage.Text = message.Generate();
+                _Message.Replace("Distance", textboxDistance.Text + " ls");
+                textboxMessage.Text = _Message.Generate();
             }
 
             else
@@ -769,14 +780,14 @@ namespace Fuel_Rats_IRC_Helper
 
         private void checkboxFuel_Checked(object sender, RoutedEventArgs e)
         {
-            message.Append("Fuel", "fuel+");
-            textboxMessage.Text = message.Generate();
+            _Message.Append("Fuel", "fuel+");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void checkboxFuel_Unchecked(object sender, RoutedEventArgs e)
         {
-            message.Remove("Fuel");
-            textboxMessage.Text = message.Generate();
+            _Message.Remove("Fuel");
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void textboxMessage_GotFocus(object sender, RoutedEventArgs e)
@@ -798,13 +809,13 @@ namespace Fuel_Rats_IRC_Helper
         private void buttonClear_Click(object sender, RoutedEventArgs e)
         {
             UncheckAllCheckboxes();
-            message.Clear();
-            textboxMessage.Text = message.Generate();
+            _Message.Clear();
+            textboxMessage.Text = _Message.Generate();
         }
 
         private void buttonSend_Click(object sender, RoutedEventArgs e)
         {
-            message.Send(textboxMessage.Text);
+            _Message.Send(textboxMessage.Text);
             UncheckAllCheckboxesExceptCasenumber();
         }
     }
