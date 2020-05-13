@@ -11,7 +11,11 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -21,10 +25,23 @@ namespace Fuel_Rats_IRC_Helper
     public partial class Preferences : Window
     {
         private Settings _Settings;
+        private Process[] _Process;
+        private List<string> _ForegroundProcessName;
 
         public Preferences()
         {
             _Settings = new Settings();
+            _Process = Process.GetProcesses();
+            _ForegroundProcessName = new List<string>();
+
+            for (int i = 0; i < _Process.Length; ++i)
+            {
+                if (_Process.ElementAt(i).MainWindowTitle != "")
+                {
+                    _ForegroundProcessName.Add(_Process.ElementAt(i).ProcessName);
+                }
+            }
+
             InitializeComponent();
         }
 
@@ -46,28 +63,36 @@ namespace Fuel_Rats_IRC_Helper
             _Settings.Set("checkForUpdatesOnStartup", "no");
         }
 
-        private void textboxProcessNameIrcClient_Loaded(object sender, RoutedEventArgs e)
+        private void comboboxProcessNameIrcClient_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxProcessNameIrcClient.Text = _Settings.Get("processNameIrcClient");
-        }
-
-        private void textboxProcessNameEliteDangerous_Loaded(object sender, RoutedEventArgs e)
-        {
-            textboxProcessNameEliteDangerous.Text = _Settings.Get("processNameEliteDangerous");
-            if (textboxProcessNameEliteDangerous.Text == "")
+            if (_Settings.Get("processNameIrcClient") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameIrcClient")))
             {
-                textboxProcessNameEliteDangerous.Text = "EliteDangerous64";
+                _ForegroundProcessName.Add(_Settings.Get("processNameIrcClient"));
             }
+
+            comboboxProcessNameIrcClient.ItemsSource = _ForegroundProcessName;
+            comboboxProcessNameIrcClient.SelectedItem = _Settings.Get("processNameIrcClient");
         }
 
-        private void textboxProcessNameIrcClient_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void comboboxProcessNameIrcClient_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _Settings.Set("processNameIrcClient", textboxProcessNameIrcClient.Text);
+            _Settings.Set("processNameIrcClient", _ForegroundProcessName.ElementAt(comboboxProcessNameIrcClient.SelectedIndex));
         }
 
-        private void textboxProcessNameEliteDangerous_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void comboboxProcessNameEliteDangerous_Loaded(object sender, RoutedEventArgs e)
         {
-            _Settings.Set("processNameEliteDangerous", textboxProcessNameEliteDangerous.Text);
+            if (_Settings.Get("processNameEliteDangerous") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameEliteDangerous")))
+            {
+                _ForegroundProcessName.Add(_Settings.Get("processNameEliteDangerous"));
+            }
+
+            comboboxProcessNameEliteDangerous.ItemsSource = _ForegroundProcessName;
+            comboboxProcessNameEliteDangerous.SelectedItem = _Settings.Get("processNameEliteDangerous");
+        }
+
+        private void comboboxProcessNameEliteDangerous_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _Settings.Set("processNameEliteDangerous", _ForegroundProcessName.ElementAt(comboboxProcessNameEliteDangerous.SelectedIndex));
         }
     }
 }

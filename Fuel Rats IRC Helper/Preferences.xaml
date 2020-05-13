@@ -58,7 +58,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="1. Focus the IRC client window with the process name"/>
-                            <TextBox x:Name="textboxProcessNameIrcClient" Grid.Column="1" Loaded="textboxProcessNameIrcClient_Loaded" TextChanged="textboxProcessNameIrcClient_TextChanged"/>
+                            <ComboBox x:Name="comboboxProcessNameIrcClient" Grid.Column="1" Loaded="comboboxProcessNameIrcClient_Loaded" SelectionChanged="comboboxProcessNameIrcClient_SelectionChanged"/>
                         </Grid>
                         <Label Grid.Row="3" Content="2. Write out the message from the textbox &quot;Your message&quot;" Margin="40,0,0,0"/>
                         <Label Grid.Row="4" Content="3. Press the return key" Margin="40,0,0,0"/>
@@ -69,7 +69,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="5. Focus the Elite Dangerous window with the process name"/>
-                            <TextBox x:Name="textboxProcessNameEliteDangerous" Grid.Column="1" Loaded="textboxProcessNameEliteDangerous_Loaded" TextChanged="textboxProcessNameEliteDangerous_TextChanged"/>
+                            <ComboBox x:Name="comboboxProcessNameEliteDangerous" Grid.Column="1" Loaded="comboboxProcessNameEliteDangerous_Loaded" SelectionChanged="comboboxProcessNameEliteDangerous_SelectionChanged"/>
                         </Grid>
                     </Grid>
                 </ScrollViewer>

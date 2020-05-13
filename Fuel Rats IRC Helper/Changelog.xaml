@@ -35,6 +35,12 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.1.1.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-13"/>
+                    <LineBreak/>
+                    <Run Text="+ Added drop-down fields to select processes in Settings -> Preferences -> Behaviour"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.1.0.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-12"/>
                     <LineBreak/>
