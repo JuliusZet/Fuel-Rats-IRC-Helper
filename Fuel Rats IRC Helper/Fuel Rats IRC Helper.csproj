@@ -57,7 +57,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Fuel Rats Logo.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Fuel Rats Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>A8BC061504A6AAC3764825D3891194C8E5DA4582</ManifestCertificateThumbprint>
@@ -98,7 +98,7 @@
     <Compile Include="Preferences.xaml.cs">
       <DependentUpon>Preferences.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
+    <Compile Include="Classes\Settings.cs" />
     <Page Include="About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -131,8 +131,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Message.cs" />
-    <Compile Include="MessagePart.cs" />
+    <Compile Include="Classes\Message.cs" />
+    <Compile Include="Classes\MessagePart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -155,10 +155,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Settings.config" />
+    <None Include="Configuration files\Settings.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Configuration files\App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -173,7 +173,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Fuel Rats Logo.ico" />
+    <Resource Include="Resources\Fuel Rats Logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
