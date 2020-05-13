@@ -8,6 +8,9 @@ Facilitating the use of the Fuel Rats IRC
 <a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">setup.exe</a>
 
 ## Changelog
+### Version 1.1.1.1 (2020-05-13)
++ Added option to clear drop-down fields in Settings -> Preferences -> Behaviour
++ Fixed preferences not being retained after update
 ### Version 1.1.1.0 (2020-05-13)
 + Added drop-down fields to select processes in Settings -> Preferences -> Behaviour
 ### Version 1.1.0.0 (2020-05-12)

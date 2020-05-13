@@ -35,6 +35,14 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.1.1.1" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-13"/>
+                    <LineBreak/>
+                    <Run Text="* Added option to clear drop-down fields in Settings -> Preferences -> Behaviour"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed preferences not being retained after update"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.1.1.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-13"/>
                     <LineBreak/>

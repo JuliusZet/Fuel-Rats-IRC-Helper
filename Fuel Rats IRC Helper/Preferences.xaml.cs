@@ -33,6 +33,7 @@ namespace Fuel_Rats_IRC_Helper
             _Settings = new Settings();
             _Process = Process.GetProcesses();
             _ForegroundProcessName = new List<string>();
+            _ForegroundProcessName.Add("");
 
             for (int i = 0; i < _Process.Length; ++i)
             {

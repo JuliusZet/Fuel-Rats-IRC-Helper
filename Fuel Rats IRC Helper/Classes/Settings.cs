@@ -29,7 +29,7 @@ namespace Fuel_Rats_IRC_Helper
         public Settings()
         {
             _SettingsExeConfigurationFileMap = new ExeConfigurationFileMap();
-            _SettingsExeConfigurationFileMap.ExeConfigFilename = "Settings.config";
+            _SettingsExeConfigurationFileMap.ExeConfigFilename = "../Settings.config";
             _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
             _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
 
