@@ -1,4 +1,4 @@
-# Fuel-Rats-IRC-Helper
+# Fuel Rats IRC Helper
 Facilitating the use of the Fuel Rats IRC
 
 ## Overview
