@@ -1,41 +1,18 @@
 # Fuel Rats IRC Helper
 Facilitating the use of the Fuel Rats IRC
 
-## Overview
+## Features
++ This (unofficial) application can help Fuel Rats to use the Fuel Rats IRC
++ Generate messages and send them to your IRC client of choice
 <img src="https://i.imgur.com/at7yaq4.png">
 
-## Download
-<a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">setup.exe</a>
+## Install
++ Download the setup.exe file from <a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">here</a>
++ Double-click on the setup.exe file to install
++ Launch the application from the start menu
 
-## Changelog
-### Version 1.1.1.1 (2020-05-13)
-+ Added option to clear drop-down fields in Settings -> Preferences -> Behaviour
-+ Fixed preferences not being retained after update
-### Version 1.1.1.0 (2020-05-13)
-+ Added drop-down fields to select processes in Settings -> Preferences -> Behaviour
-### Version 1.1.0.0 (2020-05-12)
-+ Added Preferences window
-+ Added support for other IRC clients other than HexChat
-+ Fixed a crash when trying to get a non-existing value from the configuration file
-### Version 1.0.4.1 (2020-05-10)
-+ Improved reading and writing of configuration files
-### Version 1.0.4.0 (2020-05-09)
-+ Added silent automatic update-check on startup
-+ Added new-update notification
-+ Added way to manually check for updates
-### Version 1.0.3.0 (2020-05-09)
-+ Added Changelog window
-+ Improved performance
-### Version 1.0.2.0 (2020-05-09)
-+ Added Clear button
-### Version 1.0.1.1 (2020-05-08)
-+ Updated information in About window
-### Version 1.0.1.0 (2020-05-08)
-+ Added information to About window
-### Version 1.0.0.1 (2020-05-08)
-+ Fixed configuration error in installer
-### Version 1.0.0.0 (2020-05-08)
-+ Added graphical user interface
-+ Added functionality to graphical user interface
-+ Added applcation icon
-+ Created installer
+## Uninstall
++ Launch the "Settings" app from your start menu
++ Navigate to "Apps"
++ Search for "Fuel Rats IRC Helper"
++ Click on "Uninstall"

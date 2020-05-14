@@ -157,6 +157,7 @@
     </None>
     <None Include="Configuration files\Settings.config" />
     <None Include="..\README.md" />
+    <None Include="..\CHANGES.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration files\App.config" />
