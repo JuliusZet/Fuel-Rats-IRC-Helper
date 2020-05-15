@@ -1,4 +1,8 @@
 ﻿# Changelog
+### Version 1.1.2.0 (2020-05-15)
++ Added drop-down field to select distance unit
++ Improved layout
++ Improved performance
 ### Version 1.1.1.1 (2020-05-13)
 + Added option to clear drop-down fields in Settings -> Preferences -> Behaviour
 + Fixed preferences not being retained after update

@@ -20,7 +20,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="Fuel Rats IRC Helper" Height="510" Width="800" Loaded="Window_Loaded">
+        Title="Fuel Rats IRC Helper" Height="520" Width="800" Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -157,10 +157,12 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <RadioButton x:Name="radiobuttonOnlinestatusOpen" Grid.Column="0" Grid.Row="0" Content="in open" GroupName="onlinestatus" Padding="4,2,0,3" Checked="radiobuttonOnlinestatusOpen_Checked" Unchecked="radiobuttonOnlinestatusOpen_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonOnlinestatusPg" Grid.Column="1" Grid.Row="0" Content="in pg" GroupName="onlinestatus" Padding="4,2,0,3" Checked="radiobuttonOnlinestatusPg_Checked" Unchecked="radiobuttonOnlinestatusPg_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonOnlinestatusSolo" Grid.Column="0" Grid.Row="1" Content="in solo" GroupName="onlinestatus" Padding="4,2,0,3" Checked="radiobuttonOnlinestatusSolo_Checked" Unchecked="radiobuttonOnlinestatusSolo_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonOnlinestatusMm" Grid.Column="1" Grid.Row="1" Content="in mm" GroupName="onlinestatus" Padding="4,2,0,3" Checked="radiobuttonOnlinestatusMm_Checked" Unchecked="radiobuttonOnlinestatusMm_Unchecked"/>
+                                <Label Grid.Column="0" Grid.Row="0" Content=""/>
+                                <Label Grid.Column="0" Grid.Row="1" Content=""/>
+                                <RadioButton x:Name="radiobuttonInOpen" Grid.Column="0" Grid.Row="0" Content="in open" GroupName="onlinestatus" Checked="radiobuttonInOpen_Checked" Unchecked="radiobuttonInOpen_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonInPg" Grid.Column="1" Grid.Row="0" Content="in pg" GroupName="onlinestatus" Checked="radiobuttonInPg_Checked" Unchecked="radiobuttonInPg_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonInSolo" Grid.Column="0" Grid.Row="1" Content="in solo" GroupName="onlinestatus" Checked="radiobuttonInSolo_Checked" Unchecked="radiobuttonInSolo_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonInMm" Grid.Column="1" Grid.Row="1" Content="in mm" GroupName="onlinestatus" Checked="radiobuttonInMm_Checked" Unchecked="radiobuttonInMm_Unchecked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
@@ -202,6 +204,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content=""/>
                                 <RadioButton x:Name="radiobuttonWrPlus" Grid.Column="0" Content="wr+" GroupName="wr" Checked="radiobuttonWrPlus_Checked" Unchecked="radiobuttonWrPlus_Unchecked"/>
                                 <RadioButton x:Name="radiobuttonWrMinus" Grid.Column="1" Content="wr-" GroupName="wr" Checked="radiobuttonWrMinus_Checked" Unchecked="radiobuttonWrMinus_Unchecked"/>
                             </Grid>
@@ -236,8 +239,8 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonNavcheckNoJumps" Grid.Column="0" Content="can not jump" GroupName="navcheck" Checked="radiobuttonNavcheckNoJumps_Checked" Unchecked="radiobuttonNavcheckNoJumps_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonNavcheckHasJumps" Grid.Column="1" GroupName="navcheck" Checked="radiobuttonNavcheckHasJumps_Checked" Unchecked="radiobuttonNavcheckHasJumps_Unchecked">
+                                <RadioButton x:Name="radiobuttonNoJumps" Grid.Column="0" Content="can not jump" GroupName="navcheck" Checked="radiobuttonNoJumps_Checked" Unchecked="radiobuttonNoJumps_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonHasJumps" Grid.Column="1" GroupName="navcheck" Checked="radiobuttonHasJumps_Checked" Unchecked="radiobuttonHasJumps_Unchecked">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto"/>
@@ -245,7 +248,7 @@
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0" Content="can jump"/>
-                                        <TextBox x:Name="textboxNavcheckHasJumps" Grid.Column="1" TextChanged="textboxNavcheckHasJumps_TextChanged"/>
+                                        <TextBox x:Name="textboxHasJumps" Grid.Column="1" TextChanged="textboxHasJumps_TextChanged"/>
                                         <Label Grid.Column="2" Content="ly"/>
                                     </Grid>
                                 </RadioButton>
@@ -264,8 +267,9 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonBcPlus" Grid.Column="0" Content="bc+" GroupName="bc" Padding="4,2,0,3" Checked="radiobuttonBcPlus_Checked" Unchecked="radiobuttonBcPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonBcMinus" Grid.Column="1" Content="bc-" GroupName="bc" Padding="4,2,0,3" Checked="radiobuttonBcMinus_Checked" Unchecked="radiobuttonBcMinus_Unchecked"/>
+                                <Label Grid.Column="0" Content=""/>
+                                <RadioButton x:Name="radiobuttonBcPlus" Grid.Column="0" Content="bc+" GroupName="bc" Checked="radiobuttonBcPlus_Checked" Unchecked="radiobuttonBcPlus_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonBcMinus" Grid.Column="1" Content="bc-" GroupName="bc" Checked="radiobuttonBcMinus_Checked" Unchecked="radiobuttonBcMinus_Unchecked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
@@ -281,6 +285,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Content=""/>
                                 <RadioButton x:Name="radiobuttonInstPlus" Grid.Column="0" Content="inst+" GroupName="inst" Checked="radiobuttonInstPlus_Checked" Unchecked="radiobuttonInstPlus_Unchecked"/>
                                 <RadioButton x:Name="radiobuttonInstMinus" Grid.Column="1" Content="inst-" GroupName="inst" Checked="radiobuttonInstMinus_Checked" Unchecked="radiobuttonInstMinus_Unchecked"/>
                             </Grid>
@@ -316,7 +321,7 @@
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBox x:Name="textboxDistance" Grid.Column="0" TextChanged="textboxDistance_TextChanged"/>
-                                <Label Grid.Column="1" Content="ls"/>
+                                <ComboBox x:Name="comboboxDistanceUnit" Grid.Column="1" Loaded="comboboxDistanceUnit_Loaded" SelectionChanged="comboboxDistanceUnit_SelectionChanged"/>
                             </Grid>
                         </GroupBox>
                     </Grid>

@@ -35,6 +35,16 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.1.2.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-15"/>
+                    <LineBreak/>
+                    <Run Text="+ Added drop-down field to select distance unit"/>
+                    <LineBreak/>
+                    <Run Text="* Improved layout"/>
+                    <LineBreak/>
+                    <Run Text="* Improved performance"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.1.1.1" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-13"/>
                     <LineBreak/>

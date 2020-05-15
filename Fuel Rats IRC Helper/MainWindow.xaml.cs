@@ -12,7 +12,9 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Deployment.Application;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,11 +27,13 @@ namespace Fuel_Rats_IRC_Helper
     {
         private Message _Message;
         private Settings _Settings;
+        private List<string> _DistanceUnit;
 
         public MainWindow()
         {
             _Message = new Message();
             _Settings = new Settings();
+            _DistanceUnit = new List<string>(new string[]{ "m", "km", "Mm", "ls", "kls", "ly" });
             InitializeComponent();
         }
 
@@ -132,6 +136,8 @@ namespace Fuel_Rats_IRC_Helper
             checkboxClientPos.IsChecked = false;
             checkboxDistance.IsChecked = false;
             checkboxFuel.IsChecked = false;
+
+            comboboxDistanceUnit.SelectedItem = "ls";
         }
 
         private void UncheckAllCheckboxes()
@@ -355,9 +361,9 @@ namespace Fuel_Rats_IRC_Helper
         {
             _Message.Append("OnlineStatus", "");
 
-            if (radiobuttonOnlinestatusPg.IsChecked != true && radiobuttonOnlinestatusSolo.IsChecked != true && radiobuttonOnlinestatusMm.IsChecked != true)
+            if (radiobuttonInPg.IsChecked != true && radiobuttonInSolo.IsChecked != true && radiobuttonInMm.IsChecked != true)
             {
-                radiobuttonOnlinestatusOpen.IsChecked = true;
+                radiobuttonInOpen.IsChecked = true;
             }
         }
 
@@ -365,56 +371,56 @@ namespace Fuel_Rats_IRC_Helper
         {
             _Message.Remove("OnlineStatus");
             textboxMessage.Text = _Message.Generate();
-            radiobuttonOnlinestatusOpen.IsChecked = false;
-            radiobuttonOnlinestatusPg.IsChecked = false;
-            radiobuttonOnlinestatusSolo.IsChecked = false;
-            radiobuttonOnlinestatusMm.IsChecked = false;
+            radiobuttonInOpen.IsChecked = false;
+            radiobuttonInPg.IsChecked = false;
+            radiobuttonInSolo.IsChecked = false;
+            radiobuttonInMm.IsChecked = false;
         }
 
-        private void radiobuttonOnlinestatusOpen_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonInOpen_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
             _Message.Replace("OnlineStatus", "in open");
             textboxMessage.Text = _Message.Generate();
         }
 
-        private void radiobuttonOnlinestatusOpen_Unchecked(object sender, RoutedEventArgs e)
+        private void radiobuttonInOpen_Unchecked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void radiobuttonOnlinestatusPg_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonInPg_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
             _Message.Replace("OnlineStatus", "in pg");
             textboxMessage.Text = _Message.Generate();
         }
 
-        private void radiobuttonOnlinestatusPg_Unchecked(object sender, RoutedEventArgs e)
+        private void radiobuttonInPg_Unchecked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void radiobuttonOnlinestatusSolo_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonInSolo_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
             _Message.Replace("OnlineStatus", "in solo");
             textboxMessage.Text = _Message.Generate();
         }
 
-        private void radiobuttonOnlinestatusSolo_Unchecked(object sender, RoutedEventArgs e)
+        private void radiobuttonInSolo_Unchecked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void radiobuttonOnlinestatusMm_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonInMm_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
             _Message.Replace("OnlineStatus", "in mm");
             textboxMessage.Text = _Message.Generate();
         }
 
-        private void radiobuttonOnlinestatusMm_Unchecked(object sender, RoutedEventArgs e)
+        private void radiobuttonInMm_Unchecked(object sender, RoutedEventArgs e)
         {
 
         }
@@ -435,7 +441,6 @@ namespace Fuel_Rats_IRC_Helper
             textboxMessage.Text = _Message.Generate();
             radiobuttonSysconfPlus.IsChecked = false;
             radiobuttonSysconfMinus.IsChecked = false;
-            textboxSysconfMinus.Clear();
         }
 
         private void radiobuttonSysconfPlus_Checked(object sender, RoutedEventArgs e)
@@ -566,9 +571,9 @@ namespace Fuel_Rats_IRC_Helper
         {
             _Message.Append("Navcheck", "");
 
-            if (radiobuttonNavcheckHasJumps.IsChecked != true)
+            if (radiobuttonHasJumps.IsChecked != true)
             {
-                radiobuttonNavcheckNoJumps.IsChecked = true;
+                radiobuttonNoJumps.IsChecked = true;
             }
         }
 
@@ -576,48 +581,47 @@ namespace Fuel_Rats_IRC_Helper
         {
             _Message.Remove("Navcheck");
             textboxMessage.Text = _Message.Generate();
-            radiobuttonNavcheckNoJumps.IsChecked = false;
-            radiobuttonNavcheckHasJumps.IsChecked = false;
-            textboxNavcheckHasJumps.Clear();
+            radiobuttonNoJumps.IsChecked = false;
+            radiobuttonHasJumps.IsChecked = false;
         }
 
-        private void radiobuttonNavcheckNoJumps_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonNoJumps_Checked(object sender, RoutedEventArgs e)
         {
             checkboxNavcheck.IsChecked = true;
             _Message.Replace("Navcheck", "navcheck: can not jump");
             textboxMessage.Text = _Message.Generate();
         }
 
-        private void radiobuttonNavcheckNoJumps_Unchecked(object sender, RoutedEventArgs e)
+        private void radiobuttonNoJumps_Unchecked(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void radiobuttonNavcheckHasJumps_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonHasJumps_Checked(object sender, RoutedEventArgs e)
         {
             checkboxNavcheck.IsChecked = true;
-            textboxNavcheckHasJumps.Focus();
-            _Message.Replace("Navcheck", "navcheck: can jump " + textboxNavcheckHasJumps.Text + " ly");
+            textboxHasJumps.Focus();
+            _Message.Replace("Navcheck", "navcheck: can jump " + textboxHasJumps.Text + " ly");
             textboxMessage.Text = _Message.Generate();
         }
 
-        private void radiobuttonNavcheckHasJumps_Unchecked(object sender, RoutedEventArgs e)
+        private void radiobuttonHasJumps_Unchecked(object sender, RoutedEventArgs e)
         {
-            textboxNavcheckHasJumps.Clear();
+            textboxHasJumps.Clear();
         }
 
-        private void textboxNavcheckHasJumps_TextChanged(object sender, TextChangedEventArgs e)
+        private void textboxHasJumps_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (textboxNavcheckHasJumps.Text != "")
+            if (textboxHasJumps.Text != "")
             {
-                radiobuttonNavcheckHasJumps.IsChecked = true;
-                _Message.Replace("Navcheck", "navcheck: can jump " + textboxNavcheckHasJumps.Text + " ly");
+                radiobuttonHasJumps.IsChecked = true;
+                _Message.Replace("Navcheck", "navcheck: can jump " + textboxHasJumps.Text + " ly");
                 textboxMessage.Text = _Message.Generate();
             }
 
             else
             {
-                radiobuttonNavcheckHasJumps.IsChecked = false;
+                radiobuttonHasJumps.IsChecked = false;
             }
         }
 
@@ -643,6 +647,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxBc.IsChecked = true;
             textboxDistance.Focus();
+            comboboxDistanceUnit.SelectedItem = "ls";
             _Message.Replace("Bc", "bc+");
             textboxMessage.Text = _Message.Generate();
         }
@@ -698,13 +703,14 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxInst.IsChecked = true;
             textboxDistance.Focus();
+            comboboxDistanceUnit.SelectedItem = "km";
             _Message.Replace("Inst", "inst-");
             textboxMessage.Text = _Message.Generate();
         }
 
         private void radiobuttonInstMinus_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            comboboxDistanceUnit.SelectedItem = "ls";
         }
 
         private void checkboxClientPos_Checked(object sender, RoutedEventArgs e)
@@ -729,6 +735,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxClientPos.IsChecked = true;
             textboxDistance.Focus();
+            comboboxDistanceUnit.SelectedItem = "ls";
             _Message.Replace("ClientPos", "in ez");
             textboxMessage.Text = _Message.Generate();
         }
@@ -761,6 +768,7 @@ namespace Fuel_Rats_IRC_Helper
             _Message.Remove("Distance");
             textboxMessage.Text = _Message.Generate();
             textboxDistance.Clear();
+            comboboxDistanceUnit.SelectedItem = "ls";
         }
 
         private void textboxDistance_TextChanged(object sender, TextChangedEventArgs e)
@@ -768,13 +776,28 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxDistance.Text != "")
             {
                 checkboxDistance.IsChecked = true;
-                _Message.Replace("Distance", textboxDistance.Text + " ls");
+                _Message.Replace("Distance", textboxDistance.Text + ' ' + _DistanceUnit.ElementAt(comboboxDistanceUnit.SelectedIndex));
                 textboxMessage.Text = _Message.Generate();
             }
 
             else
             {
                 checkboxDistance.IsChecked = false;
+            }
+        }
+
+        private void comboboxDistanceUnit_Loaded(object sender, RoutedEventArgs e)
+        {
+            comboboxDistanceUnit.ItemsSource = _DistanceUnit;
+            comboboxDistanceUnit.SelectedItem = "ls";
+        }
+
+        private void comboboxDistanceUnit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (checkboxDistance.IsChecked == true)
+            {
+                _Message.Replace("Distance", textboxDistance.Text + ' ' + _DistanceUnit.ElementAt(comboboxDistanceUnit.SelectedIndex));
+                textboxMessage.Text = _Message.Generate();
             }
         }
 

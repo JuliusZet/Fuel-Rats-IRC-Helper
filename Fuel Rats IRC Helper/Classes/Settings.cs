@@ -13,7 +13,6 @@
 
 using System.Configuration;
 using System.Windows;
-using System;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -49,26 +48,36 @@ namespace Fuel_Rats_IRC_Helper
         //   Value of the specified key
         public string Get(string key)
         {
-            try
+            if (key != "showChangelogOnStartup")
             {
-                if (key != "showChangelogOnStartup")
+                _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
+                _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
+
+                if (_SettingsKeyValueConfigurationCollection[key] != null)
                 {
-                    _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
-                    _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
                     return _SettingsKeyValueConfigurationCollection[key].Value;
                 }
 
                 else
                 {
-                    _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
-                    return _AppKeyValueConfigurationCollection[key].Value;
+                    return "";
                 }
             }
 
-            catch (NullReferenceException)
+            else
             {
-                return "";
+                _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
+
+                if (_AppKeyValueConfigurationCollection[key] != null)
+                {
+                    return _AppKeyValueConfigurationCollection[key].Value;
+                }
+
+                else
+                {
+                    return "";
+                }
             }
         }
 
