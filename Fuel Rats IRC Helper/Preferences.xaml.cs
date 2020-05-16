@@ -95,5 +95,32 @@ namespace Fuel_Rats_IRC_Helper
         {
             _Settings.Set("processNameEliteDangerous", _ForegroundProcessName.ElementAt(comboboxProcessNameEliteDangerous.SelectedIndex));
         }
+
+        private void radiobuttonSendkeys_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+            if (_Settings.Get("messageInsertionMode") == "sendKeys" || _Settings.Get("messageInsertionMode") == "")
+            {
+                radiobuttonSendkeys.IsChecked = true;
+            }
+        }
+
+        private void radiobuttonSendkeys_Checked(object sender, RoutedEventArgs e)
+        {
+            _Settings.Set("messageInsertionMode", "sendKeys");
+        }
+
+        private void radiobuttonCopyPaste_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_Settings.Get("messageInsertionMode") == "copyPaste")
+            {
+                radiobuttonCopyPaste.IsChecked = true;
+            }
+        }
+
+        private void radiobuttonCopyPaste_Checked(object sender, RoutedEventArgs e)
+        {
+            _Settings.Set("messageInsertionMode", "copyPaste");
+        }
     }
 }

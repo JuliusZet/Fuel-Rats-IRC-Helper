@@ -1,4 +1,8 @@
 ﻿# Changelog
+### Version 1.2.0.0 (2020-05-16)
++ Added the option to choose between two message insertion methods:
+  + Write out the message key by key (Default)
+  + Copy and paste the message with the clipboard
 ### Version 1.1.2.0 (2020-05-15)
 + Added drop-down field to select distance unit
 + Improved layout

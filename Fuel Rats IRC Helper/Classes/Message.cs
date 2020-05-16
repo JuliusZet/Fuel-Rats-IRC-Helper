@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
@@ -269,34 +270,48 @@ namespace Fuel_Rats_IRC_Helper
                 return 7;
             }
 
-            // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
-            string newMessage = "";
-            for (int i = 0; i < message.Length; ++i)
+            SetForegroundWindow(processIrcClient.ElementAt(0).MainWindowHandle);
+
+            if (_Settings.Get("messageInsertionMode") == "copyPaste")
             {
-                switch (message.ElementAt(i))
-                {
-                    case '+':
-                    case '^':
-                    case '%':
-                    case '~':
-                    case '(':
-                    case ')':
-                    case '[':
-                    case ']':
-                    case '{':
-                    case '}':
-                        newMessage += '{';
-                        newMessage += message.ElementAt(i);
-                        newMessage += '}';
-                        break;
-                    default:
-                        newMessage += message.ElementAt(i);
-                        break;
-                }
+                Clipboard.SetText(message);
+                System.Windows.Forms.SendKeys.SendWait("^{v}");
+                Thread.Sleep(10);
+                System.Windows.Forms.SendKeys.SendWait("{ENTER}");
             }
 
-            SetForegroundWindow(processIrcClient.ElementAt(0).MainWindowHandle);
-            System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
+            else
+            {
+
+                // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
+                string newMessage = "";
+                for (int i = 0; i < message.Length; ++i)
+                {
+                    switch (message.ElementAt(i))
+                    {
+                        case '+':
+                        case '^':
+                        case '%':
+                        case '~':
+                        case '(':
+                        case ')':
+                        case '[':
+                        case ']':
+                        case '{':
+                        case '}':
+                            newMessage += '{';
+                            newMessage += message.ElementAt(i);
+                            newMessage += '}';
+                            break;
+                        default:
+                            newMessage += message.ElementAt(i);
+                            break;
+                    }
+                }
+
+                System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
+            }
+
             SetForegroundWindow(processIrcHelper.ElementAt(0).MainWindowHandle);
             SetForegroundWindow(processEliteDangerous.ElementAt(0).MainWindowHandle);
 

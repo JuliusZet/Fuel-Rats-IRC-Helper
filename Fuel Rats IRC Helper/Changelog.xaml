@@ -35,6 +35,16 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.2.0.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-16"/>
+                    <LineBreak/>
+                    <Run Text="+ Added the option to choose between two message insertion methods:"/>
+                    <LineBreak/>
+                    <Run Text="    - Write out the message key by key (Default)"/>
+                    <LineBreak/>
+                    <Run Text="    - Copy and paste the message with the clipboard"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.1.2.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-15"/>
                     <LineBreak/>

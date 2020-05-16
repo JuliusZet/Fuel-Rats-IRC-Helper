@@ -4,8 +4,9 @@ Facilitating the use of the Fuel Rats IRC
 ## Features
 + This (unofficial) application can help Fuel Rats to use the Fuel Rats IRC
 + Generate messages and send them to your IRC client of choice
-<img src="https://i.imgur.com/Jt26hBg.png">
-<img src="https://i.imgur.com/WYbudKR.png">
++ Assists Fuel Rats at following the Standard Operating Procedure
+<img src="https://i.imgur.com/83Vs60J.png">
+<img src="https://i.imgur.com/yJjXljf.png">
 
 ## Install
 + Download the setup.exe file from <a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">here</a>
