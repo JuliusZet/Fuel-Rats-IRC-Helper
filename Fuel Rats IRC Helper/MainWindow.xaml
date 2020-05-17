@@ -69,7 +69,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxCasenumber" Grid.Column="0" Content="" Checked="checkboxCasenumber_Checked" Unchecked="checkboxCasenumber_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Case number">
+                        <GroupBox x:Name="groupboxCasenumber" Grid.Column="1" Header="Case number">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto"/>
@@ -81,12 +81,12 @@
                         </GroupBox>
                     </Grid>
                     <CheckBox x:Name="checkboxRgr" Grid.Column="1" Grid.Row="0" Margin="10,0" Checked="checkboxRgr_Checked" Unchecked="checkboxRgr_Unchecked">
-                        <GroupBox Header="Acknowledgement">
+                        <GroupBox x:Name="groupboxRgr" Header="Acknowledgement">
                             <Label Content="rgr"/>
                         </GroupBox>
                     </CheckBox>
                     <CheckBox x:Name="checkboxRdy" Grid.Column="2" Grid.Row="0" Checked="checkboxRdy_Checked" Unchecked="checkboxRdy_Unchecked">
-                        <GroupBox Header="Readiness confirmation">
+                        <GroupBox x:Name="groupboxRdy" Header="Readiness confirmation">
                             <Label Content="rdy"/>
                         </GroupBox>
                     </CheckBox>
@@ -96,7 +96,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxJumpcallout" Grid.Column="0" Content="" Checked="checkboxJumpcallout_Checked" Unchecked="checkboxJumpcallout_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Jump callout">
+                        <GroupBox x:Name="groupboxJumpcallout" Grid.Column="1" Header="Jump callout">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -113,7 +113,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxOwnPos" Grid.Column="0" Content="" Checked="checkboxOwnPos_Checked" Unchecked="checkboxOwnPos_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Own position">
+                        <GroupBox x:Name="groupboxOwnPos" Grid.Column="1" Header="Own position">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -130,7 +130,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxFr" Grid.Column="0" Content="" Checked="checkboxFr_Checked" Unchecked="checkboxFr_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Friend request status">
+                        <GroupBox x:Name="groupboxFr" Grid.Column="1" Header="Friend request status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -147,7 +147,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxOnlineStatus" Grid.Column="0" Content="" Checked="checkboxOnlineStatus_Checked" Unchecked="checkboxOnlineStatus_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Online status">
+                        <GroupBox x:Name="groupboxOnlineStatus" Grid.Column="1" Header="Online status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -172,7 +172,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxSysconf" Grid.Column="0" Content="" Checked="checkboxSysconf_Checked" Unchecked="checkboxSysconf_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="System confirmation">
+                        <GroupBox x:Name="groupboxSysconf" Grid.Column="1" Header="System confirmation">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -198,7 +198,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxWr" Grid.Column="0" Content="" Checked="checkboxWr_Checked" Unchecked="checkboxWr_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Wing request status">
+                        <GroupBox x:Name="groupboxWr" Grid.Column="1" Header="Wing request status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -216,7 +216,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxPrep" Grid.Column="0" Content="" Checked="checkboxPrep_Checked" Unchecked="checkboxPrep_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Preparation status">
+                        <GroupBox x:Name="groupboxPrep" Grid.Column="1" Header="Preparation status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -233,7 +233,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxNavcheck" Grid.Column="0" Content="" Checked="checkboxNavcheck_Checked" Unchecked="checkboxNavcheck_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Navigation panel check">
+                        <GroupBox x:Name="groupboxNavcheck" Grid.Column="1" Header="Navigation panel check">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -261,7 +261,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxBc" Grid.Column="0" Content="" Checked="checkboxBc_Checked" Unchecked="checkboxBc_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Beacon status">
+                        <GroupBox x:Name="groupboxBc" Grid.Column="1" Header="Beacon status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -279,7 +279,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxInst" Grid.Column="0" Content="" Checked="checkboxInst_Checked" Unchecked="checkboxInst_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Instance status">
+                        <GroupBox x:Name="groupboxInst" Grid.Column="1" Header="Instance status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -297,7 +297,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxClientPos" Grid.Column="0" Content="" Checked="checkboxClientPos_Checked" Unchecked="checkboxClientPos_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Client position">
+                        <GroupBox x:Name="groupboxClientPos" Grid.Column="1" Header="Client position">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -314,7 +314,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxDistance" Grid.Column="0" Content="" Checked="checkboxDistance_Checked" Unchecked="checkboxDistance_Unchecked"/>
-                        <GroupBox Grid.Column="1" Header="Distance">
+                        <GroupBox x:Name="groupboxDistance" Grid.Column="1" Header="Distance">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -326,12 +326,12 @@
                         </GroupBox>
                     </Grid>
                     <CheckBox x:Name="checkboxFuel" Grid.Column="0" Grid.Row="6" Checked="checkboxFuel_Checked" Unchecked="checkboxFuel_Unchecked">
-                        <GroupBox Header="Fuel status">
+                        <GroupBox x:Name="groupboxFuel" Header="Fuel status">
                             <Label Content="fuel+"/>
                         </GroupBox>
                     </CheckBox>
                 </Grid>
-                <GroupBox Grid.Row="1" Header="Your message">
+                <GroupBox x:Name="groupboxYourMessage" Grid.Row="1" Header="Your message">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>

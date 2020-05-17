@@ -1,4 +1,6 @@
 ﻿# Changelog
+### Version 1.2.1.0 (2020-05-17)
++ Added colorization of already sent messages
 ### Version 1.2.0.0 (2020-05-16)
 + Added the option to choose between two message insertion methods:
   + Write out the message key by key (Default)

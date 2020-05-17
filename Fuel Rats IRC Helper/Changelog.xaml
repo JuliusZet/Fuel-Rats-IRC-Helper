@@ -35,6 +35,12 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.2.1.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-17"/>
+                    <LineBreak/>
+                    <Run Text="+ Added colorization of already sent messages"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.2.0.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-16"/>
                     <LineBreak/>

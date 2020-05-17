@@ -17,6 +17,7 @@ using System.Deployment.Application;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -136,14 +137,145 @@ namespace Fuel_Rats_IRC_Helper
             checkboxClientPos.IsChecked = false;
             checkboxDistance.IsChecked = false;
             checkboxFuel.IsChecked = false;
-
-            comboboxDistanceUnit.SelectedItem = "ls";
         }
 
         private void UncheckAllCheckboxes()
         {
             checkboxCasenumber.IsChecked = false;
             UncheckAllCheckboxesExceptCasenumber();
+        }
+
+        private void UpdateUserInterfaceColors()
+        {
+            SolidColorBrush greenGroupboxBorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 255, 0));
+            SolidColorBrush redGroupboxBorderBrush = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+
+            if (textboxCasenumber.Text != "")
+            {
+                groupboxCasenumber.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (checkboxRgr.IsChecked == true)
+            {
+                groupboxRgr.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (checkboxRdy.IsChecked == true)
+            {
+                groupboxRdy.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (textboxJumpcallout.Text != "")
+            {
+                groupboxJumpcallout.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (checkboxOwnPos.IsChecked == true)
+            {
+                groupboxOwnPos.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (radiobuttonFrPlus.IsChecked == true)
+            {
+                groupboxFr.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            else if (radiobuttonFrMinus.IsChecked == true)
+            {
+                groupboxFr.BorderBrush = redGroupboxBorderBrush;
+            }
+
+            if (checkboxOnlineStatus.IsChecked == true)
+            {
+                groupboxOnlineStatus.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (checkboxSysconf.IsChecked == true)
+            {
+                groupboxSysconf.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (radiobuttonWrPlus.IsChecked == true)
+            {
+                groupboxWr.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            else if (radiobuttonWrMinus.IsChecked == true)
+            {
+                groupboxWr.BorderBrush = redGroupboxBorderBrush;
+            }
+
+            if (radiobuttonPrepPlus.IsChecked == true)
+            {
+                groupboxPrep.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            else if (radiobuttonPrepMinus.IsChecked == true)
+            {
+                groupboxPrep.BorderBrush = redGroupboxBorderBrush;
+            }
+
+            if (checkboxNavcheck.IsChecked == true)
+            {
+                groupboxNavcheck.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (radiobuttonBcPlus.IsChecked == true)
+            {
+                groupboxBc.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            else if (radiobuttonBcMinus.IsChecked == true)
+            {
+                groupboxBc.BorderBrush = redGroupboxBorderBrush;
+            }
+
+            if (radiobuttonInstPlus.IsChecked == true)
+            {
+                groupboxInst.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            else if (radiobuttonInstMinus.IsChecked == true)
+            {
+                groupboxInst.BorderBrush = redGroupboxBorderBrush;
+            }
+
+            if (checkboxClientPos.IsChecked == true)
+            {
+                groupboxClientPos.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (textboxDistance.Text != "")
+            {
+                groupboxDistance.BorderBrush = greenGroupboxBorderBrush;
+            }
+
+            if (checkboxFuel.IsChecked == true)
+            {
+                groupboxFuel.BorderBrush = greenGroupboxBorderBrush;
+            }
+        }
+
+        private void ResetUserInterfaceColors()
+        {
+            SolidColorBrush defaultGroupboxBorderBrush = new SolidColorBrush(Color.FromArgb(255, 213, 223, 229));
+
+            groupboxCasenumber.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxRgr.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxRdy.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxJumpcallout.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxOwnPos.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxFr.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxOnlineStatus.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxSysconf.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxWr.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxPrep.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxNavcheck.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxBc.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxInst.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxClientPos.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxDistance.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxFuel.BorderBrush = defaultGroupboxBorderBrush;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -833,13 +965,17 @@ namespace Fuel_Rats_IRC_Helper
         {
             UncheckAllCheckboxes();
             _Message.Clear();
-            textboxMessage.Text = _Message.Generate();
+            textboxMessage.Clear();
+            ResetUserInterfaceColors();
+            comboboxDistanceUnit.SelectedItem = "ls";
         }
 
         private void buttonSend_Click(object sender, RoutedEventArgs e)
         {
             _Message.Send(textboxMessage.Text);
+            UpdateUserInterfaceColors();
             UncheckAllCheckboxesExceptCasenumber();
+            textboxMessage.Text = _Message.Generate();
         }
     }
 }

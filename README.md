@@ -3,9 +3,10 @@ Facilitating the use of the Fuel Rats IRC
 
 ## Features
 + This (unofficial) application can help Fuel Rats to use the Fuel Rats IRC
-+ Generate messages and send them to your IRC client of choice
-+ Assists Fuel Rats at following the Standard Operating Procedure
-<img src="https://i.imgur.com/83Vs60J.png">
++ Generates messages and sends them to your IRC client of choice
++ Assists you at following the Standard Operating Procedure
++ Colorizes already sent messages
+<img src="https://i.imgur.com/EpOP6P0.png">
 <img src="https://i.imgur.com/yJjXljf.png">
 
 ## Install
