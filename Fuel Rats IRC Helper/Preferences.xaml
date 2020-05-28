@@ -34,7 +34,7 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="General" FontWeight="Bold" FontSize="16"/>
-                        <CheckBox x:Name="checkboxCheckForUpdatesOnStartup" Grid.Row="1" Content="Check for Updates on startup" Margin="20,0,0,0" Loaded="checkboxCheckForUpdatesOnStartup_Loaded" Checked="checkboxCheckForUpdatesOnStartup_Checked" Unchecked="checkboxCheckForUpdatesOnStartup_Unchecked"/>
+                        <CheckBox x:Name="checkboxCheckForUpdatesOnStartup" Grid.Row="1" Content="Check for updates on startup" Margin="20,0,0,0" Loaded="checkboxCheckForUpdatesOnStartup_Loaded" Checked="checkboxCheckForUpdatesOnStartup_Checked" Unchecked="checkboxCheckForUpdatesOnStartup_Unchecked"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

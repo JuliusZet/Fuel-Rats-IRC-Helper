@@ -331,7 +331,7 @@
                         </GroupBox>
                     </CheckBox>
                 </Grid>
-                <GroupBox x:Name="groupboxYourMessage" Grid.Row="1" Header="Your message">
+                <GroupBox Grid.Row="1" Header="Your message">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
