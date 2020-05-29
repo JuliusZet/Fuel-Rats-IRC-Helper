@@ -35,6 +35,20 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.2.2.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-05-29"/>
+                    <LineBreak/>
+                    <Run Text="* Improved usability"/>
+                    <LineBreak/>
+                    <Run Text="    - Return key in the Case number textbox will focus the Jump callout textbox"/>
+                    <LineBreak/>
+                    <Run Text="    - Return key in any other textbox will send the message"/>
+                    <LineBreak/>
+                    <Run Text="    - Numpad-plus or -minus keys in the Distance textbox will increase or decrease the unit"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed typos"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.2.1.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-17"/>
                     <LineBreak/>

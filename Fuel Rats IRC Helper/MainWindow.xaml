@@ -76,7 +76,7 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Content="#"/>
-                                <TextBox x:Name="textboxCasenumber" Grid.Column="1" GotFocus="textboxCasenumber_GotFocus" TextChanged="textboxCasenumber_TextChanged"/>
+                                <TextBox x:Name="textboxCasenumber" Grid.Column="1" GotFocus="textboxCasenumber_GotFocus" TextChanged="textboxCasenumber_TextChanged" KeyDown="textboxCasenumber_KeyDown"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
@@ -102,7 +102,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="textboxJumpcallout" Grid.Column="0" TextChanged="textboxJumpcallout_TextChanged"/>
+                                <TextBox x:Name="textboxJumpcallout" Grid.Column="0" TextChanged="textboxJumpcallout_TextChanged" KeyDown="textboxJumpcallout_KeyDown"/>
                                 <Label Grid.Column="1" Content="j"/>
                             </Grid>
                         </GroupBox>
@@ -186,7 +186,7 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0" Content="in"/>
-                                        <TextBox x:Name="textboxSysconfMinus" Grid.Column="1" TextChanged="textboxSysconfMinus_TextChanged"/>
+                                        <TextBox x:Name="textboxSysconfMinus" Grid.Column="1" TextChanged="textboxSysconfMinus_TextChanged" KeyDown="textboxSysconfMinus_KeyDown"/>
                                     </Grid>
                                 </RadioButton>
                             </Grid>
@@ -248,7 +248,7 @@
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0" Content="can jump"/>
-                                        <TextBox x:Name="textboxHasJumps" Grid.Column="1" TextChanged="textboxHasJumps_TextChanged"/>
+                                        <TextBox x:Name="textboxHasJumps" Grid.Column="1" TextChanged="textboxHasJumps_TextChanged" KeyDown="textboxHasJumps_KeyDown"/>
                                         <Label Grid.Column="2" Content="ly"/>
                                     </Grid>
                                 </RadioButton>
@@ -320,7 +320,7 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
-                                <TextBox x:Name="textboxDistance" Grid.Column="0" TextChanged="textboxDistance_TextChanged"/>
+                                <TextBox x:Name="textboxDistance" Grid.Column="0" TextChanged="textboxDistance_TextChanged" KeyDown="textboxDistance_KeyDown"/>
                                 <ComboBox x:Name="comboboxDistanceUnit" Grid.Column="1" Loaded="comboboxDistanceUnit_Loaded" SelectionChanged="comboboxDistanceUnit_SelectionChanged"/>
                             </Grid>
                         </GroupBox>
@@ -343,7 +343,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content=""/>
-                            <TextBox x:Name="textboxMessage" Grid.Column="0" GotFocus="textboxMessage_GotFocus" LostFocus="textboxMessage_LostFocus"/>
+                            <TextBox x:Name="textboxMessage" Grid.Column="0" GotFocus="textboxMessage_GotFocus" LostFocus="textboxMessage_LostFocus" KeyDown="textboxMessage_KeyDown"/>
                             <Button x:Name="buttonClear" Grid.Column="1" Content="Clear" Margin="5,0,0,0" Padding="10,0" Click="buttonClear_Click"/>
                         </Grid>
                         <Button x:Name="buttonSend" Grid.Row="1" Content="Send" Margin="0,5,0,0" Click="buttonSend_Click"/>

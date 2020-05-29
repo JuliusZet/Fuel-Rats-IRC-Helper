@@ -1,4 +1,10 @@
 ﻿# Changelog
+### Version 1.2.2.0 (2020-05-29)
++ Improved usability
+  + Return key in the Case number textbox will focus the Jump callout textbox
+  + Return key in any other textbox will send the message
+  + Numpad-plus or -minus keys in the Distance textbox will increase or decrease the unit
++ Fixed typos
 ### Version 1.2.1.0 (2020-05-17)
 + Added colorization of already sent messages
 ### Version 1.2.0.0 (2020-05-16)

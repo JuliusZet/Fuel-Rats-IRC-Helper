@@ -17,6 +17,7 @@ using System.Deployment.Application;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Fuel_Rats_IRC_Helper
@@ -353,6 +354,14 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
+        private void textboxCasenumber_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                textboxJumpcallout.Focus();
+            }
+        }
+
         private void checkboxRgr_Checked(object sender, RoutedEventArgs e)
         {
             _Message.Append("Rgr", "rgr");
@@ -402,6 +411,14 @@ namespace Fuel_Rats_IRC_Helper
             else
             {
                 checkboxJumpcallout.IsChecked = false;
+            }
+        }
+
+        private void textboxJumpcallout_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                buttonSend_Click(null, null);
             }
         }
 
@@ -615,6 +632,14 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
+        private void textboxSysconfMinus_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                buttonSend_Click(null, null);
+            }
+        }
+
         private void checkboxWr_Checked(object sender, RoutedEventArgs e)
         {
             _Message.Append("Wr", "");
@@ -754,6 +779,14 @@ namespace Fuel_Rats_IRC_Helper
             else
             {
                 radiobuttonHasJumps.IsChecked = false;
+            }
+        }
+
+        private void textboxHasJumps_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                buttonSend_Click(null, null);
             }
         }
 
@@ -918,6 +951,32 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
+        private void textboxDistance_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                buttonSend_Click(null, null);
+            }
+
+            else if (e.Key == Key.Add)
+            {
+                e.Handled = true;
+                if (comboboxDistanceUnit.SelectedIndex != 5)
+                {
+                    ++comboboxDistanceUnit.SelectedIndex;
+                }
+            }
+
+            else if (e.Key == Key.Subtract)
+            {
+                e.Handled = true;
+                if (comboboxDistanceUnit.SelectedIndex != 0)
+                {
+                    --comboboxDistanceUnit.SelectedIndex;
+                }
+            }
+        }
+
         private void comboboxDistanceUnit_Loaded(object sender, RoutedEventArgs e)
         {
             comboboxDistanceUnit.ItemsSource = _DistanceUnit;
@@ -958,6 +1017,15 @@ namespace Fuel_Rats_IRC_Helper
             while (textboxMessage.Text != "" && textboxMessage.Text.EndsWith(" "))
             {
                 textboxMessage.Text = textboxMessage.Text.Remove(textboxMessage.Text.Length - 1);
+            }
+        }
+
+        private void textboxMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                textboxMessage_LostFocus(null, null);
+                buttonSend_Click(null, null);
             }
         }
 
