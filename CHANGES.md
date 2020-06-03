@@ -1,4 +1,7 @@
 ﻿# Changelog
+### Version 1.2.3.0 (2020-06-03)
++ Improved the copy-paste message insertion mode so it no longer overwrites your clipboard
++ Improved process drop-down fields in Settings -> Preferences -> Behaviour
 ### Version 1.2.2.0 (2020-05-29)
 + Improved usability
   + Return key in the Case number textbox will focus the Jump callout textbox

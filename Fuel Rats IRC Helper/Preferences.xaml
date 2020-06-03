@@ -34,7 +34,7 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="General" FontWeight="Bold" FontSize="16"/>
-                        <CheckBox x:Name="checkboxCheckForUpdatesOnStartup" Grid.Row="1" Content="Check for updates on startup" Margin="20,0,0,0" Loaded="checkboxCheckForUpdatesOnStartup_Loaded" Checked="checkboxCheckForUpdatesOnStartup_Checked" Unchecked="checkboxCheckForUpdatesOnStartup_Unchecked"/>
+                        <CheckBox x:Name="checkboxCheckForUpdatesOnStartup" Grid.Row="1" Content="Check for updates on startup" HorizontalAlignment="Left" Margin="20,0,0,0" Loaded="checkboxCheckForUpdatesOnStartup_Loaded" Checked="checkboxCheckForUpdatesOnStartup_Checked" Unchecked="checkboxCheckForUpdatesOnStartup_Unchecked"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
@@ -62,7 +62,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="1. Focus the IRC client window with the process name"/>
-                            <ComboBox x:Name="comboboxProcessNameIrcClient" Grid.Column="1" Loaded="comboboxProcessNameIrcClient_Loaded" SelectionChanged="comboboxProcessNameIrcClient_SelectionChanged"/>
+                            <ComboBox x:Name="comboboxProcessNameIrcClient" Grid.Column="1" Loaded="comboboxProcessNameIrcClient_Loaded" DropDownOpened="comboboxProcessNameIrcClient_DropDownOpened" SelectionChanged="comboboxProcessNameIrcClient_SelectionChanged"/>
                         </Grid>
                         <Label Grid.Row="3" Content="2. Insert the message from the textbox &quot;Your message&quot;" Margin="40,0,0,0"/>
                         <Label Grid.Row="4" Content="3. Press the return key" Margin="40,0,0,0"/>
@@ -73,51 +73,24 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="5. Focus the Elite Dangerous window with the process name"/>
-                            <ComboBox x:Name="comboboxProcessNameEliteDangerous" Grid.Column="1" Loaded="comboboxProcessNameEliteDangerous_Loaded" SelectionChanged="comboboxProcessNameEliteDangerous_SelectionChanged"/>
+                            <ComboBox x:Name="comboboxProcessNameEliteDangerous" Grid.Column="1" Loaded="comboboxProcessNameEliteDangerous_Loaded" DropDownOpened="comboboxProcessNameEliteDangerous_DropDownOpened" SelectionChanged="comboboxProcessNameEliteDangerous_SelectionChanged"/>
                         </Grid>
                         <Label Grid.Row="7" Content=""/>
                         <Label Grid.Row="8" Content="Message insertion method:" FontWeight="Bold" Margin="20,0,0,0"/>
                         <Label Grid.Row="9" Content=""/>
-                        <RadioButton x:Name="radiobuttonSendkeys" Grid.Row="9" GroupName="messageInsertionMode" Margin="40,0,0,5" Loaded="radiobuttonSendkeys_Loaded" Checked="radiobuttonSendkeys_Checked">
+                        <RadioButton x:Name="radiobuttonCopyPaste" Grid.Row="9" GroupName="messageInsertionMode" HorizontalAlignment="Left" Margin="40,0,0,5" Loaded="radiobuttonCopyPaste_Loaded" Checked="radiobuttonCopyPaste_Checked">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="auto"/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="Write out the message key by key (Default)"/>
+                                <TextBlock Grid.Row="0" Text="Copy and paste the message with the clipboard (Default)"/>
                                 <Grid Grid.Row="1" Margin="5,0,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
                                         <ColumnDefinition Width="auto"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="+ "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="The clipboard will not be overwritten"/>
-                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="- "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="The longer the message, the more time it takes to insert it"/>
-                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="- "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="2" Text="Hotkeys could be triggered during insertion"/>
-                                </Grid>
-                            </Grid>
-                        </RadioButton>
-                        <RadioButton x:Name="radiobuttonCopyPaste" Grid.Row="10" GroupName="messageInsertionMode" Margin="40,0,0,0" Loaded="radiobuttonCopyPaste_Loaded" Checked="radiobuttonCopyPaste_Checked">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="Copy and paste the message with the clipboard"/>
-                                <Grid Grid.Row="1" Margin="5,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                         <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
@@ -125,8 +98,29 @@
                                     <TextBlock Grid.Column="1" Grid.Row="0" Text="Fastest way to insert the message, regardless of its length"/>
                                     <TextBlock Grid.Column="0" Grid.Row="1" Text="+ "/>
                                     <TextBlock Grid.Column="1" Grid.Row="1" Text="Hotkeys will not be triggered during insertion"/>
-                                    <TextBlock Grid.Column="0" Grid.Row="2" Text="- "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="2" Text="The clipboard will be overwritten"/>
+                                </Grid>
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton x:Name="radiobuttonSendkeys" Grid.Row="10" GroupName="messageInsertionMode" HorizontalAlignment="Left" Margin="40,0,0,0" Loaded="radiobuttonSendkeys_Loaded" Checked="radiobuttonSendkeys_Checked">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="Write out the message key by key"/>
+                                <Grid Grid.Row="1" Margin="5,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="- "/>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="The longer the message, the more time it takes to insert it"/>
+                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="- "/>
+                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Hotkeys could be triggered during insertion"/>
                                 </Grid>
                             </Grid>
                         </RadioButton>

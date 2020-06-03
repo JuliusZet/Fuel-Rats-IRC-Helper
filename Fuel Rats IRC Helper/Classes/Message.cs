@@ -202,7 +202,7 @@ namespace Fuel_Rats_IRC_Helper
         //     1: Process names of the IRC client and/or Elite Dangerous not specified in preferences
         //     2: IRC client process not found
         //     3: Multiple IRC client processes found
-        //     4: IRC helper process not found (How would that even happen? I don't know. :D Why did I put this in here? I dont know. XD)
+        //     4: IRC helper process not found (How would that even happen? I don't know. :D Why did I put this in here? I don't know. XD)
         //     5: Multiple IRC helper processes found
         //     6: Elite Dangerous process not found
         //     7: Multiple Elite Dangerous processes found
@@ -272,15 +272,7 @@ namespace Fuel_Rats_IRC_Helper
 
             SetForegroundWindow(processIrcClient.ElementAt(0).MainWindowHandle);
 
-            if (_Settings.Get("messageInsertionMode") == "copyPaste")
-            {
-                Clipboard.SetText(message);
-                System.Windows.Forms.SendKeys.SendWait("^{v}");
-                Thread.Sleep(10);
-                System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-            }
-
-            else
+            if (_Settings.Get("messageInsertionMode") == "sendKeys")
             {
 
                 // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
@@ -310,6 +302,16 @@ namespace Fuel_Rats_IRC_Helper
                 }
 
                 System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
+            }
+
+            else
+            {
+                IDataObject clipboardBackup = Clipboard.GetDataObject();
+                Clipboard.SetText(message);
+                System.Windows.Forms.SendKeys.SendWait("^{v}");
+                Thread.Sleep(10 + message.Length / 5);
+                System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                Clipboard.SetDataObject(clipboardBackup);
             }
 
             SetForegroundWindow(processIrcHelper.ElementAt(0).MainWindowHandle);

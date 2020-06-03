@@ -7,7 +7,7 @@ Facilitating the use of the Fuel Rats IRC
 + Assists you at following the Standard Operating Procedure
 + Colorizes already sent messages
 <img src="https://i.imgur.com/EpOP6P0.png">
-<img src="https://i.imgur.com/yJjXljf.png">
+<img src="https://i.imgur.com/XLnkQdf.png">
 
 ## Install
 + Download the setup.exe file from <a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">here</a>

@@ -31,6 +31,12 @@ namespace Fuel_Rats_IRC_Helper
         public Preferences()
         {
             _Settings = new Settings();
+            refreshForegroundProcessNameList();
+            InitializeComponent();
+        }
+
+        private void refreshForegroundProcessNameList()
+        {
             _Process = Process.GetProcesses();
             _ForegroundProcessName = new List<string>();
             _ForegroundProcessName.Add("");
@@ -43,7 +49,15 @@ namespace Fuel_Rats_IRC_Helper
                 }
             }
 
-            InitializeComponent();
+            if (_Settings.Get("processNameIrcClient") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameIrcClient")))
+            {
+                _ForegroundProcessName.Add(_Settings.Get("processNameIrcClient"));
+            }
+
+            if (_Settings.Get("processNameEliteDangerous") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameEliteDangerous")))
+            {
+                _ForegroundProcessName.Add(_Settings.Get("processNameEliteDangerous"));
+            }
         }
 
         private void checkboxCheckForUpdatesOnStartup_Loaded(object sender, RoutedEventArgs e)
@@ -66,10 +80,13 @@ namespace Fuel_Rats_IRC_Helper
 
         private void comboboxProcessNameIrcClient_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_Settings.Get("processNameIrcClient") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameIrcClient")))
-            {
-                _ForegroundProcessName.Add(_Settings.Get("processNameIrcClient"));
-            }
+            comboboxProcessNameIrcClient.ItemsSource = _ForegroundProcessName;
+            comboboxProcessNameIrcClient.SelectedItem = _Settings.Get("processNameIrcClient");
+        }
+
+        private void comboboxProcessNameIrcClient_DropDownOpened(object sender, System.EventArgs e)
+        {
+            refreshForegroundProcessNameList();
 
             comboboxProcessNameIrcClient.ItemsSource = _ForegroundProcessName;
             comboboxProcessNameIrcClient.SelectedItem = _Settings.Get("processNameIrcClient");
@@ -82,10 +99,13 @@ namespace Fuel_Rats_IRC_Helper
 
         private void comboboxProcessNameEliteDangerous_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_Settings.Get("processNameEliteDangerous") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameEliteDangerous")))
-            {
-                _ForegroundProcessName.Add(_Settings.Get("processNameEliteDangerous"));
-            }
+            comboboxProcessNameEliteDangerous.ItemsSource = _ForegroundProcessName;
+            comboboxProcessNameEliteDangerous.SelectedItem = _Settings.Get("processNameEliteDangerous");
+        }
+
+        private void comboboxProcessNameEliteDangerous_DropDownOpened(object sender, System.EventArgs e)
+        {
+            refreshForegroundProcessNameList();
 
             comboboxProcessNameEliteDangerous.ItemsSource = _ForegroundProcessName;
             comboboxProcessNameEliteDangerous.SelectedItem = _Settings.Get("processNameEliteDangerous");
@@ -96,23 +116,9 @@ namespace Fuel_Rats_IRC_Helper
             _Settings.Set("processNameEliteDangerous", _ForegroundProcessName.ElementAt(comboboxProcessNameEliteDangerous.SelectedIndex));
         }
 
-        private void radiobuttonSendkeys_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-            if (_Settings.Get("messageInsertionMode") == "sendKeys" || _Settings.Get("messageInsertionMode") == "")
-            {
-                radiobuttonSendkeys.IsChecked = true;
-            }
-        }
-
-        private void radiobuttonSendkeys_Checked(object sender, RoutedEventArgs e)
-        {
-            _Settings.Set("messageInsertionMode", "sendKeys");
-        }
-
         private void radiobuttonCopyPaste_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_Settings.Get("messageInsertionMode") == "copyPaste")
+            if (_Settings.Get("messageInsertionMode") == "copyPaste" || _Settings.Get("messageInsertionMode") == "")
             {
                 radiobuttonCopyPaste.IsChecked = true;
             }
@@ -121,6 +127,19 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonCopyPaste_Checked(object sender, RoutedEventArgs e)
         {
             _Settings.Set("messageInsertionMode", "copyPaste");
+        }
+
+        private void radiobuttonSendkeys_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_Settings.Get("messageInsertionMode") == "sendKeys")
+            {
+                radiobuttonSendkeys.IsChecked = true;
+            }
+        }
+
+        private void radiobuttonSendkeys_Checked(object sender, RoutedEventArgs e)
+        {
+            _Settings.Set("messageInsertionMode", "sendKeys");
         }
     }
 }

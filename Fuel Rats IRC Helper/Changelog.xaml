@@ -35,6 +35,14 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.2.3.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-06-03"/>
+                    <LineBreak/>
+                    <Run Text="* Improved the copy-paste message insertion mode so it no longer overwrites your clipboard"/>
+                    <LineBreak/>
+                    <Run Text="* Improved process drop-down fields in Settings -> Preferences -> Behaviour"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.2.2.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-05-29"/>
                     <LineBreak/>
