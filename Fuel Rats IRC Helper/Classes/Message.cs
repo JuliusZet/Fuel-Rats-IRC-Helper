@@ -306,12 +306,25 @@ namespace Fuel_Rats_IRC_Helper
 
             else
             {
-                IDataObject clipboardBackup = Clipboard.GetDataObject();
-                Clipboard.SetText(message);
-                System.Windows.Forms.SendKeys.SendWait("^{v}");
-                Thread.Sleep(10 + message.Length / 5);
-                System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-                Clipboard.SetDataObject(clipboardBackup);
+                if (Clipboard.ContainsText() == true)
+                {
+                    string clipboardBackup = Clipboard.GetText();
+                    Clipboard.SetText(message);
+                    System.Windows.Forms.SendKeys.SendWait("^{v}");
+                    Thread.Sleep(10 + message.Length / 5);
+                    System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                    Clipboard.SetText(clipboardBackup);
+                }
+                
+                else
+                {
+                    IDataObject clipboardBackup = Clipboard.GetDataObject();
+                    Clipboard.SetText(message);
+                    System.Windows.Forms.SendKeys.SendWait("^{v}");
+                    Thread.Sleep(10 + message.Length / 5);
+                    System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                    Clipboard.SetDataObject(clipboardBackup);
+                }
             }
 
             SetForegroundWindow(processIrcHelper.ElementAt(0).MainWindowHandle);

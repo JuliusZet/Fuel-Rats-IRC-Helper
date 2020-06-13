@@ -35,6 +35,12 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.2.3.1" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-06-13"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed a bug in the clipboard backup functionality"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.2.3.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-06-03"/>
                     <LineBreak/>

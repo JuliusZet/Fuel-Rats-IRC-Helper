@@ -1,4 +1,6 @@
 ﻿# Changelog
+### Version 1.2.3.1 (2020-06-13)
++ Fixed a bug in the clipboard backup functionality
 ### Version 1.2.3.0 (2020-06-03)
 + Improved the copy-paste message insertion mode so it no longer overwrites your clipboard
 + Improved process drop-down fields in Settings -> Preferences -> Behaviour
