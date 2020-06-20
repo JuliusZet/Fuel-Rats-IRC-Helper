@@ -1036,6 +1036,7 @@ namespace Fuel_Rats_IRC_Helper
             textboxMessage.Clear();
             ResetUserInterfaceColors();
             comboboxDistanceUnit.SelectedItem = "ls";
+            textboxCasenumber.Focus();
         }
 
         private void buttonSend_Click(object sender, RoutedEventArgs e)

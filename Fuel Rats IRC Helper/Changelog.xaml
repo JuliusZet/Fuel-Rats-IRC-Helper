@@ -35,6 +35,14 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.2.4.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2020-06-20"/>
+                    <LineBreak/>
+                    <Run Text="* Improved usability"/>
+                    <LineBreak/>
+                    <Run Text="    - Clear button will focus the Case number textbox"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.2.3.1" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2020-06-13"/>
                     <LineBreak/>

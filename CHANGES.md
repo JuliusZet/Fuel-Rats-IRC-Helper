@@ -1,4 +1,7 @@
 ﻿# Changelog
+### Version 1.2.4.0 (2020-06-20)
++ Improved usability
+  + Clear button will focus the Case number textbox
 ### Version 1.2.3.1 (2020-06-13)
 + Fixed a bug in the clipboard backup functionality
 ### Version 1.2.3.0 (2020-06-03)
