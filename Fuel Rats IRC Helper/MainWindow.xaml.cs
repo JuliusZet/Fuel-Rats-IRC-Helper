@@ -3,7 +3,7 @@
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
- *   Copyright © 2020 Julius Zitzmann. All rights reserved.
+ *   Copyright © 2021 Julius Zitzmann. All rights reserved.
  *
  *   Feature requests, bug reports or questions?
  *   info@julius-zitzmann.de
@@ -961,7 +961,7 @@ namespace Fuel_Rats_IRC_Helper
             else if (e.Key == Key.Add)
             {
                 e.Handled = true;
-                if (comboboxDistanceUnit.SelectedIndex != 5)
+                if (comboboxDistanceUnit.SelectedIndex != _DistanceUnit.Count - 1)
                 {
                     ++comboboxDistanceUnit.SelectedIndex;
                 }
@@ -1041,10 +1041,12 @@ namespace Fuel_Rats_IRC_Helper
 
         private void buttonSend_Click(object sender, RoutedEventArgs e)
         {
-            _Message.Send(textboxMessage.Text);
-            UpdateUserInterfaceColors();
-            UncheckAllCheckboxesExceptCasenumber();
-            textboxMessage.Text = _Message.Generate();
+            if (_Message.Send(textboxMessage.Text) == 0)
+            {
+                UpdateUserInterfaceColors();
+                UncheckAllCheckboxesExceptCasenumber();
+                textboxMessage.Text = _Message.Generate();
+            }
         }
     }
 }

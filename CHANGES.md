@@ -1,4 +1,10 @@
 ﻿# Changelog
+### Version 1.3.0.0 (2021-03-07)
++ Focusing windows now uses window titles instead of process names
++ Fixed a bug when sending an empty message
++ Improved usability
+  + If a message could not be sent, the message is preserved
++ Updated Copyright claims
 ### Version 1.2.4.0 (2020-06-20)
 + Improved usability
   + Clear button will focus the Case number textbox

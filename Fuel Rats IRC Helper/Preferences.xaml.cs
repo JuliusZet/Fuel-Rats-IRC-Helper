@@ -3,7 +3,7 @@
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
- *   Copyright © 2020 Julius Zitzmann. All rights reserved.
+ *   Copyright © 2021 Julius Zitzmann. All rights reserved.
  *
  *   Feature requests, bug reports or questions?
  *   info@julius-zitzmann.de
@@ -11,9 +11,6 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,39 +22,11 @@ namespace Fuel_Rats_IRC_Helper
     public partial class Preferences : Window
     {
         private Settings _Settings;
-        private Process[] _Process;
-        private List<string> _ForegroundProcessName;
 
         public Preferences()
         {
             _Settings = new Settings();
-            refreshForegroundProcessNameList();
             InitializeComponent();
-        }
-
-        private void refreshForegroundProcessNameList()
-        {
-            _Process = Process.GetProcesses();
-            _ForegroundProcessName = new List<string>();
-            _ForegroundProcessName.Add("");
-
-            for (int i = 0; i < _Process.Length; ++i)
-            {
-                if (_Process.ElementAt(i).MainWindowTitle != "")
-                {
-                    _ForegroundProcessName.Add(_Process.ElementAt(i).ProcessName);
-                }
-            }
-
-            if (_Settings.Get("processNameIrcClient") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameIrcClient")))
-            {
-                _ForegroundProcessName.Add(_Settings.Get("processNameIrcClient"));
-            }
-
-            if (_Settings.Get("processNameEliteDangerous") != "" && !_ForegroundProcessName.Contains(_Settings.Get("processNameEliteDangerous")))
-            {
-                _ForegroundProcessName.Add(_Settings.Get("processNameEliteDangerous"));
-            }
         }
 
         private void checkboxCheckForUpdatesOnStartup_Loaded(object sender, RoutedEventArgs e)
@@ -78,42 +47,34 @@ namespace Fuel_Rats_IRC_Helper
             _Settings.Set("checkForUpdatesOnStartup", "no");
         }
 
-        private void comboboxProcessNameIrcClient_Loaded(object sender, RoutedEventArgs e)
+        private void textboxWindowTitleIrcClient_Loaded(object sender, RoutedEventArgs e)
         {
-            comboboxProcessNameIrcClient.ItemsSource = _ForegroundProcessName;
-            comboboxProcessNameIrcClient.SelectedItem = _Settings.Get("processNameIrcClient");
+            textboxWindowTitleIrcClient.Text = _Settings.Get("windowTitleIrcClient");
+
+            if (textboxWindowTitleIrcClient.Text == "")
+            {
+                textboxWindowTitleIrcClient.Text = "#fuelrats";
+            }
         }
 
-        private void comboboxProcessNameIrcClient_DropDownOpened(object sender, System.EventArgs e)
+        private void textboxWindowTitleIrcClient_TextChanged(object sender, TextChangedEventArgs e)
         {
-            refreshForegroundProcessNameList();
-
-            comboboxProcessNameIrcClient.ItemsSource = _ForegroundProcessName;
-            comboboxProcessNameIrcClient.SelectedItem = _Settings.Get("processNameIrcClient");
+            _Settings.Set("windowTitleIrcClient", textboxWindowTitleIrcClient.Text);
         }
 
-        private void comboboxProcessNameIrcClient_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void textboxWindowTitleEliteDangerous_Loaded(object sender, RoutedEventArgs e)
         {
-            _Settings.Set("processNameIrcClient", _ForegroundProcessName.ElementAt(comboboxProcessNameIrcClient.SelectedIndex));
+            textboxWindowTitleEliteDangerous.Text = _Settings.Get("windowTitleEliteDangerous");
+
+            if (textboxWindowTitleEliteDangerous.Text == "")
+            {
+                textboxWindowTitleEliteDangerous.Text = "Elite - Dangerous (CLIENT)";
+            }
         }
 
-        private void comboboxProcessNameEliteDangerous_Loaded(object sender, RoutedEventArgs e)
+        private void textboxWindowTitleEliteDangerous_TextChanged(object sender, TextChangedEventArgs e)
         {
-            comboboxProcessNameEliteDangerous.ItemsSource = _ForegroundProcessName;
-            comboboxProcessNameEliteDangerous.SelectedItem = _Settings.Get("processNameEliteDangerous");
-        }
-
-        private void comboboxProcessNameEliteDangerous_DropDownOpened(object sender, System.EventArgs e)
-        {
-            refreshForegroundProcessNameList();
-
-            comboboxProcessNameEliteDangerous.ItemsSource = _ForegroundProcessName;
-            comboboxProcessNameEliteDangerous.SelectedItem = _Settings.Get("processNameEliteDangerous");
-        }
-
-        private void comboboxProcessNameEliteDangerous_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _Settings.Set("processNameEliteDangerous", _ForegroundProcessName.ElementAt(comboboxProcessNameEliteDangerous.SelectedIndex));
+            _Settings.Set("windowTitleEliteDangerous", textboxWindowTitleEliteDangerous.Text);
         }
 
         private void radiobuttonCopyPaste_Loaded(object sender, RoutedEventArgs e)

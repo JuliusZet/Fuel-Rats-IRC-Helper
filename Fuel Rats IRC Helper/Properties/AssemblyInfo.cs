@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Fuel Rats IRC Helper")]
-[assembly: AssemblyCopyright("Copyright © 2020 Julius Zitzmann")]
+[assembly: AssemblyCopyright("Copyright © 2021 Julius Zitzmann")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

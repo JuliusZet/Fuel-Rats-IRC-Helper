@@ -3,7 +3,7 @@
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
- *   Copyright © 2020 Julius Zitzmann. All rights reserved.
+ *   Copyright © 2021 Julius Zitzmann. All rights reserved.
  *
  *   Feature requests, bug reports or questions?
  *   info@julius-zitzmann.de
@@ -13,10 +13,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using Win32Interop.WinHandles;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -199,137 +199,140 @@ namespace Fuel_Rats_IRC_Helper
         // Returns:
         //   Error code:
         //     0: Everything went ok
-        //     1: Process names of the IRC client and/or Elite Dangerous not specified in preferences
-        //     2: IRC client process not found
-        //     3: Multiple IRC client processes found
-        //     4: IRC helper process not found (How would that even happen? I don't know. :D Why did I put this in here? I don't know. XD)
-        //     5: Multiple IRC helper processes found
-        //     6: Elite Dangerous process not found
-        //     7: Multiple Elite Dangerous processes found
+        //     1: Window titles of the IRC client and/or Elite Dangerous not specified in preferences
+        //     2: IRC client window not found
+        //     3: Multiple IRC client windows found
+        //     4: IRC helper window not found (How would that even happen? I don't know. :D Why did I put this in here? I don't know. XD)
+        //     5: Multiple IRC helper windows found
+        //     6: Elite Dangerous window not found
+        //     7: Multiple Elite Dangerous windows found
         public int Send(string message)
         {
-            string processNameIrcClient = _Settings.Get("processNameIrcClient");
-            string processNameIrcHelper = "Fuel Rats IRC Helper";
-            string processNameEliteDangerous = _Settings.Get("processNameEliteDangerous");
+            string windowTitleIrcClient = _Settings.Get("windowTitleIrcClient");
+            string windowTitleIrcHelper = "Fuel Rats - IRC Helper";
+            string windowTitleEliteDangerous = _Settings.Get("windowTitleEliteDangerous");
 
-            if (processNameIrcClient == "" && processNameEliteDangerous == "")
+            if (windowTitleIrcClient == "" && windowTitleEliteDangerous == "")
             {
-                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to select your IRC client and Elite Dangerous process names.", "Error");
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to specify your IRC client and Elite Dangerous window titles.", "Error");
                 return 1;
             }
 
-            else if (processNameIrcClient == "")
+            else if (windowTitleIrcClient == "")
             {
-                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to select your IRC client process name.", "Error");
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to specify your IRC client window title.", "Error");
                 return 1;
             }
 
-            else if (processNameEliteDangerous == "")
+            else if (windowTitleEliteDangerous == "")
             {
-                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to select your Elite Dangerous process name.", "Error");
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to specify your Elite Dangerous window title.", "Error");
                 return 1;
             }
 
-            Process[] processIrcClient = Process.GetProcessesByName(processNameIrcClient);
-            Process[] processIrcHelper = Process.GetProcessesByName(processNameIrcHelper);
-            Process[] processEliteDangerous = Process.GetProcessesByName(processNameEliteDangerous);
-
-            if (processIrcClient.Length == 0)
+            IEnumerable<WindowHandle> windowIrcClient = TopLevelWindowUtils.FindWindows(wh => wh.GetWindowText().Contains(windowTitleIrcClient));
+            IEnumerable<WindowHandle> windowIrcHelper = TopLevelWindowUtils.FindWindows(wh => wh.GetWindowText().Contains(windowTitleIrcHelper));
+            IEnumerable<WindowHandle> windowEliteDangerous = TopLevelWindowUtils.FindWindows(wh => wh.GetWindowText().Contains(windowTitleEliteDangerous));
+            
+            if (windowIrcClient.Count() == 0)
             {
-                MessageBox.Show("Your message could not be sent! There is no process called \"" + processNameIrcClient + "\"! Please open \"" + processNameIrcClient + "\" and try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There is no window whose title contains \"" + windowTitleIrcClient + "\"! Please open your IRC client or go to Settings -> Preferences -> Behaviour to specify your IRC client window title. Then try again.", "Error");
                 return 2;
             }
 
-            else if (processIrcClient.Length > 1)
+            else if (windowIrcClient.Count() > 1)
             {
-                MessageBox.Show("Your message could not be sent! There are more than one processes called \"" + processNameIrcClient + "\"! Please make sure there is only one process called \"" + processNameIrcClient + "\" and try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleIrcClient + "\"! Please make sure there is only one window whose title contains \"" + windowTitleIrcClient + "\" or go to Settings -> Preferences -> Behaviour to specify your IRC client window title. Then try again.", "Error");
                 return 3;
             }
 
-            if (processIrcHelper.Length == 0)
+            if (windowIrcHelper.Count() == 0)
             {
-                MessageBox.Show("Your message could not be sent! There is no process called \"" + processNameIrcHelper + "\"! Please open \"" + processNameIrcHelper + "\" and try again.", "Error");
+                MessageBox.Show("I don't know how you managed to trigger this error message, but your message could not be sent, because there is no window whose title contains \"" + windowTitleIrcHelper + "\"! Please try again.", "Error");
                 return 4;
             }
 
-            else if (processIrcHelper.Length > 1)
+            else if (windowIrcHelper.Count() > 1)
             {
-                MessageBox.Show("Your message could not be sent! There are more than one processes called \"" + processNameIrcHelper + "\"! Please make sure there is only one process called \"" + processNameIrcHelper + "\" and try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleIrcHelper + "\"! Please make sure there is only one window whose title contains \"" + windowTitleIrcHelper + "\" and try again.", "Error");
                 return 5;
             }
 
-            if (processEliteDangerous.Length == 0)
+            if (windowEliteDangerous.Count() == 0)
             {
-                MessageBox.Show("Your message could not be sent! There is no process called \"" + processNameEliteDangerous + "\"! Please open \"" + processNameEliteDangerous + "\" and try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There is no window whose title contains \"" + windowTitleEliteDangerous + "\"! Please launch Elite Dangerous or go to Settings -> Preferences -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
                 return 6;
             }
 
-            else if (processEliteDangerous.Length > 1)
+            else if (windowEliteDangerous.Count() > 1)
             {
-                MessageBox.Show("Your message could not be sent! There are more than one processes called \"" + processNameEliteDangerous + "\"! Please make sure there is only one process called \"" + processNameEliteDangerous + "\" and try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleEliteDangerous + "\"! Please make sure there is only one instance of the game running or go to Settings -> Preferences -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
                 return 7;
             }
 
-            SetForegroundWindow(processIrcClient.ElementAt(0).MainWindowHandle);
-
-            if (_Settings.Get("messageInsertionMode") == "sendKeys")
+            SetForegroundWindow(windowIrcClient.ElementAt(0).RawPtr);
+            
+            if (message != "")
             {
-
-                // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
-                string newMessage = "";
-                for (int i = 0; i < message.Length; ++i)
+                if (_Settings.Get("messageInsertionMode") == "sendKeys")
                 {
-                    switch (message.ElementAt(i))
+
+                    // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
+                    string newMessage = "";
+                    for (int i = 0; i < message.Length; ++i)
                     {
-                        case '+':
-                        case '^':
-                        case '%':
-                        case '~':
-                        case '(':
-                        case ')':
-                        case '[':
-                        case ']':
-                        case '{':
-                        case '}':
-                            newMessage += '{';
-                            newMessage += message.ElementAt(i);
-                            newMessage += '}';
-                            break;
-                        default:
-                            newMessage += message.ElementAt(i);
-                            break;
+                        switch (message.ElementAt(i))
+                        {
+                            case '+':
+                            case '^':
+                            case '%':
+                            case '~':
+                            case '(':
+                            case ')':
+                            case '[':
+                            case ']':
+                            case '{':
+                            case '}':
+                                newMessage += '{';
+                                newMessage += message.ElementAt(i);
+                                newMessage += '}';
+                                break;
+                            default:
+                                newMessage += message.ElementAt(i);
+                                break;
+                        }
                     }
+
+                    System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
                 }
 
-                System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
-            }
-
-            else
-            {
-                if (Clipboard.ContainsText() == true)
-                {
-                    string clipboardBackup = Clipboard.GetText();
-                    Clipboard.SetText(message);
-                    System.Windows.Forms.SendKeys.SendWait("^{v}");
-                    Thread.Sleep(10 + message.Length / 5);
-                    System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-                    Clipboard.SetText(clipboardBackup);
-                }
-                
                 else
                 {
-                    IDataObject clipboardBackup = Clipboard.GetDataObject();
-                    Clipboard.SetText(message);
-                    System.Windows.Forms.SendKeys.SendWait("^{v}");
-                    Thread.Sleep(10 + message.Length / 5);
-                    System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-                    Clipboard.SetDataObject(clipboardBackup);
+                    if (Clipboard.ContainsText() == true)
+                    {
+                        string clipboardBackup = Clipboard.GetText();
+                        Clipboard.SetText(message);
+                        System.Windows.Forms.SendKeys.SendWait("^{v}");
+                        Thread.Sleep(10 + message.Length / 5);
+                        System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                        Clipboard.SetText(clipboardBackup);
+                    }
+                
+                    else
+                    {
+                        IDataObject clipboardBackup = Clipboard.GetDataObject();
+                        Clipboard.SetText(message);
+                        System.Windows.Forms.SendKeys.SendWait("^{v}");
+                        Thread.Sleep(10 + message.Length / 5);
+                        System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                        Clipboard.SetDataObject(clipboardBackup);
+                    }
                 }
             }
 
-            SetForegroundWindow(processIrcHelper.ElementAt(0).MainWindowHandle);
-            SetForegroundWindow(processEliteDangerous.ElementAt(0).MainWindowHandle);
-
+            SetForegroundWindow(windowIrcHelper.ElementAt(0).RawPtr);
+            SetForegroundWindow(windowEliteDangerous.ElementAt(0).RawPtr);
+            
             return 0;
         }
     }
