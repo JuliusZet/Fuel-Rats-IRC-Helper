@@ -53,6 +53,11 @@ namespace Fuel_Rats_IRC_Helper
                 _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
                 _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
 
+                if (_SettingsKeyValueConfigurationCollection[key] == null)
+                {
+                    ResetToDefault(key);
+                }
+
                 if (_SettingsKeyValueConfigurationCollection[key] != null)
                 {
                     return _SettingsKeyValueConfigurationCollection[key].Value;
@@ -60,6 +65,7 @@ namespace Fuel_Rats_IRC_Helper
 
                 else
                 {
+                    MessageBox.Show("Could not find \"" + key + "\" in the configuration file and there is also no default value available.", "Error");
                     return "";
                 }
             }
@@ -69,6 +75,11 @@ namespace Fuel_Rats_IRC_Helper
                 _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
 
+                if (_AppKeyValueConfigurationCollection[key] == null)
+                {
+                    ResetToDefault(key);
+                }
+
                 if (_AppKeyValueConfigurationCollection[key] != null)
                 {
                     return _AppKeyValueConfigurationCollection[key].Value;
@@ -76,6 +87,7 @@ namespace Fuel_Rats_IRC_Helper
 
                 else
                 {
+                    MessageBox.Show("Could not find \"" + key + "\" in the configuration file and there is also no default value available.", "Error");
                     return "";
                 }
             }
@@ -139,6 +151,38 @@ namespace Fuel_Rats_IRC_Helper
             {
                 MessageBox.Show("Could not write to the configuration file.", "Error");
                 return 1;
+            }
+        }
+
+        //
+        // Summary:
+        //   Resets the value of an existing or non-existing key to the default value
+        //
+        // Parameters:
+        //   key:
+        //     key that should be added or key to the value that should be reset to its default
+        //
+        // Returns:
+        //   Error code:
+        //     0: Everything went ok
+        //     1: There was an error writing to the configuration file
+        //     2: There is no default value for this key
+        public int ResetToDefault(string key)
+        {
+            switch (key)
+            {
+                case "checkForUpdatesOnStartup":
+                    return Set("checkForUpdatesOnStartup", "yes");
+                case "messageInsertionMode":
+                    return Set("messageInsertionMode", "copyPaste");
+                case "showChangelogOnStartup":
+                    return Set("showChangelogOnStartup", "yes");
+                case "windowTitleEliteDangerous":
+                    return Set("windowTitleEliteDangerous", "Elite - Dangerous (CLIENT)");
+                case "windowTitleIrcClient":
+                    return Set("windowTitleIrcClient", "#fuelrats");
+                default:
+                    return 2;
             }
         }
     }

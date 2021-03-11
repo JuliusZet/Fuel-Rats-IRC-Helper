@@ -1,4 +1,9 @@
 ﻿# Changelog
+### Version 1.3.1.0 (2021-03-11)
++ Added "Reset to default" buttons in Settings -> Preferences -> Behaviour
++ Imporoved some messages (for example "#0 in open" now outputs "#0 client in open")
++ Focusing the Case number textbox will no longer clear it
++ Improved reading of configuration files
 ### Version 1.3.0.0 (2021-03-07)
 + Focusing windows now uses window titles instead of process names
 + Fixed a bug when sending an empty message

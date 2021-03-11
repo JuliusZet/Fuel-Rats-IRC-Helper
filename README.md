@@ -6,8 +6,8 @@ Facilitating the use of the Fuel Rats IRC
 + Generates messages and sends them to your IRC client of choice
 + Assists you at following the Standard Operating Procedure
 + Colorizes already sent messages
-<img src="https://i.imgur.com/HqfA8yV.png">
-<img src="https://i.imgur.com/KI3lEYw.png">
+<img src="https://i.imgur.com/tqfqlnT.png">
+<img src="https://i.imgur.com/VDWY0yg.png">
 
 ## Install
 + Download the setup.exe file from <a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">here</a>

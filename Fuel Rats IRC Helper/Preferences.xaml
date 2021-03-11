@@ -60,9 +60,11 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="1. Focus the IRC client window whose title contains"/>
                             <TextBox x:Name="textboxWindowTitleIrcClient" Grid.Column="1" Loaded="textboxWindowTitleIrcClient_Loaded" TextChanged="textboxWindowTitleIrcClient_TextChanged"/>
+                            <Button x:Name="buttonWindowTitleIrcClientResetToDefault" Grid.Column="2" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonWindowTitleIrcClientResetToDefault_Click"/>
                         </Grid>
                         <Label Grid.Row="3" Content="2. Insert the message from the textbox &quot;Your message&quot;" Margin="40,0,0,0"/>
                         <Label Grid.Row="4" Content="3. Press the return key" Margin="40,0,0,0"/>
@@ -71,9 +73,11 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Content="5. Focus the Elite Dangerous window whose title contains"/>
                             <TextBox x:Name="textboxWindowTitleEliteDangerous" Grid.Column="1" Loaded="textboxWindowTitleEliteDangerous_Loaded" TextChanged="textboxWindowTitleEliteDangerous_TextChanged"/>
+                            <Button x:Name="buttonWindowTitleEliteDangerousResetToDefault" Grid.Column="2" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonWindowTitleEliteDangerousResetToDefault_Click"/>
                         </Grid>
                         <Label Grid.Row="7" Content=""/>
                         <Label Grid.Row="8" Content="Message insertion method:" FontWeight="Bold" Margin="20,0,0,0"/>

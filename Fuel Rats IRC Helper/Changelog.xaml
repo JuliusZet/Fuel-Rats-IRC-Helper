@@ -35,6 +35,18 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.3.1.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-03-11"/>
+                    <LineBreak/>
+                    <Run Text="+ Added &quot;Reset to default&quot; buttons in Settings -> Preferences -> Behaviour"/>
+                    <LineBreak/>
+                    <Run Text="* Imporoved some messages (for example &quot;#0 in open&quot; now outputs &quot;#0 client in open&quot;)"/>
+                    <LineBreak/>
+                    <Run Text="* Focusing the Case number textbox will no longer clear it"/>
+                    <LineBreak/>
+                    <Run Text="* Improved reading of configuration files"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.3.0.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-03-07"/>
                     <LineBreak/>

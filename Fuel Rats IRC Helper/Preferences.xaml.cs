@@ -50,11 +50,6 @@ namespace Fuel_Rats_IRC_Helper
         private void textboxWindowTitleIrcClient_Loaded(object sender, RoutedEventArgs e)
         {
             textboxWindowTitleIrcClient.Text = _Settings.Get("windowTitleIrcClient");
-
-            if (textboxWindowTitleIrcClient.Text == "")
-            {
-                textboxWindowTitleIrcClient.Text = "#fuelrats";
-            }
         }
 
         private void textboxWindowTitleIrcClient_TextChanged(object sender, TextChangedEventArgs e)
@@ -62,14 +57,15 @@ namespace Fuel_Rats_IRC_Helper
             _Settings.Set("windowTitleIrcClient", textboxWindowTitleIrcClient.Text);
         }
 
+        private void buttonWindowTitleIrcClientResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            _Settings.ResetToDefault("windowTitleIrcClient");
+            textboxWindowTitleIrcClient.Text = _Settings.Get("windowTitleIrcClient");
+        }
+
         private void textboxWindowTitleEliteDangerous_Loaded(object sender, RoutedEventArgs e)
         {
             textboxWindowTitleEliteDangerous.Text = _Settings.Get("windowTitleEliteDangerous");
-
-            if (textboxWindowTitleEliteDangerous.Text == "")
-            {
-                textboxWindowTitleEliteDangerous.Text = "Elite - Dangerous (CLIENT)";
-            }
         }
 
         private void textboxWindowTitleEliteDangerous_TextChanged(object sender, TextChangedEventArgs e)
@@ -77,9 +73,15 @@ namespace Fuel_Rats_IRC_Helper
             _Settings.Set("windowTitleEliteDangerous", textboxWindowTitleEliteDangerous.Text);
         }
 
+        private void buttonWindowTitleEliteDangerousResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            _Settings.ResetToDefault("windowTitleEliteDangerous");
+            textboxWindowTitleEliteDangerous.Text = _Settings.Get("windowTitleEliteDangerous");
+        }
+
         private void radiobuttonCopyPaste_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_Settings.Get("messageInsertionMode") == "copyPaste" || _Settings.Get("messageInsertionMode") == "")
+            if (_Settings.Get("messageInsertionMode") == "copyPaste")
             {
                 radiobuttonCopyPaste.IsChecked = true;
             }

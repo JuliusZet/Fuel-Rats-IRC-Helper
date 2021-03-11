@@ -334,11 +334,6 @@ namespace Fuel_Rats_IRC_Helper
             textboxCasenumber.Clear();
         }
 
-        private void textboxCasenumber_GotFocus(object sender, RoutedEventArgs e)
-        {
-            textboxCasenumber.Clear();
-        }
-
         private void textboxCasenumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (textboxCasenumber.Text != "")
@@ -529,7 +524,7 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonInOpen_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            _Message.Replace("OnlineStatus", "in open");
+            _Message.Replace("OnlineStatus", "client in open");
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -541,7 +536,7 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonInPg_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            _Message.Replace("OnlineStatus", "in pg");
+            _Message.Replace("OnlineStatus", "client in pg");
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -553,7 +548,7 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonInSolo_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            _Message.Replace("OnlineStatus", "in solo");
+            _Message.Replace("OnlineStatus", "client in solo");
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -565,7 +560,7 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonInMm_Checked(object sender, RoutedEventArgs e)
         {
             checkboxOnlineStatus.IsChecked = true;
-            _Message.Replace("OnlineStatus", "in mm");
+            _Message.Replace("OnlineStatus", "client in mm");
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -608,7 +603,14 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxSysconf.IsChecked = true;
             textboxSysconfMinus.Focus();
-            _Message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
+            if (radiobuttonInOpen.IsChecked == true)
+            {
+                _Message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
+            }
+            else
+            {
+                _Message.Replace("Sysconf", "client in " + textboxSysconfMinus.Text);
+            }
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -622,7 +624,14 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxSysconfMinus.Text != "")
             {
                 radiobuttonSysconfMinus.IsChecked = true;
-                _Message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
+                if (radiobuttonInOpen.IsChecked == true)
+                {
+                    _Message.Replace("Sysconf", "in " + textboxSysconfMinus.Text);
+                }
+                else
+                {
+                    _Message.Replace("Sysconf", "client in " + textboxSysconfMinus.Text);
+                }
                 textboxMessage.Text = _Message.Generate();
             }
 
@@ -745,7 +754,7 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonNoJumps_Checked(object sender, RoutedEventArgs e)
         {
             checkboxNavcheck.IsChecked = true;
-            _Message.Replace("Navcheck", "navcheck: can not jump");
+            _Message.Replace("Navcheck", "navcheck: client can not jump");
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -758,7 +767,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxNavcheck.IsChecked = true;
             textboxHasJumps.Focus();
-            _Message.Replace("Navcheck", "navcheck: can jump " + textboxHasJumps.Text + " ly");
+            _Message.Replace("Navcheck", "navcheck: client can jump " + textboxHasJumps.Text + " ly");
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -772,7 +781,7 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxHasJumps.Text != "")
             {
                 radiobuttonHasJumps.IsChecked = true;
-                _Message.Replace("Navcheck", "navcheck: can jump " + textboxHasJumps.Text + " ly");
+                _Message.Replace("Navcheck", "navcheck: client can jump " + textboxHasJumps.Text + " ly");
                 textboxMessage.Text = _Message.Generate();
             }
 
@@ -901,7 +910,7 @@ namespace Fuel_Rats_IRC_Helper
             checkboxClientPos.IsChecked = true;
             textboxDistance.Focus();
             comboboxDistanceUnit.SelectedItem = "ls";
-            _Message.Replace("ClientPos", "in ez");
+            _Message.Replace("ClientPos", "client in ez");
             textboxMessage.Text = _Message.Generate();
         }
 
@@ -913,7 +922,7 @@ namespace Fuel_Rats_IRC_Helper
         private void radiobuttonInSc_Checked(object sender, RoutedEventArgs e)
         {
             checkboxClientPos.IsChecked = true;
-            _Message.Replace("ClientPos", "in sc");
+            _Message.Replace("ClientPos", "client in sc");
             textboxMessage.Text = _Message.Generate();
         }
 
