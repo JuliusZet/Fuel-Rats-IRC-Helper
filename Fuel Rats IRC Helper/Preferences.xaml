@@ -81,7 +81,6 @@
                         </Grid>
                         <Label Grid.Row="7" Content=""/>
                         <Label Grid.Row="8" Content="Message insertion method:" FontWeight="Bold" Margin="20,0,0,0"/>
-                        <Label Grid.Row="9" Content=""/>
                         <RadioButton x:Name="radiobuttonCopyPaste" Grid.Row="9" GroupName="messageInsertionMode" HorizontalAlignment="Left" Margin="40,0,0,5" Loaded="radiobuttonCopyPaste_Loaded" Checked="radiobuttonCopyPaste_Checked">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -128,6 +127,60 @@
                                 </Grid>
                             </Grid>
                         </RadioButton>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="IRC">
+                <ScrollViewer>
+                    <Grid Margin="10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" Grid.Row="0" Content="IRC" FontWeight="Bold" FontSize="16"/>
+                        <Label Grid.Column="0" Grid.Row="1" Content="Address:" Margin="20,0,0,5"/>
+                        <TextBox x:Name="textboxIrcAddress" Grid.Column="1" Grid.Row="1" Margin="0,0,0,5" Loaded="textboxIrcAddress_Loaded" TextChanged="textboxIrcAddress_TextChanged"/>
+                        <Button x:Name="buttonIrcAddressResetToDefault" Grid.Column="2" Grid.Row="1" Content="Reset to default" Margin="5,0,0,5" Padding="10,0" Click="buttonIrcAddressResetToDefault_Click"/>
+                        <Label Grid.Column="0" Grid.Row="2" Content="Port:" Margin="20,0,0,5"/>
+                        <TextBox x:Name="textboxIrcPort" Grid.Column="1" Grid.Row="2" Margin="0,0,0,5" Loaded="textboxIrcPort_Loaded" TextChanged="textboxIrcPort_TextChanged"/>
+                        <Button x:Name="buttonIrcPortResetToDefault" Grid.Column="2" Grid.Row="2" Content="Reset to default" Margin="5,0,0,5" Padding="10,0" Click="buttonIrcPortResetToDefault_Click"/>
+                        <Label Grid.Column="0" Grid.Row="3" Content="Nickname:" Margin="20,0,0,0"/>
+                        <TextBox x:Name="textboxIrcNick" Grid.Column="1" Grid.Row="3" Loaded="textboxIrcNick_Loaded" TextChanged="textboxIrcNick_TextChanged"/>
+                        <Button x:Name="buttonIrcNickResetToDefault" Grid.Column="2" Grid.Row="3" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonIrcNickResetToDefault_Click"/>
+                        <Label Grid.Column="1" Grid.Row="4" Content="Remember to register this nickname before you connect." Margin="10,0,0,5" Padding="5,0,5,5"/>
+                        <Label Grid.Column="0" Grid.Row="5" Content="Realname:" Margin="20,0,0,5"/>
+                        <TextBox x:Name="textboxIrcRealname" Grid.Column="1" Grid.Row="5" Margin="0,0,0,5" Loaded="textboxIrcRealname_Loaded" TextChanged="textboxIrcRealname_TextChanged"/>
+                        <Button x:Name="buttonIrcRealnameResetToDefault" Grid.Column="2" Grid.Row="5" Content="Reset to default" Margin="5,0,0,5" Padding="10,0" Click="buttonIrcRealnameResetToDefault_Click"/>
+                        <Label Grid.Column="0" Grid.Row="6" Content="Password:" Margin="20,0,0,5"/>
+                        <PasswordBox x:Name="passwordboxIrcPassword" Grid.Column="1" Grid.Row="6" Margin="0,0,0,5" Loaded="passwordboxIrcPassword_Loaded" PasswordChanged="passwordboxIrcPassword_PasswordChanged"/>
+                        <Button x:Name="buttonIrcPasswordResetToDefault" Grid.Column="2" Grid.Row="6" Content="Reset to default" Margin="5,0,0,5" Padding="10,0" Click="buttonIrcPasswordResetToDefault_Click"/>
+                        <Label Grid.Column="0" Grid.Row="7" Content="Channel:" Margin="20,0,0,5"/>
+                        <TextBox x:Name="textboxIrcChannel" Grid.Column="1" Grid.Row="7" Margin="0,0,0,5" Loaded="textboxIrcChannel_Loaded" TextChanged="textboxIrcChannel_TextChanged"/>
+                        <Button x:Name="buttonIrcChannelResetToDefault" Grid.Column="2" Grid.Row="7" Content="Reset to default" Margin="5,0,0,5" Padding="10,0" Click="buttonIrcChannelResetToDefault_Click"/>
+                        <Label Grid.Column="0" Grid.Row="8" Content="Timestamp format:" Margin="20,0,0,0"/>
+                        <Grid Grid.Column="1" Grid.Row="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="textboxTimestampFormat" Grid.Column="0" Loaded="textboxTimestampFormat_Loaded" TextChanged="textboxTimestampFormat_TextChanged"/>
+                            <Button x:Name="buttonTimestampFormatHelp" Grid.Column="1" Content="?" Padding="10,0" Click="buttonTimestampFormatHelp_Click"/>
+                        </Grid>
+                        <Button x:Name="buttonTimestampFormatResetToDefault" Grid.Column="2" Grid.Row="8" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonTimestampFormatResetToDefault_Click"/>
+                        <Label x:Name="labelTimestampFormatExample" Grid.Column="1" Grid.Row="9" Content="Example: 2009-06-01T13:45:30Z will be displayed as " Margin="10,0,0,5" Padding="5,0,5,5"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

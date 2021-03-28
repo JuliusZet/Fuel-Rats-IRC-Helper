@@ -18,16 +18,15 @@ namespace Fuel_Rats_IRC_Helper
 		private string _Name;
 		private string _Text;
 
-		public MessagePart()
-		{
-			Name = "";
-			Text = "";
-		}
-
 		public MessagePart(string name, string text)
 		{
 			Name = name;
 			Text = text;
+		}
+
+		public MessagePart() : this("", "")
+		{
+
 		}
 
 		public string Name

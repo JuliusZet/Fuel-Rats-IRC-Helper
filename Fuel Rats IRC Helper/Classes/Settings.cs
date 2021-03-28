@@ -173,10 +173,24 @@ namespace Fuel_Rats_IRC_Helper
             {
                 case "checkForUpdatesOnStartup":
                     return Set("checkForUpdatesOnStartup", "yes");
+                case "ircAddress":
+                    return Set("ircAddress", "irc.fuelrats.com");
+                case "ircChannel":
+                    return Set("ircChannel", "#fuelrats");
+                case "ircNick":
+                    return Set("ircNick", "IRC-Helper_myNickname");
+                case "ircPassword":
+                    return Set("ircPassword", "myPassword");
+                case "ircPort":
+                    return Set("ircPort", "6697");
+                case "ircRealname":
+                    return Set("ircRealname", "myRealname");
                 case "messageInsertionMode":
                     return Set("messageInsertionMode", "copyPaste");
                 case "showChangelogOnStartup":
                     return Set("showChangelogOnStartup", "yes");
+                case "timestampFormat":
+                    return Set("timestampFormat", "HH:mm:ss");
                 case "windowTitleEliteDangerous":
                     return Set("windowTitleEliteDangerous", "Elite - Dangerous (CLIENT)");
                 case "windowTitleIrcClient":

@@ -30,10 +30,27 @@
                 </DrawingImage.Drawing>
             </DrawingImage>
             <Style TargetType="CheckBox">
-                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
             <Style TargetType="ComboBox">
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="DataGrid">
+                <Setter Property="AutoGenerateColumns" Value="False"/>
+                <Setter Property="Background" Value="#BFFFFFFF"/>
+                <Setter Property="CanUserReorderColumns" Value="False"/>
+                <Setter Property="CanUserResizeRows" Value="False"/>
+                <Setter Property="CanUserSortColumns" Value="False"/>
+                <Setter Property="GridLinesVisibility" Value="Vertical"/>
+                <Setter Property="HeadersVisibility" Value="Column"/>
+                <Setter Property="IsReadOnly" Value="True"/>
+                <Setter Property="RowBackground" Value="Transparent"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="PasswordBox">
+                <Setter Property="Background" Value="#BFFFFFFF"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
             <Style TargetType="RadioButton">
@@ -41,6 +58,7 @@
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
             <Style TargetType="ScrollViewer">
+                <Setter Property="CanContentScroll" Value="False"/>
                 <Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             </Style>
@@ -49,6 +67,7 @@
                 <Setter Property="TabStripPlacement" Value="Left"/>
             </Style>
             <Style TargetType="TextBox">
+                <Setter Property="Background" Value="#BFFFFFFF"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
         </ResourceDictionary>

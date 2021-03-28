@@ -73,6 +73,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Meebey.SmartIrc4net, Version=0.4.5.0, Culture=neutral, PublicKeyToken=7868485fbf407e0f, processorArchitecture=MSIL">
+      <HintPath>..\packages\SmartIrc4net.1.1\lib\Meebey.SmartIrc4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -99,11 +102,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Case.xaml.cs">
+      <DependentUpon>Case.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\IrcMessage.cs" />
+    <Compile Include="Classes\Irc.cs" />
+    <Compile Include="Classes\Rat.cs" />
     <Compile Include="Preferences.xaml.cs">
       <DependentUpon>Preferences.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Settings.cs" />
     <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Case.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,7 +20,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="Fuel Rats - IRC Helper" Height="520" Width="800" Loaded="Window_Loaded">
+        Title="Fuel Rats - IRC Helper" Height="530" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -28,6 +28,8 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="_Fuel Rats IRC Helper">
+                <MenuItem x:Name="menuitemConnectToIrc" Header="_Connect to IRC" Click="menuitemConnectToIrc_Click"/>
+                <MenuItem x:Name="menuitemDisconnectFromIrc" Header="_Disconnect from IRC" Click="menuitemDisconnectFromIrc_Click"/>
                 <MenuItem x:Name="menuitemClose" Header="_Close" Click="menuitemClose_Click"/>
             </MenuItem>
             <MenuItem Header="_Settings">
@@ -42,8 +44,8 @@
         <ScrollViewer Grid.Row="1">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
                     <RowDefinition/>
+                    <RowDefinition MaxHeight="110"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.Background>
@@ -55,14 +57,15 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <!-- Case number -->
                     <Grid Grid.Column="0" Grid.Row="0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -80,16 +83,17 @@
                             </Grid>
                         </GroupBox>
                     </Grid>
-                    <CheckBox x:Name="checkboxRgr" Grid.Column="1" Grid.Row="0" Margin="10,0" Checked="checkboxRgr_Checked" Unchecked="checkboxRgr_Unchecked">
-                        <GroupBox x:Name="groupboxRgr" Header="Acknowledgement">
-                            <Label Content="rgr"/>
-                        </GroupBox>
-                    </CheckBox>
-                    <CheckBox x:Name="checkboxRdy" Grid.Column="2" Grid.Row="0" Checked="checkboxRdy_Checked" Unchecked="checkboxRdy_Unchecked">
-                        <GroupBox x:Name="groupboxRdy" Header="Readiness confirmation">
-                            <Label Content="rdy"/>
-                        </GroupBox>
-                    </CheckBox>
+                    <!-- Acknowledgement -->
+                    <GroupBox x:Name="groupboxRgr" Grid.Column="1" Grid.Row="0" Margin="30,0,10,0" Header="Acknowledgement">
+                        <Label Content="rgr"/>
+                    </GroupBox>
+                    <CheckBox x:Name="checkboxRgr" Grid.Column="1" Grid.Row="0" Margin="10,0" Checked="checkboxRgr_Checked" Unchecked="checkboxRgr_Unchecked"/>
+                    <!-- Readiness confirmation -->
+                    <GroupBox x:Name="groupboxRdy" Grid.Column="2" Grid.Row="0" Margin="20,0,0,0" Header="Readiness confirmation">
+                        <Label Content="rdy"/>
+                    </GroupBox>
+                    <CheckBox x:Name="checkboxRdy" Grid.Column="2" Grid.Row="0" Checked="checkboxRdy_Checked" Unchecked="checkboxRdy_Unchecked"/>
+                    <!-- Jump callout -->
                     <Grid Grid.Column="0" Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -107,6 +111,7 @@
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Own position -->
                     <Grid Grid.Column="1" Grid.Row="1" Margin="10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -119,11 +124,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonSysPlus" Grid.Column="0" Content="sys+" GroupName="ownPos" Checked="radiobuttonSysPlus_Checked" Unchecked="radiobuttonSysPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonPosPlus" Grid.Column="1" Content="pos+" GroupName="ownPos" Checked="radiobuttonPosPlus_Checked" Unchecked="radiobuttonPosPlus_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonSysPlus" Grid.Column="0" Content="sys+" GroupName="ownPos" Checked="radiobuttonSysPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonPosPlus" Grid.Column="1" Content="pos+" GroupName="ownPos" Checked="radiobuttonPosPlus_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Friend request status -->
                     <Grid Grid.Column="0" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -136,18 +142,19 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonFrPlus" Grid.Column="0" Content="fr+" GroupName="fr" Checked="radiobuttonFrPlus_Checked" Unchecked="radiobuttonFrPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonFrMinus" Grid.Column="1" Content="fr-" GroupName="fr" Checked="radiobuttonFrMinus_Checked" Unchecked="radiobuttonFrMinus_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonFrPlus" Grid.Column="0" Content="fr+" GroupName="fr" Checked="radiobuttonFrPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonFrMinus" Grid.Column="1" Content="fr-" GroupName="fr" Checked="radiobuttonFrMinus_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Client online status -->
                     <Grid Grid.Column="1" Grid.Row="2" Margin="10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxOnlineStatus" Grid.Column="0" Content="" Checked="checkboxOnlineStatus_Checked" Unchecked="checkboxOnlineStatus_Unchecked"/>
-                        <GroupBox x:Name="groupboxOnlineStatus" Grid.Column="1" Header="Online status">
+                        <GroupBox x:Name="groupboxOnlineStatus" Grid.Column="1" Header="Client online status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
@@ -159,39 +166,35 @@
                                 </Grid.RowDefinitions>
                                 <Label Grid.Column="0" Grid.Row="0" Content=""/>
                                 <Label Grid.Column="0" Grid.Row="1" Content=""/>
-                                <RadioButton x:Name="radiobuttonInOpen" Grid.Column="0" Grid.Row="0" Content="in open" GroupName="onlinestatus" Checked="radiobuttonInOpen_Checked" Unchecked="radiobuttonInOpen_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonInPg" Grid.Column="1" Grid.Row="0" Content="in pg" GroupName="onlinestatus" Checked="radiobuttonInPg_Checked" Unchecked="radiobuttonInPg_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonInSolo" Grid.Column="0" Grid.Row="1" Content="in solo" GroupName="onlinestatus" Checked="radiobuttonInSolo_Checked" Unchecked="radiobuttonInSolo_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonInMm" Grid.Column="1" Grid.Row="1" Content="in mm" GroupName="onlinestatus" Checked="radiobuttonInMm_Checked" Unchecked="radiobuttonInMm_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonInOpen" Grid.Column="0" Grid.Row="0" Content="in open" GroupName="onlinestatus" Checked="radiobuttonInOpen_Checked"/>
+                                <RadioButton x:Name="radiobuttonInPg" Grid.Column="1" Grid.Row="0" Content="in pg" GroupName="onlinestatus" Checked="radiobuttonInPg_Checked"/>
+                                <RadioButton x:Name="radiobuttonInSolo" Grid.Column="0" Grid.Row="1" Content="in solo" GroupName="onlinestatus" Checked="radiobuttonInSolo_Checked"/>
+                                <RadioButton x:Name="radiobuttonInMm" Grid.Column="1" Grid.Row="1" Content="in mm" GroupName="onlinestatus" Checked="radiobuttonInMm_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- System confirmation / correction -->
                     <Grid Grid.Column="2" Grid.Row="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <CheckBox x:Name="checkboxSysconf" Grid.Column="0" Content="" Checked="checkboxSysconf_Checked" Unchecked="checkboxSysconf_Unchecked"/>
-                        <GroupBox x:Name="groupboxSysconf" Grid.Column="1" Header="System confirmation">
+                        <GroupBox x:Name="groupboxSysconf" Grid.Column="1" Header="System confirmation / correction">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonSysconfPlus" Grid.Column="0" Content="sysconf" GroupName="sysconf" Checked="radiobuttonSysconfPlus_Checked" Unchecked="radiobuttonSysconfPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonSysconfMinus" Grid.Column="1" GroupName="sysconf" Checked="radiobuttonSysconfMinus_Checked" Unchecked="radiobuttonSysconfMinus_Unchecked">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Content="in"/>
-                                        <TextBox x:Name="textboxSysconfMinus" Grid.Column="1" TextChanged="textboxSysconfMinus_TextChanged" KeyDown="textboxSysconfMinus_KeyDown"/>
-                                    </Grid>
+                                <RadioButton x:Name="radiobuttonSysconfPlus" Grid.Column="0" Content="sysconf" GroupName="sysconf" Checked="radiobuttonSysconfPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonSysconfMinus" Grid.Column="1" GroupName="sysconf" Checked="radiobuttonSysconfMinus_Checked">
+                                    <Label Content="syscorr:"/>
                                 </RadioButton>
+                                <TextBox x:Name="textboxSysconfMinus" Grid.Column="1" Margin="70,0,0,0" TextChanged="textboxSysconfMinus_TextChanged" KeyDown="textboxSysconfMinus_KeyDown"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Wing request status -->
                     <Grid Grid.Column="0" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -205,11 +208,12 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Content=""/>
-                                <RadioButton x:Name="radiobuttonWrPlus" Grid.Column="0" Content="wr+" GroupName="wr" Checked="radiobuttonWrPlus_Checked" Unchecked="radiobuttonWrPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonWrMinus" Grid.Column="1" Content="wr-" GroupName="wr" Checked="radiobuttonWrMinus_Checked" Unchecked="radiobuttonWrMinus_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonWrPlus" Grid.Column="0" Content="wr+" GroupName="wr" Checked="radiobuttonWrPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonWrMinus" Grid.Column="1" Content="wr-" GroupName="wr" Checked="radiobuttonWrMinus_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Preparation status -->
                     <Grid Grid.Column="1" Grid.Row="3" Margin="10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -222,11 +226,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonPrepPlus" Grid.Column="0" Content="prep+" GroupName="prep" Checked="radiobuttonPrepPlus_Checked" Unchecked="radiobuttonPrepPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonPrepMinus" Grid.Column="1" Content="prep-" GroupName="prep" Checked="radiobuttonPrepMinus_Checked" Unchecked="radiobuttonPrepMinus_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonPrepPlus" Grid.Column="0" Content="prep+" GroupName="prep" Checked="radiobuttonPrepPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonPrepMinus" Grid.Column="1" Content="prep-" GroupName="prep" Checked="radiobuttonPrepMinus_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Navigation panel check -->
                     <Grid Grid.Column="2" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -239,8 +244,8 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="2*"/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonNoJumps" Grid.Column="0" Content="can not jump" GroupName="navcheck" Checked="radiobuttonNoJumps_Checked" Unchecked="radiobuttonNoJumps_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonHasJumps" Grid.Column="1" GroupName="navcheck" Checked="radiobuttonHasJumps_Checked" Unchecked="radiobuttonHasJumps_Unchecked">
+                                <RadioButton x:Name="radiobuttonNoJumps" Grid.Column="0" Content="can not jump" GroupName="navcheck" Checked="radiobuttonNoJumps_Checked"/>
+                                <RadioButton x:Name="radiobuttonHasJumps" Grid.Column="1" GroupName="navcheck" Checked="radiobuttonHasJumps_Checked">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="auto"/>
@@ -248,13 +253,14 @@
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0" Content="can jump"/>
-                                        <TextBox x:Name="textboxHasJumps" Grid.Column="1" TextChanged="textboxHasJumps_TextChanged" KeyDown="textboxHasJumps_KeyDown"/>
                                         <Label Grid.Column="2" Content="ly"/>
                                     </Grid>
                                 </RadioButton>
+                                <TextBox x:Name="textboxHasJumps" Grid.Column="1" Margin="80,0,20,0" TextChanged="textboxHasJumps_TextChanged" KeyDown="textboxHasJumps_KeyDown"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Beacon status -->
                     <Grid Grid.Column="0" Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -268,11 +274,12 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Content=""/>
-                                <RadioButton x:Name="radiobuttonBcPlus" Grid.Column="0" Content="bc+" GroupName="bc" Checked="radiobuttonBcPlus_Checked" Unchecked="radiobuttonBcPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonBcMinus" Grid.Column="1" Content="bc-" GroupName="bc" Checked="radiobuttonBcMinus_Checked" Unchecked="radiobuttonBcMinus_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonBcPlus" Grid.Column="0" Content="bc+" GroupName="bc" Checked="radiobuttonBcPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonBcMinus" Grid.Column="1" Content="bc-" GroupName="bc" Checked="radiobuttonBcMinus_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Instance status -->
                     <Grid Grid.Column="0" Grid.Row="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -286,11 +293,12 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Label Grid.Column="0" Content=""/>
-                                <RadioButton x:Name="radiobuttonInstPlus" Grid.Column="0" Content="inst+" GroupName="inst" Checked="radiobuttonInstPlus_Checked" Unchecked="radiobuttonInstPlus_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonInstMinus" Grid.Column="1" Content="inst-" GroupName="inst" Checked="radiobuttonInstMinus_Checked" Unchecked="radiobuttonInstMinus_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonInstPlus" Grid.Column="0" Content="inst+" GroupName="inst" Checked="radiobuttonInstPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonInstMinus" Grid.Column="1" Content="inst-" GroupName="inst" Checked="radiobuttonInstMinus_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Client position -->
                     <Grid Grid.Column="1" Grid.Row="5" Margin="10,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -303,11 +311,12 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonInEz" Grid.Column="0" Content="in ez" GroupName="clientPos" Checked="radiobuttonInEz_Checked" Unchecked="radiobuttonInEz_Unchecked"/>
-                                <RadioButton x:Name="radiobuttonInSc" Grid.Column="1" Content="in sc" GroupName="clientPos" Checked="radiobuttonInSc_Checked" Unchecked="radiobuttonInSc_Unchecked"/>
+                                <RadioButton x:Name="radiobuttonInEz" Grid.Column="0" Content="in ez" GroupName="clientPos" Checked="radiobuttonInEz_Checked"/>
+                                <RadioButton x:Name="radiobuttonInSc" Grid.Column="1" Content="in sc" GroupName="clientPos" Checked="radiobuttonInSc_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
+                    <!-- Distance -->
                     <Grid Grid.Column="2" Grid.Row="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -325,11 +334,16 @@
                             </Grid>
                         </GroupBox>
                     </Grid>
-                    <CheckBox x:Name="checkboxFuel" Grid.Column="0" Grid.Row="6" Checked="checkboxFuel_Checked" Unchecked="checkboxFuel_Unchecked">
-                        <GroupBox x:Name="groupboxFuel" Header="Fuel status">
-                            <Label Content="fuel+"/>
-                        </GroupBox>
-                    </CheckBox>
+                    <!-- Fuel status -->
+                    <GroupBox x:Name="groupboxFuel" Grid.Column="0" Grid.Row="6" Margin="20,0,0,0" Header="Fuel status">
+                        <Label Content="fuel+"/>
+                    </GroupBox>
+                    <CheckBox x:Name="checkboxFuel" Grid.Column="0" Grid.Row="6" Checked="checkboxFuel_Checked" Unchecked="checkboxFuel_Unchecked"/>
+                    <!-- Show case -->
+                    <Grid Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                        <Label Content=""/>
+                        <Button x:Name="buttonShowCase" Content="Show case" Margin="5,0,0,0" Padding="10,0" IsEnabled="False" Click="buttonShowCase_Click"/>
+                    </Grid>
                 </Grid>
                 <GroupBox Grid.Row="1" Header="Your message">
                     <Grid>
@@ -346,7 +360,7 @@
                             <TextBox x:Name="textboxMessage" Grid.Column="0" GotFocus="textboxMessage_GotFocus" LostFocus="textboxMessage_LostFocus" KeyDown="textboxMessage_KeyDown"/>
                             <Button x:Name="buttonClear" Grid.Column="1" Content="Clear" Margin="5,0,0,0" Padding="10,0" Click="buttonClear_Click"/>
                         </Grid>
-                        <Button x:Name="buttonSend" Grid.Row="1" Content="Send" Margin="0,5,0,0" Click="buttonSend_Click"/>
+                        <Button x:Name="buttonSend" Grid.Row="1" Content="Send" MinHeight="26" Margin="0,5,0,0" Click="buttonSend_Click"/>
                     </Grid>
                 </GroupBox>
             </Grid>
