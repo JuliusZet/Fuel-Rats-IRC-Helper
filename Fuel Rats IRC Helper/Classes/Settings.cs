@@ -16,25 +16,14 @@ using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
 {
-    class Settings
+    static class Settings
     {
-        private ExeConfigurationFileMap _SettingsExeConfigurationFileMap;
-        private Configuration _SettingsConfiguration;
-        private KeyValueConfigurationCollection _SettingsKeyValueConfigurationCollection;
+        private static ExeConfigurationFileMap _SettingsExeConfigurationFileMap = new ExeConfigurationFileMap();
+        private static Configuration _SettingsConfiguration;
+        private static KeyValueConfigurationCollection _SettingsKeyValueConfigurationCollection;
 
-        private Configuration _AppConfiguration;
-        private KeyValueConfigurationCollection _AppKeyValueConfigurationCollection;
-
-        public Settings()
-        {
-            _SettingsExeConfigurationFileMap = new ExeConfigurationFileMap();
-            _SettingsExeConfigurationFileMap.ExeConfigFilename = "../Settings.config";
-            _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
-            _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
-
-            _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
-        }
+        private static Configuration _AppConfiguration;
+        private static KeyValueConfigurationCollection _AppKeyValueConfigurationCollection;
 
         //
         // Summary:
@@ -46,10 +35,11 @@ namespace Fuel_Rats_IRC_Helper
         //   
         // Returns:
         //   Value of the specified key
-        public string Get(string key)
+        public static string Get(string key)
         {
             if (key != "showChangelogOnStartup")
             {
+                _SettingsExeConfigurationFileMap.ExeConfigFilename = "../Settings.config";
                 _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
                 _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
 
@@ -108,12 +98,16 @@ namespace Fuel_Rats_IRC_Helper
         //   Error code:
         //     0: Everything went ok
         //     1: There was an error writing to the configuration file
-        public int Set(string key, string value)
+        public static int Set(string key, string value)
         {
             try
             {
                 if (key != "showChangelogOnStartup")
                 {
+                    _SettingsExeConfigurationFileMap.ExeConfigFilename = "../Settings.config";
+                    _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
+                    _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
+
                     if (_SettingsKeyValueConfigurationCollection[key] == null)
                     {
                         _SettingsKeyValueConfigurationCollection.Add(key, value);
@@ -131,6 +125,9 @@ namespace Fuel_Rats_IRC_Helper
 
                 else
                 {
+                    _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
+
                     if (_AppKeyValueConfigurationCollection[key] == null)
                     {
                         _AppKeyValueConfigurationCollection.Add(key, value);
@@ -167,24 +164,28 @@ namespace Fuel_Rats_IRC_Helper
         //     0: Everything went ok
         //     1: There was an error writing to the configuration file
         //     2: There is no default value for this key
-        public int ResetToDefault(string key)
+        public static int ResetToDefault(string key)
         {
             switch (key)
             {
                 case "checkForUpdatesOnStartup":
                     return Set("checkForUpdatesOnStartup", "yes");
                 case "ircAddress":
-                    return Set("ircAddress", "irc.fuelrats.com");
+                    return Set("ircAddress", "localhost");
+                case "ircAutoconnect":
+                    return Set("ircAutoconnect", "no");
                 case "ircChannel":
                     return Set("ircChannel", "#fuelrats");
                 case "ircNick":
-                    return Set("ircNick", "IRC-Helper_myNickname");
+                    return Set("ircNick", "myNickname");
                 case "ircPassword":
                     return Set("ircPassword", "myPassword");
                 case "ircPort":
-                    return Set("ircPort", "6697");
+                    return Set("ircPort", "6667");
                 case "ircRealname":
                     return Set("ircRealname", "myRealname");
+                case "ircUseSsl":
+                    return Set("ircUseSsl", "no");
                 case "messageInsertionMode":
                     return Set("messageInsertionMode", "copyPaste");
                 case "showChangelogOnStartup":

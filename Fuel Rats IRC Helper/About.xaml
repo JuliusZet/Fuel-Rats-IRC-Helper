@@ -20,7 +20,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="About" Height="280" Width="330">
+        Title="About" Height="280" Width="330" WindowStartupLocation="CenterOwner">
     <Grid Margin="10">
         <Grid.Background>
             <ImageBrush ImageSource="{DynamicResource Fuel Rats Logo}" Stretch="Uniform" Opacity="0.05"/>

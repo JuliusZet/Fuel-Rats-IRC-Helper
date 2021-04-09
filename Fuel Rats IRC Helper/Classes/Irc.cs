@@ -20,39 +20,27 @@ using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
 {
-    class Irc
+    static class Irc
     {
-        private IrcClient _IrcClient;
-        private Settings _Settings;
-        private List<Case> _Case;
-        private Thread _IrcListener;
+        private static IrcClient _IrcClient = new IrcClient();
+        private static List<Case> _Case = new List<Case>();
+        private static Thread _IrcListener;
 
-        public Irc()
+        private static void OnRawMessage(object sender, IrcEventArgs e)
         {
-            _IrcClient = new IrcClient();
-            _Settings = new Settings();
-            _Case = new List<Case>();
-
-            _IrcClient.OnRawMessage += new IrcEventHandler(OnRawMessage);
-            _IrcClient.ActiveChannelSyncing = true;
-            _IrcClient.UseSsl = true;
-        }
-
-        private void OnRawMessage(object sender, IrcEventArgs e)
-        {
-            if (e.Data.Type == ReceiveType.ChannelMessage)
+            if (e.Data.Type == ReceiveType.ChannelMessage && e.Data.Channel == "#fuelrats")
             {
                 long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
                 // If the message is a Ratsignal
-                //if (e.Data.Message.StartsWith("RATSIGNAL - ") && e.Data.Nick == "MechaSqueak[BOT]")
-                if (e.Data.Message.StartsWith("TESTSIGNAL - ") && e.Data.Nick == "JuliusZet[PC]")
+                if (e.Data.Message.StartsWith("RATSIGNAL - ") && e.Data.Nick == "MechaSqueak[BOT]")
+                //if (e.Data.Message.StartsWith("TESTSIGNAL - ") && e.Data.Nick == "JuliusZet[PC]")
                 {
 
                     // Try to add a new case to the case list
                     try
                     {
-                        string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(_Settings.Get("timestampFormat"));
+                        string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
                         List<string> ratsignal = new List<string>(e.Data.Message.Split(new string[] { " - " }, StringSplitOptions.None));
 
@@ -159,7 +147,7 @@ namespace Fuel_Rats_IRC_Helper
                                 || e.Data.Message.Contains(_Case.ElementAt(i).IrcNick)
                                 || e.Data.Nick == _Case.ElementAt(i).IrcNick)
                             {
-                                string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(_Settings.Get("timestampFormat"));
+                                string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
                                     _Case.ElementAt(i).AddMessage(new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message));
@@ -174,7 +162,7 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
-        public void ShowCase(string caseNumber)
+        public static void ShowCase(string caseNumber)
         {
             for (int i = 0; i < _Case.Count; ++i)
             {
@@ -186,42 +174,61 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
-        public void Connect()
+        public static void Connect()
         {
-            string ircAddress = _Settings.Get("ircAddress");
-            int ircPort = 0;
-            string ircNick = _Settings.Get("ircNick");
-            string ircRealname = _Settings.Get("ircRealname");
-            string ircPassword = _Settings.Get("ircPassword");
-            string ircChannel = _Settings.Get("ircChannel");
-
-            int.TryParse(_Settings.Get("ircPort"), out ircPort);
-
-            try
+            if (!_IrcClient.IsConnected)
             {
-                _IrcClient.Connect(ircAddress, ircPort);
-                _IrcClient.Login(ircNick, ircRealname);
-                _IrcClient.RfcPrivmsg("nickserv", "identify " + ircPassword);
-                _IrcClient.RfcJoin(ircChannel);
-                _IrcListener = new Thread(new ThreadStart(_IrcClient.Listen));
-                _IrcListener.SetApartmentState(ApartmentState.STA);
-                _IrcListener.Start();
+                bool ircUseSsl = false;
+                if (Settings.Get("ircUseSsl") == "yes")
+                {
+                    ircUseSsl = true;
+                }
+                string ircAddress = Settings.Get("ircAddress");
+                int.TryParse(Settings.Get("ircPort"), out int ircPort);
+                string ircNick = Settings.Get("ircNick");
+                string ircRealname = Settings.Get("ircRealname");
+                string ircPassword = Settings.Get("ircPassword");
+                string ircChannel = Settings.Get("ircChannel");
+
+                try
+                {
+                    if (ircUseSsl)
+                    {
+                        _IrcClient.UseSsl = true;
+                    }
+                    _IrcClient.OnRawMessage += new IrcEventHandler(OnRawMessage);
+                    _IrcClient.ActiveChannelSyncing = true;
+                    _IrcClient.Connect(ircAddress, ircPort);
+                    _IrcClient.Login(ircNick, ircRealname, 4, "IRC-Helper", ircPassword);
+                    _IrcClient.RfcJoin(ircChannel);
+                    _IrcListener = new Thread(new ThreadStart(_IrcClient.Listen));
+                    _IrcListener.SetApartmentState(ApartmentState.STA);
+                    _IrcListener.Start();
+                }
+
+                catch (Exception exception)
+                {
+                    MessageBox.Show("An error occured while connecting to the IRC! " + exception.Message, "Error");
+                }
             }
 
-            catch (Exception exception)
+            else
             {
-                MessageBox.Show("An error occured while connecting to the IRC! " + exception.Message, "Error");
+                MessageBox.Show("Already connected to the IRC.");
             }
         }
 
-        public void Disconnect()
+        public static void Disconnect()
         {
             for (int i = 0; i < _Case.Count; ++i)
             {
                 _Case.ElementAt(i).DeleteCase();
             }
 
-            _IrcClient.RfcQuit();
+            if (_IrcClient.IsConnected)
+            {
+                _IrcClient.RfcQuit();
+            }
         }
     }
 }

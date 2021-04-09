@@ -20,7 +20,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="Changelog" Height="400" Width="600">
+        Title="Changelog" Height="400" Width="600" WindowStartupLocation="CenterOwner">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -44,9 +44,13 @@
                     <LineBreak/>
                     <Run Text="    - Details about cases and filtered messages can be displayed in separate windows"/>
                     <LineBreak/>
+                    <Run Text="+ Added distance unit &quot;Mls&quot;"/>
+                    <LineBreak/>
                     <Run Text="* Fixed a bug when clearing the Syscorr and Navcheck textboxes"/>
                     <LineBreak/>
                     <Run Text="* Improved layout when resizing the main window"/>
+                    <LineBreak/>
+                    <Run Text="* Improved startup locations of windows"/>
                     <LineBreak/>
                     <Run Text="* Improved performance"/>
                     <LineBreak/>

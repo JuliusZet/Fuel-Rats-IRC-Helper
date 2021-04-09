@@ -20,19 +20,12 @@ using Win32Interop.WinHandles;
 
 namespace Fuel_Rats_IRC_Helper
 {
-    class Message
+    static class Message
     {
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern int SetForegroundWindow(IntPtr hwnd);
 
-        private List<MessagePart> _MessagePart;
-        private Settings _Settings;
-
-        public Message()
-        {
-            _MessagePart = new List<MessagePart>();
-            _Settings = new Settings();
-        }
+        private static List<MessagePart> _MessagePart = new List<MessagePart>();
 
         //
         // Summary:
@@ -48,7 +41,7 @@ namespace Fuel_Rats_IRC_Helper
         // Returns:
         //   Error code:
         //     0: Everything went ok
-        public int Prepend(string messagePartName, string messagePartText)
+        public static int Prepend(string messagePartName, string messagePartText)
         {
             _MessagePart.Insert(0, new MessagePart(messagePartName, messagePartText));
             return 0;
@@ -68,7 +61,7 @@ namespace Fuel_Rats_IRC_Helper
         // Returns:
         //   Error code:
         //     0: Everything went ok
-        public int Append(string messagePartName, string messagePartText)
+        public static int Append(string messagePartName, string messagePartText)
         {
             _MessagePart.Add(new MessagePart(messagePartName, messagePartText));
             return 0;
@@ -89,7 +82,7 @@ namespace Fuel_Rats_IRC_Helper
         //   Error code:
         //     0: Everything went ok
         //     1: There is no message part with that name
-        public int Replace(string messagePartName, string messagePartText)
+        public static int Replace(string messagePartName, string messagePartText)
         {
             int messagePartToBeReplaced = -1;
 
@@ -127,7 +120,7 @@ namespace Fuel_Rats_IRC_Helper
         //   Error code:
         //     0: Everything went ok
         //     1: There is no message part with that name
-        public int Remove(string messagePartName)
+        public static int Remove(string messagePartName)
         {
             int messagePartIndexToBeRemoved = -1;
 
@@ -160,7 +153,7 @@ namespace Fuel_Rats_IRC_Helper
         // Returns:
         //   Error code:
         //     0: Everything went ok
-        public int Clear()
+        public static int Clear()
         {
             _MessagePart.Clear();
             return 0;
@@ -172,7 +165,7 @@ namespace Fuel_Rats_IRC_Helper
         //
         // Returns:
         //   Generated message
-        public string Generate()
+        public static string Generate()
         {
             string message = "";
             for (int i = 0; i < _MessagePart.Count; ++i)
@@ -206,11 +199,11 @@ namespace Fuel_Rats_IRC_Helper
         //     5: Multiple IRC helper windows found
         //     6: Elite Dangerous window not found
         //     7: Multiple Elite Dangerous windows found
-        public int Send(string message)
+        public static int Send(string message)
         {
-            string windowTitleIrcClient = _Settings.Get("windowTitleIrcClient");
+            string windowTitleIrcClient = Settings.Get("windowTitleIrcClient");
             string windowTitleIrcHelper = "Fuel Rats - IRC Helper";
-            string windowTitleEliteDangerous = _Settings.Get("windowTitleEliteDangerous");
+            string windowTitleEliteDangerous = Settings.Get("windowTitleEliteDangerous");
 
             if (windowTitleIrcClient == "" && windowTitleEliteDangerous == "")
             {
@@ -274,7 +267,7 @@ namespace Fuel_Rats_IRC_Helper
             
             if (message != "")
             {
-                if (_Settings.Get("messageInsertionMode") == "sendKeys")
+                if (Settings.Get("messageInsertionMode") == "sendKeys")
                 {
 
                     // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
