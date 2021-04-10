@@ -284,11 +284,11 @@ namespace Fuel_Rats_IRC_Helper
 
             if (Settings.Get("showChangelogOnStartup") == "yes")
             {
-                Changelog changelog = new Changelog
+                ChangelogWindow changelogWindow = new ChangelogWindow
                 {
                     Owner = this
                 };
-                changelog.ShowDialog();
+                changelogWindow.ShowDialog();
             }
 
             if (Settings.Get("ircAutoconnect") == "yes")
@@ -317,31 +317,31 @@ namespace Fuel_Rats_IRC_Helper
             Close();
         }
 
-        private void menuitemPreferences_Click(object sender, RoutedEventArgs e)
+        private void menuitemSettings_Click(object sender, RoutedEventArgs e)
         {
-            Preferences preferences = new Preferences
+            SettingsWindow setttingsWindow = new SettingsWindow
             {
                 Owner = this
             };
-            preferences.ShowDialog();
+            setttingsWindow.ShowDialog();
         }
 
         private void menuitemAbout_Click(object sender, RoutedEventArgs e)
         {
-            About about = new About
+            AboutWindow aboutWindow = new AboutWindow
             {
                 Owner = this
             };
-            about.ShowDialog();
+            aboutWindow.ShowDialog();
         }
 
         private void menuitemChangelog_Click(object sender, RoutedEventArgs e)
         {
-            Changelog changelog = new Changelog
+            ChangelogWindow changelogWindow = new ChangelogWindow
             {
                 Owner = this
             };
-            changelog.ShowDialog();
+            changelogWindow.ShowDialog();
         }
 
         private void menuitemCheckForUpdates_Click(object sender, RoutedEventArgs e)

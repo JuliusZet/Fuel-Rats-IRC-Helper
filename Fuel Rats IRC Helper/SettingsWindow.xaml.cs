@@ -1,5 +1,5 @@
 ﻿/*
- *   Preferences.xaml.cs
+ *   SettingsWindow.xaml.cs
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
@@ -19,11 +19,11 @@ using System.Windows.Controls;
 namespace Fuel_Rats_IRC_Helper
 {
     /// <summary>
-    /// Interaction logic for Preferences.xaml
+    /// Interaction logic for SettingsWindow.xaml
     /// </summary>
-    public partial class Preferences : Window
+    public partial class SettingsWindow : Window
     {
-        public Preferences()
+        public SettingsWindow()
         {
             InitializeComponent();
         }

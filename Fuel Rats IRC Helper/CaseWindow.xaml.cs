@@ -1,5 +1,5 @@
 ﻿/*
- *   Case.xaml.cs
+ *   CaseWindow.xaml.cs
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
@@ -20,9 +20,9 @@ using System.Windows.Media;
 namespace Fuel_Rats_IRC_Helper
 {
     /// <summary>
-    /// Interaction logic for Case.xaml
+    /// Interaction logic for CaseWindow.xaml
     /// </summary>
-    public partial class Case : Window
+    public partial class CaseWindow : Window
     {
         private static int _NextId;
         private int _Id;
@@ -38,7 +38,7 @@ namespace Fuel_Rats_IRC_Helper
         private DateTimeOffset _EndTime;
         private bool _CanBeDeleted;
 
-        public Case(string caseNumber, string ircNick, string cmdrName, string system, string platform, string o2, string language, IrcMessage message)
+        public CaseWindow(string caseNumber, string ircNick, string cmdrName, string system, string platform, string o2, string language, IrcMessage message)
         {
             _Id = _NextId++;
             _CaseNumber = caseNumber;
@@ -58,7 +58,7 @@ namespace Fuel_Rats_IRC_Helper
             InitializeComponent();
         }
 
-        public Case() : this("unknown", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown", new IrcMessage())
+        public CaseWindow() : this("unknown", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown", new IrcMessage())
         {
 
         }

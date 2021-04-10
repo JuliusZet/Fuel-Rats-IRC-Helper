@@ -1,6 +1,6 @@
 ﻿# Changelog
 ### Version 1.3.1.0 (2021-03-11)
-+ Added "Reset to default" buttons in Settings -> Preferences -> Behaviour
++ Added "Reset to default" buttons in Settings -> Behaviour
 + Imporoved some messages (for example "#0 in open" now outputs "#0 client in open")
 + Focusing the Case number textbox will no longer clear it
 + Improved reading of configuration files
@@ -17,7 +17,7 @@
 + Fixed a bug in the clipboard backup functionality
 ### Version 1.2.3.0 (2020-06-03)
 + Improved the copy-paste message insertion mode so it no longer overwrites your clipboard
-+ Improved process drop-down fields in Settings -> Preferences -> Behaviour
++ Improved process drop-down fields in Settings -> Behaviour
 ### Version 1.2.2.0 (2020-05-29)
 + Improved usability
   + Return key in the Case number textbox will focus the Jump callout textbox
@@ -35,12 +35,12 @@
 + Improved layout
 + Improved performance
 ### Version 1.1.1.1 (2020-05-13)
-+ Added option to clear drop-down fields in Settings -> Preferences -> Behaviour
-+ Fixed preferences not being retained after update
++ Added option to clear drop-down fields in Settings -> Behaviour
++ Fixed settings not being retained after update
 ### Version 1.1.1.0 (2020-05-13)
-+ Added drop-down fields to select processes in Settings -> Preferences -> Behaviour
++ Added drop-down fields to select processes in Settings -> Behaviour
 ### Version 1.1.0.0 (2020-05-12)
-+ Added Preferences window
++ Added Settings window
 + Added support for other IRC clients other than HexChat
 + Fixed a crash when trying to get a non-existing value from the configuration file
 ### Version 1.0.4.1 (2020-05-10)

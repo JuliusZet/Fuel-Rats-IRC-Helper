@@ -192,7 +192,7 @@ namespace Fuel_Rats_IRC_Helper
         // Returns:
         //   Error code:
         //     0: Everything went ok
-        //     1: Window titles of the IRC client and/or Elite Dangerous not specified in preferences
+        //     1: Window titles of the IRC client and/or Elite Dangerous not specified in settings
         //     2: IRC client window not found
         //     3: Multiple IRC client windows found
         //     4: IRC helper window not found (How would that even happen? I don't know. :D Why did I put this in here? I don't know. XD)
@@ -207,19 +207,19 @@ namespace Fuel_Rats_IRC_Helper
 
             if (windowTitleIrcClient == "" && windowTitleEliteDangerous == "")
             {
-                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to specify your IRC client and Elite Dangerous window titles.", "Error");
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Behaviour to specify your IRC client and Elite Dangerous window titles.", "Error");
                 return 1;
             }
 
             else if (windowTitleIrcClient == "")
             {
-                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to specify your IRC client window title.", "Error");
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Behaviour to specify your IRC client window title.", "Error");
                 return 1;
             }
 
             else if (windowTitleEliteDangerous == "")
             {
-                MessageBox.Show("Your message could not be sent! Go to Settings -> Preferences -> Behaviour to specify your Elite Dangerous window title.", "Error");
+                MessageBox.Show("Your message could not be sent! Go to Settings -> Behaviour to specify your Elite Dangerous window title.", "Error");
                 return 1;
             }
 
@@ -229,13 +229,13 @@ namespace Fuel_Rats_IRC_Helper
             
             if (windowIrcClient.Count() == 0)
             {
-                MessageBox.Show("Your message could not be sent! There is no window whose title contains \"" + windowTitleIrcClient + "\"! Please open your IRC client or go to Settings -> Preferences -> Behaviour to specify your IRC client window title. Then try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There is no window whose title contains \"" + windowTitleIrcClient + "\"! Please open your IRC client or go to Settings -> Behaviour to specify your IRC client window title. Then try again.", "Error");
                 return 2;
             }
 
             else if (windowIrcClient.Count() > 1)
             {
-                MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleIrcClient + "\"! Please make sure there is only one window whose title contains \"" + windowTitleIrcClient + "\" or go to Settings -> Preferences -> Behaviour to specify your IRC client window title. Then try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleIrcClient + "\"! Please make sure there is only one window whose title contains \"" + windowTitleIrcClient + "\" or go to Settings -> Behaviour to specify your IRC client window title. Then try again.", "Error");
                 return 3;
             }
 
@@ -253,13 +253,13 @@ namespace Fuel_Rats_IRC_Helper
 
             if (windowEliteDangerous.Count() == 0)
             {
-                MessageBox.Show("Your message could not be sent! There is no window whose title contains \"" + windowTitleEliteDangerous + "\"! Please launch Elite Dangerous or go to Settings -> Preferences -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There is no window whose title contains \"" + windowTitleEliteDangerous + "\"! Please launch Elite Dangerous or go to Settings -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
                 return 6;
             }
 
             else if (windowEliteDangerous.Count() > 1)
             {
-                MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleEliteDangerous + "\"! Please make sure there is only one instance of the game running or go to Settings -> Preferences -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
+                MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleEliteDangerous + "\"! Please make sure there is only one instance of the game running or go to Settings -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
                 return 7;
             }
 

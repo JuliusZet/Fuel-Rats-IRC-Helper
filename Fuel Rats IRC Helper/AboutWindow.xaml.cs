@@ -1,5 +1,5 @@
 ﻿/*
- *   About.xaml.cs
+ *   AboutWindow.xaml.cs
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
@@ -17,11 +17,11 @@ using System.Windows;
 namespace Fuel_Rats_IRC_Helper
 {
     /// <summary>
-    /// Interaction logic for About.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class About : Window
+    public partial class AboutWindow : Window
     {
-        public About()
+        public AboutWindow()
         {
             InitializeComponent();
         }

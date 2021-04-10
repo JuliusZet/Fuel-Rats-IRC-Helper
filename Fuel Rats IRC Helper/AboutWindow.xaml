@@ -1,6 +1,6 @@
 ﻿<!--
  *
- *   About.xaml
+ *   AboutWindow.xaml
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
@@ -13,7 +13,7 @@
 -->
 
 
-<Window x:Class="Fuel_Rats_IRC_Helper.About"
+<Window x:Class="Fuel_Rats_IRC_Helper.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

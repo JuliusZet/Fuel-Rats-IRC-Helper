@@ -1,5 +1,5 @@
 ﻿/*
- *   Changelog.xaml.cs
+ *   ChangelogWindow.xaml.cs
  *   Fuel Rats IRC Helper
  *
  *   Created by Julius Zitzmann on 2020-05-08.
@@ -16,11 +16,11 @@ using System.Windows;
 namespace Fuel_Rats_IRC_Helper
 {
     /// <summary>
-    /// Interaction logic for Changelog.xaml
+    /// Interaction logic for ChangelogWindow.xaml
     /// </summary>
-    public partial class Changelog : Window
+    public partial class ChangelogWindow : Window
     {
-        public Changelog()
+        public ChangelogWindow()
         {
             InitializeComponent();
         }
