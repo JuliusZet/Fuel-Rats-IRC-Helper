@@ -11,11 +11,8 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
-using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -24,8 +21,6 @@ namespace Fuel_Rats_IRC_Helper
     /// </summary>
     public partial class CaseWindow : Window
     {
-        private static int _NextId;
-        private int _Id;
         private string _CaseNumber;
         private string _IrcNick;
         private string _CmdrName;
@@ -33,14 +28,10 @@ namespace Fuel_Rats_IRC_Helper
         private string _Platform;
         private string _O2;
         private string _Language;
-        private List<IrcMessage> _Message;
-        private DateTimeOffset _StartTime;
-        private DateTimeOffset _EndTime;
-        private bool _CanBeDeleted;
+        private List<IrcMessage> _IrcMessage;
 
-        public CaseWindow(string caseNumber, string ircNick, string cmdrName, string system, string platform, string o2, string language, IrcMessage message)
+        public CaseWindow(ref string caseNumber, ref string ircNick, ref string cmdrName, ref string system, ref string platform, ref string o2, ref string language, ref List<IrcMessage> ircMessage)
         {
-            _Id = _NextId++;
             _CaseNumber = caseNumber;
             _IrcNick = ircNick;
             _CmdrName = cmdrName;
@@ -48,76 +39,22 @@ namespace Fuel_Rats_IRC_Helper
             _Platform = platform;
             _O2 = o2;
             _Language = language;
-            _Message = new List<IrcMessage>();
-            _StartTime = DateTimeOffset.FromUnixTimeSeconds(message.UnixTimestamp);
-            _EndTime = DateTimeOffset.MaxValue;
-            _CanBeDeleted = false;
-
-            _Message.Add(message);
+            _IrcMessage = ircMessage;
 
             InitializeComponent();
         }
 
-        public CaseWindow() : this("unknown", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown", new IrcMessage())
+        public void RefreshCaseChat()
         {
-
-        }
-
-        public string CaseNumber
-        {
-            get { return _CaseNumber; }
-        }
-
-        public string IrcNick
-        {
-            get { return _IrcNick; }
-        }
-
-        public bool IsClosed()
-        {
-            if (_EndTime < DateTimeOffset.UtcNow)
-            {
-                return true;
-            }
-
-            else
-            {
-                return false;
-            }
-        }
-
-        public void CloseCase(long unixTimestamp)
-        {
-            _EndTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp);
-        }
-
-        public void AddMessage(IrcMessage message)
-        {
-            _Message.Add(message);
-
             if (datagridCaseChat.IsLoaded)
             {
                 datagridCaseChat.Items.Refresh();
 
-                if (_Message.Count != 0)
+                if (_IrcMessage.Count != 0)
                 {
-                    datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_Message.Count - 1]);
+                    datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_IrcMessage.Count - 1]);
                 }
             }
-
-            if (message.SenderNickname == "MechaSqueak[BOT]")
-            {
-                if (message.Text.StartsWith("Successfully closed case #"))
-                {
-                    CloseCase(message.UnixTimestamp);
-                }
-            }
-        }
-
-        public void DeleteCase()
-        {
-            _CanBeDeleted = true;
-            Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -125,22 +62,13 @@ namespace Fuel_Rats_IRC_Helper
             Title = "Case #" + _CaseNumber;
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (!_CanBeDeleted)
-            {
-                e.Cancel = true;
-                Hide();
-            }
-        }
-
         private void datagridCaseChat_Loaded(object sender, RoutedEventArgs e)
         {
-            datagridCaseChat.ItemsSource = _Message;
+            datagridCaseChat.ItemsSource = _IrcMessage;
 
-            if (_Message.Count != 0)
+            if (_IrcMessage.Count != 0)
             {
-                datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_Message.Count - 1]);
+                datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_IrcMessage.Count - 1]);
             }
         }
 

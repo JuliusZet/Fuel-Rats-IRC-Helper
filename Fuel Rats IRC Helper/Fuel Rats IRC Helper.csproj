@@ -105,6 +105,7 @@
     <Compile Include="CaseWindow.xaml.cs">
       <DependentUpon>CaseWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Case.cs" />
     <Compile Include="Classes\IrcMessage.cs" />
     <Compile Include="Classes\Irc.cs" />
     <Compile Include="Classes\Rat.cs" />

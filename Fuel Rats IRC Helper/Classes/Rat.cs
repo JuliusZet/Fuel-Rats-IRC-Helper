@@ -10,6 +10,7 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+
 namespace Fuel_Rats_IRC_Helper
 {
     class Rat

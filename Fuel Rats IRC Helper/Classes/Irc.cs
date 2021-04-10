@@ -23,7 +23,7 @@ namespace Fuel_Rats_IRC_Helper
     static class Irc
     {
         private static IrcClient _IrcClient = new IrcClient();
-        private static List<CaseWindow> _CaseWindow = new List<CaseWindow>();
+        private static List<Case> _Case = new List<Case>();
         private static Thread _IrcListener;
 
         private static void OnRawMessage(object sender, IrcEventArgs e)
@@ -34,7 +34,6 @@ namespace Fuel_Rats_IRC_Helper
 
                 // If the message is a Ratsignal
                 if (e.Data.Message.StartsWith("RATSIGNAL - ") && e.Data.Nick == "MechaSqueak[BOT]")
-                //if (e.Data.Message.StartsWith("TESTSIGNAL - ") && e.Data.Nick == "JuliusZet[PC]")
                 {
 
                     // Try to add a new case to the case list
@@ -114,7 +113,7 @@ namespace Fuel_Rats_IRC_Helper
 
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            _CaseWindow.Insert(0, new CaseWindow(caseNumber, ircNick, cmdrName, system, platform, o2, language, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
+                            _Case.Insert(0, new Case(caseNumber, ircNick, cmdrName, system, platform, o2, language, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
                         });
                     }
 
@@ -129,28 +128,28 @@ namespace Fuel_Rats_IRC_Helper
                 {
 
                     // Try to associate the message to an open case
-                    for (int i = 0; i < _CaseWindow.Count; ++i)
+                    for (int i = 0; i < _Case.Count; ++i)
                     {
-                        if (!_CaseWindow.ElementAt(i).IsClosed())
+                        if (!_Case.ElementAt(i).IsClosed())
                         {
-                            int indexOfCaseNumber = e.Data.Message.IndexOf("#" + _CaseWindow.ElementAt(i).CaseNumber);
+                            int indexOfCaseNumber = e.Data.Message.IndexOf("#" + _Case.ElementAt(i).CaseNumber);
                             int indexOfCharacterAfterCaseNumber = -1;
-                            if (indexOfCaseNumber != -1 && indexOfCaseNumber + _CaseWindow.ElementAt(i).CaseNumber.Length + 1 != e.Data.Message.Length)
+                            if (indexOfCaseNumber != -1 && indexOfCaseNumber + _Case.ElementAt(i).CaseNumber.Length + 1 != e.Data.Message.Length)
                             {
-                                indexOfCharacterAfterCaseNumber = indexOfCaseNumber + _CaseWindow.ElementAt(i).CaseNumber.Length + 1;
+                                indexOfCharacterAfterCaseNumber = indexOfCaseNumber + _Case.ElementAt(i).CaseNumber.Length + 1;
                             }
 
                             // If the message contains "#1" but not #10, #11, etc. (= message from rat or bot) or
                             // if the message contains the client's IRC nick (= message from spatch or bot) or
                             // if the message was sent by the client
                             if ((indexOfCharacterAfterCaseNumber != -1 && (e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) < '0' || e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) > '9')) || (indexOfCaseNumber != -1 && indexOfCharacterAfterCaseNumber == -1)
-                                || e.Data.Message.Contains(_CaseWindow.ElementAt(i).IrcNick)
-                                || e.Data.Nick == _CaseWindow.ElementAt(i).IrcNick)
+                                || e.Data.Message.Contains(_Case.ElementAt(i).IrcNick)
+                                || e.Data.Nick == _Case.ElementAt(i).IrcNick)
                             {
                                 string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
                                 Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    _CaseWindow.ElementAt(i).AddMessage(new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message));
+                                    _Case.ElementAt(i).AddMessage(new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message));
                                 });
 
                                 //If the message was associated to an open case, there is no need to continue searching.
@@ -164,11 +163,11 @@ namespace Fuel_Rats_IRC_Helper
 
         public static void ShowCase(string caseNumber)
         {
-            for (int i = 0; i < _CaseWindow.Count; ++i)
+            for (int i = 0; i < _Case.Count; ++i)
             {
-                if (_CaseWindow.ElementAt(i).CaseNumber == caseNumber)
+                if (_Case.ElementAt(i).CaseNumber == caseNumber)
                 {
-                    _CaseWindow.ElementAt(i).Show();
+                    _Case.ElementAt(i).ShowCaseWindow();
                     return;
                 }
             }
@@ -220,14 +219,14 @@ namespace Fuel_Rats_IRC_Helper
 
         public static void Disconnect()
         {
-            for (int i = 0; i < _CaseWindow.Count; ++i)
-            {
-                _CaseWindow.ElementAt(i).DeleteCase();
-            }
-
             if (_IrcClient.IsConnected)
             {
                 _IrcClient.RfcQuit();
+            }
+
+            for (int i = 0; i < _Case.Count; ++i)
+            {
+                _Case.ElementAt(i).CloseCaseWindow();
             }
         }
     }
