@@ -22,26 +22,104 @@ namespace Fuel_Rats_IRC_Helper
     public partial class CaseWindow : Window
     {
         private string _CaseNumber;
-        private string _IrcNick;
-        private string _CmdrName;
-        private string _System;
-        private string _Platform;
-        private string _O2;
-        private string _Language;
+        private string _ClientIrcNick;
+        private string _ClientCmdrName;
+        private string _ClientSystem;
+        private string _ClientPlatform;
+        private string _ClientO2;
+        private string _ClientLanguage;
         private List<IrcMessage> _IrcMessage;
 
-        public CaseWindow(ref string caseNumber, ref string ircNick, ref string cmdrName, ref string system, ref string platform, ref string o2, ref string language, ref List<IrcMessage> ircMessage)
+        public CaseWindow(string caseNumber, string clientIrcNick, string clientCmdrName, string clientSystem, string clientPlatform, string clientO2, string clientLanguage, List<IrcMessage> ircMessage)
         {
             _CaseNumber = caseNumber;
-            _IrcNick = ircNick;
-            _CmdrName = cmdrName;
-            _System = system;
-            _Platform = platform;
-            _O2 = o2;
-            _Language = language;
+            _ClientIrcNick = clientIrcNick;
+            _ClientCmdrName = clientCmdrName;
+            _ClientSystem = clientSystem;
+            _ClientPlatform = clientPlatform;
+            _ClientO2 = clientO2;
+            _ClientLanguage = clientLanguage;
             _IrcMessage = ircMessage;
 
             InitializeComponent();
+        }
+
+        public string ClientIrcNick
+        {
+            set
+            {
+                _ClientIrcNick = value;
+                
+                if (textboxClientIrcNick.IsLoaded)
+                {
+                    textboxClientIrcNick.Text = value;
+                }
+            }
+        }
+
+        public string ClientCmdrName
+        {
+            set
+            {
+                _ClientCmdrName = value;
+
+                if (textboxClientCmdrName.IsLoaded)
+                {
+                    textboxClientCmdrName.Text = "CMDR " + value;
+                }
+            }
+        }
+
+        public string ClientSystem
+        {
+            set
+            {
+                _ClientSystem = value;
+
+                if (textboxClientSystem.IsLoaded)
+                {
+                    textboxClientSystem.Text = value;
+                }
+            }
+        }
+
+        public string ClientPlatform
+        {
+            set
+            {
+                _ClientPlatform = value;
+
+                if (textboxClientPlatform.IsLoaded)
+                {
+                    textboxClientPlatform.Text = value;
+                }
+            }
+        }
+
+        public string ClientO2
+        {
+            set
+            {
+                _ClientO2 = value;
+
+                if (textboxClientO2.IsLoaded)
+                {
+                    textboxClientO2.Text = value;
+                }
+            }
+        }
+
+        public string ClientLanguage
+        {
+            set
+            {
+                _ClientLanguage = value;
+
+                if (textboxClientLanguage.IsLoaded)
+                {
+                    textboxClientLanguage.Text = value;
+                }
+            }
         }
 
         public void RefreshCaseChat()
@@ -77,34 +155,34 @@ namespace Fuel_Rats_IRC_Helper
             textboxCasenumber.Text = '#' + _CaseNumber;
         }
 
-        private void textboxClientsIrcNickname_Loaded(object sender, RoutedEventArgs e)
+        private void textboxClientIrcNick_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxClientsIrcNickname.Text = _IrcNick;
+            textboxClientIrcNick.Text = _ClientIrcNick;
         }
 
-        private void textboxClientsCmdrName_Loaded(object sender, RoutedEventArgs e)
+        private void textboxClientCmdrName_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxClientsCmdrName.Text = "CMDR " + _CmdrName;
+            textboxClientCmdrName.Text = "CMDR " + _ClientCmdrName;
         }
 
-        private void textboxSystem_Loaded(object sender, RoutedEventArgs e)
+        private void textboxClientSystem_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxSystem.Text = _System;
+            textboxClientSystem.Text = _ClientSystem;
         }
 
-        private void textboxPlatform_Loaded(object sender, RoutedEventArgs e)
+        private void textboxClientPlatform_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxPlatform.Text = _Platform;
+            textboxClientPlatform.Text = _ClientPlatform;
         }
 
-        private void textboxO2_Loaded(object sender, RoutedEventArgs e)
+        private void textboxClientO2_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxO2.Text = _O2;
+            textboxClientO2.Text = _ClientO2;
         }
 
-        private void textboxLanguage_Loaded(object sender, RoutedEventArgs e)
+        private void textboxClientLanguage_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxLanguage.Text = _Language;
+            textboxClientLanguage.Text = _ClientLanguage;
         }
     }
 }

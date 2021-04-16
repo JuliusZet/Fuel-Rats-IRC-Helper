@@ -28,7 +28,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private static void OnRawMessage(object sender, IrcEventArgs e)
         {
-            if (e.Data.Type == ReceiveType.ChannelMessage && e.Data.Channel == "#fuelrats")
+            if (e.Data.Type == ReceiveType.ChannelMessage && e.Data.Channel == Settings.Get("ircChannel"))
             {
                 long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
@@ -47,62 +47,62 @@ namespace Fuel_Rats_IRC_Helper
                         ratsignal.AddRange(ratsignal.ElementAt(ratsignalPartToSplit).Split('('));
                         ratsignal.RemoveAt(ratsignalPartToSplit);
 
-                        string cmdrName = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("CMDR "); });
-                        if (cmdrName != null && cmdrName.Length > 5)
+                        string clientCmdrName = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("CMDR "); });
+                        if (clientCmdrName != null && clientCmdrName.Length > 5)
                         {
-                            cmdrName = cmdrName.Substring(5);
+                            clientCmdrName = clientCmdrName.Substring(5);
                         }
 
-                        string system = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Reported System: "); });
-                        if (system != null && system.Length > 17)
+                        string clientSystem = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Reported System: "); });
+                        if (clientSystem != null && clientSystem.Length > 17)
                         {
-                            system = system.Substring(17);
+                            clientSystem = clientSystem.Substring(17);
                         }
 
-                        string platform = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Platform: "); });
-                        if (platform != null && platform.Length > 10)
+                        string clientPlatform = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Platform: "); });
+                        if (clientPlatform != null && clientPlatform.Length > 10)
                         {
-                            platform = platform.Substring(10);
+                            clientPlatform = clientPlatform.Substring(10);
 
-                            if (platform.Contains("PC"))
+                            if (clientPlatform.Contains("PC"))
                             {
-                                platform = "PC";
+                                clientPlatform = "PC";
                             }
-                            else if (platform.Contains("Xbox"))
+                            else if (clientPlatform.Contains("Xbox"))
                             {
-                                platform = "Xbox";
+                                clientPlatform = "Xbox";
                             }
-                            else if (platform.Contains("Playstation"))
+                            else if (clientPlatform.Contains("Playstation"))
                             {
-                                platform = "Playstation";
-                            }
-                        }
-
-                        string o2 = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("O2: "); });
-                        if (o2 != null && o2.Length > 4)
-                        {
-                            o2 = o2.Substring(4);
-
-                            if (o2.Contains("NOT OK"))
-                            {
-                                o2 = "NOT OK";
+                                clientPlatform = "Playstation";
                             }
                         }
 
-                        string language = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Language: "); });
-                        if (language != null && language.Length > 10)
+                        string clientO2 = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("O2: "); });
+                        if (clientO2 != null && clientO2.Length > 4)
                         {
-                            language = language.Substring(10).Trim();
+                            clientO2 = clientO2.Substring(4);
+
+                            if (clientO2.Contains("NOT OK"))
+                            {
+                                clientO2 = "NOT OK";
+                            }
                         }
 
-                        string ircNick = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("IRC Nick "); });
-                        if (ircNick != null && ircNick.Length > 9)
+                        string clientLanguage = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Language: "); });
+                        if (clientLanguage != null && clientLanguage.Length > 10)
                         {
-                            ircNick = ircNick.Substring(9).Trim();
+                            clientLanguage = clientLanguage.Substring(10).Trim();
+                        }
+
+                        string clientIrcNick = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("IRC Nick "); });
+                        if (clientIrcNick != null && clientIrcNick.Length > 9)
+                        {
+                            clientIrcNick = clientIrcNick.Substring(9).Trim();
                         }
                         else
                         {
-                            ircNick = cmdrName;
+                            clientIrcNick = clientCmdrName;
                         }
 
                         string caseNumber = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Case #"); });
@@ -113,7 +113,7 @@ namespace Fuel_Rats_IRC_Helper
 
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            _Case.Insert(0, new Case(caseNumber, ircNick, cmdrName, system, platform, o2, language, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
+                            _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientCmdrName, clientSystem, clientPlatform, clientO2, clientLanguage, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
                         });
                     }
 
@@ -143,8 +143,8 @@ namespace Fuel_Rats_IRC_Helper
                             // if the message contains the client's IRC nick (= message from spatch or bot) or
                             // if the message was sent by the client
                             if ((indexOfCharacterAfterCaseNumber != -1 && (e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) < '0' || e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) > '9')) || (indexOfCaseNumber != -1 && indexOfCharacterAfterCaseNumber == -1)
-                                || e.Data.Message.Contains(_Case.ElementAt(i).IrcNick)
-                                || e.Data.Nick == _Case.ElementAt(i).IrcNick)
+                                || e.Data.Message.Contains(_Case.ElementAt(i).ClientIrcNick)
+                                || e.Data.Nick == _Case.ElementAt(i).ClientIrcNick)
                             {
                                 string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
                                 Application.Current.Dispatcher.Invoke(() =>

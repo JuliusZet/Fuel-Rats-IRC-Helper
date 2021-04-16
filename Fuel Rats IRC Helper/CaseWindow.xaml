@@ -68,23 +68,23 @@
             <GroupBox Grid.Row="0" Header="Case number">
                 <TextBox x:Name="textboxCasenumber" IsReadOnly="True" Loaded="textboxCasenumber_Loaded"/>
             </GroupBox>
-            <GroupBox Grid.Row="1" Header="Client's IRC nickname">
-                <TextBox x:Name="textboxClientsIrcNickname" IsReadOnly="True" Loaded="textboxClientsIrcNickname_Loaded"/>
+            <GroupBox Grid.Row="1" Header="IRC nickname">
+                <TextBox x:Name="textboxClientIrcNick" IsReadOnly="True" Loaded="textboxClientIrcNick_Loaded"/>
             </GroupBox>
-            <GroupBox Grid.Row="2" Header="Client's CMDR name">
-                <TextBox x:Name="textboxClientsCmdrName" IsReadOnly="True" Loaded="textboxClientsCmdrName_Loaded"/>
+            <GroupBox Grid.Row="2" Header="CMDR name">
+                <TextBox x:Name="textboxClientCmdrName" IsReadOnly="True" Loaded="textboxClientCmdrName_Loaded"/>
             </GroupBox>
             <GroupBox Grid.Row="3" Header="System">
-                <TextBox x:Name="textboxSystem" IsReadOnly="True" Loaded="textboxSystem_Loaded"/>
+                <TextBox x:Name="textboxClientSystem" IsReadOnly="True" Loaded="textboxClientSystem_Loaded"/>
             </GroupBox>
             <GroupBox Grid.Row="4" Header="Platform">
-                <TextBox x:Name="textboxPlatform" IsReadOnly="True" Loaded="textboxPlatform_Loaded"/>
+                <TextBox x:Name="textboxClientPlatform" IsReadOnly="True" Loaded="textboxClientPlatform_Loaded"/>
             </GroupBox>
             <GroupBox Grid.Row="5" Header="O2">
-                <TextBox x:Name="textboxO2" IsReadOnly="True" Loaded="textboxO2_Loaded"/>
+                <TextBox x:Name="textboxClientO2" IsReadOnly="True" Loaded="textboxClientO2_Loaded"/>
             </GroupBox>
             <GroupBox Grid.Row="6" Header="Language">
-                <TextBox x:Name="textboxLanguage" IsReadOnly="True" Loaded="textboxLanguage_Loaded"/>
+                <TextBox x:Name="textboxClientLanguage" IsReadOnly="True" Loaded="textboxClientLanguage_Loaded"/>
             </GroupBox>
         </Grid>
     </Grid>
