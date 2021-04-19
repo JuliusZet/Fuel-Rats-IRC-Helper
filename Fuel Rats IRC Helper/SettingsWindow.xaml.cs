@@ -268,5 +268,23 @@ namespace Fuel_Rats_IRC_Helper
         {
             Settings.Set("ircAutoconnect", "no");
         }
+
+        private void checkboxAutoCopySystemOnRatsignal_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Settings.Get("autoCopySystemOnRatsignal") == "yes")
+            {
+                checkboxAutoCopySystemOnRatsignal.IsChecked = true;
+            }
+        }
+
+        private void checkboxAutoCopySystemOnRatsignal_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.Set("autoCopySystemOnRatsignal", "yes");
+        }
+
+        private void checkboxAutoCopySystemOnRatsignal_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.Set("autoCopySystemOnRatsignal", "no");
+        }
     }
 }
