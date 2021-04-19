@@ -26,8 +26,8 @@
             <ImageBrush ImageSource="{DynamicResource Fuel Rats Logo}" Stretch="Uniform" Opacity="0.05"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
         <DataGrid x:Name="datagridCaseChat" Grid.Column="0" Loaded="datagridCaseChat_Loaded">
             <DataGrid.Columns>

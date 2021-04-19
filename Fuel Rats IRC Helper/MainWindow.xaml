@@ -339,10 +339,15 @@
                         <Label Content="fuel+"/>
                     </GroupBox>
                     <CheckBox x:Name="checkboxFuel" Grid.Column="0" Grid.Row="6" Checked="checkboxFuel_Checked" Unchecked="checkboxFuel_Unchecked"/>
-                    <!-- Show case -->
+                    <!-- Show case / case list -->
                     <Grid Grid.Column="2" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                        <Label Content=""/>
-                        <Button x:Name="buttonShowCase" Content="Show case" Margin="5,0,0,0" Padding="10,0" IsEnabled="False" Click="buttonShowCase_Click"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content=""/>
+                        <Button x:Name="buttonShowCase" Grid.Column="0" Content="Show case" Margin="5,0,0,0" Padding="10,0" IsEnabled="False" Click="buttonShowCase_Click"/>
+                        <Button x:Name="buttonShowCaseList" Grid.Column="1" Content="Show case list" Margin="5,0,0,0" Padding="10,0" Click="buttonShowCaseList_Click"/>
                     </Grid>
                 </Grid>
                 <GroupBox Grid.Row="1" Header="Your message">

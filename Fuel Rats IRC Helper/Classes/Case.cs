@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -28,6 +29,7 @@ namespace Fuel_Rats_IRC_Helper
         private string _ClientPlatform;
         private string _ClientO2;
         private string _ClientLanguage;
+        private string _Status;
         private List<IrcMessage> _IrcMessage;
         private DateTimeOffset _StartTime;
         private DateTimeOffset _EndTime;
@@ -43,6 +45,7 @@ namespace Fuel_Rats_IRC_Helper
             _ClientPlatform = clientPlatform;
             _ClientO2 = clientO2;
             _ClientLanguage = clientLanguage;
+            _Status = "Open";
             _IrcMessage = new List<IrcMessage>();
             _StartTime = DateTimeOffset.FromUnixTimeSeconds(ircMessage.UnixTimestamp);
             _EndTime = DateTimeOffset.MaxValue;
@@ -56,6 +59,11 @@ namespace Fuel_Rats_IRC_Helper
 
         }
 
+        public int Id
+        {
+            get { return _Id; }
+        }
+
         public string CaseNumber
         {
             get { return _CaseNumber; }
@@ -64,18 +72,115 @@ namespace Fuel_Rats_IRC_Helper
         public string ClientIrcNick
         {
             get { return _ClientIrcNick; }
+            set
+            {
+                _ClientIrcNick = value;
+                if (_CaseWindow != null && _CaseWindow.IsLoaded)
+                {
+                    _CaseWindow.ClientIrcNick = value;
+                }
+            }
         }
 
-        public bool IsClosed()
+        public string ClientCmdrName
         {
-            if (_EndTime < DateTimeOffset.UtcNow)
+            get { return _ClientCmdrName; }
+            set
             {
-                return true;
-            }
+                _ClientCmdrName = value;
+                if (_CaseWindow != null && _CaseWindow.IsLoaded)
+                {
+                    _CaseWindow.ClientCmdrName = value;
+                }
 
-            else
+                Irc.RefreshCaseList();
+            }
+        }
+
+        public string ClientSystem
+        {
+            get { return _ClientSystem; }
+            set
             {
-                return false;
+                _ClientSystem = value;
+                if (_CaseWindow != null && _CaseWindow.IsLoaded)
+                {
+                    _CaseWindow.ClientSystem = value;
+                }
+
+                Irc.RefreshCaseList();
+            }
+        }
+
+        public string ClientPlatform
+        {
+            get { return _ClientPlatform; }
+            set
+            {
+                _ClientPlatform = value;
+                if (_CaseWindow != null && _CaseWindow.IsLoaded)
+                {
+                    _CaseWindow.ClientPlatform = value;
+                }
+
+                Irc.RefreshCaseList();
+            }
+        }
+
+        public string ClientO2
+        {
+            get { return _ClientO2; }
+            set
+            {
+                _ClientO2 = value;
+                if (_CaseWindow != null && _CaseWindow.IsLoaded)
+                {
+                    _CaseWindow.ClientO2 = value;
+                }
+
+                Irc.RefreshCaseList();
+            }
+        }
+
+        public string ClientLanguage
+        {
+            get { return _ClientLanguage; }
+            set
+            {
+                _ClientLanguage = value;
+                if (_CaseWindow != null && _CaseWindow.IsLoaded)
+                {
+                    _CaseWindow.ClientLanguage = value;
+                }
+
+                Irc.RefreshCaseList();
+            }
+        }
+
+        public string Status
+        {
+            get { return _Status; }
+            set
+            {
+                _Status = value;
+
+                Irc.RefreshCaseList();
+            }
+        }
+
+        public bool IsClosed
+        {
+            get
+            {
+                if (_EndTime < DateTimeOffset.UtcNow)
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -85,6 +190,20 @@ namespace Fuel_Rats_IRC_Helper
             {
                 _CaseWindow = new CaseWindow(_CaseNumber, _ClientIrcNick, _ClientCmdrName, _ClientSystem, _ClientPlatform, _ClientO2, _ClientLanguage, _IrcMessage);
                 _CaseWindow.Show();
+            }
+
+            else
+            {
+                _CaseWindow.WindowState = System.Windows.WindowState.Normal;
+                _CaseWindow.Activate();
+            }
+        }
+
+        public void RefreshCaseChat()
+        {
+            if (_CaseWindow != null && _CaseWindow.IsLoaded)
+            {
+                _CaseWindow.RefreshCaseChat();
             }
         }
 
@@ -101,120 +220,108 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
-        public void CloseCase(long unixTimestamp)
+        private void CloseCase(long unixTimestamp)
         {
             _EndTime = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp);
+            Irc.RefreshCaseList();
+        }
+
+        private void UncloseCase()
+        {
+            _EndTime = DateTimeOffset.MaxValue;
+            Irc.RefreshCaseList();
         }
 
         public void AddMessage(IrcMessage ircMessage)
         {
             _IrcMessage.Add(ircMessage);
 
-            if (_CaseWindow != null && _CaseWindow.IsLoaded)
-            {
-                _CaseWindow.RefreshCaseChat();
-            }
+            RefreshCaseChat();
 
             if (ircMessage.SenderNickname == "MechaSqueak[BOT]")
             {
-                if (ircMessage.Text.StartsWith("Successfully closed case #"))
+                if (ircMessage.Text.StartsWith("Caution: Client of case #") && ircMessage.Text.Contains(" has changed IRC nick to "))
                 {
-                    CloseCase(ircMessage.UnixTimestamp);
-                }
-
-                else if (ircMessage.Text.StartsWith("Caution: Client of case #") && ircMessage.Text.Contains(" has changed IRC nick to "))
-                {
-                    _ClientIrcNick = ircMessage.Text.Split(new string[] { " has changed IRC nick to " }, StringSplitOptions.None).ElementAt(1);
-
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
-                    {
-                        _CaseWindow.ClientIrcNick = _ClientIrcNick;
-                    }
+                    ClientIrcNick = ircMessage.Text.Split(new string[] { " has changed IRC nick to " }, StringSplitOptions.None).ElementAt(1);
                 }
 
                 else if (ircMessage.Text.StartsWith("Client name for case #") && ircMessage.Text.Contains(" has been changed to: "))
                 {
-                    _ClientCmdrName = ircMessage.Text.Split(new string[] { " has been changed to: " }, StringSplitOptions.None).ElementAt(1);
-                    _ClientCmdrName = _ClientCmdrName.Remove(_ClientCmdrName.Length - 1);
-
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
-                    {
-                        _CaseWindow.ClientCmdrName = _ClientCmdrName;
-                    }
+                    string clientCmdrName = ircMessage.Text.Split(new string[] { " has been changed to: " }, StringSplitOptions.None).ElementAt(1);
+                    ClientCmdrName = clientCmdrName.Remove(clientCmdrName.Length - 1);
                 }
 
                 else if (ircMessage.Text.StartsWith("System for case #") && ircMessage.Text.Contains(" has been changed to "))
                 {
-                    _ClientSystem = ircMessage.Text.Split(new string[] { " has been changed to " }, StringSplitOptions.None).ElementAt(1);
-
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
-                    {
-                        _CaseWindow.ClientSystem = _ClientSystem;
-                    }
+                    ClientSystem = ircMessage.Text.Split(new string[] { " has been changed to " }, StringSplitOptions.None).ElementAt(1).Split('\"').ElementAt(1);
                 }
 
                 else if (ircMessage.Text.StartsWith("ATTENTION: System for case #") && ircMessage.Text.Contains(" has been automatically corrected to "))
                 {
-                    _ClientSystem = ircMessage.Text.Split(new string[] { " has been automatically corrected to " }, StringSplitOptions.None).ElementAt(1);
-                    _ClientSystem = _ClientSystem.Remove(_ClientSystem.Length - 1);
-
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
-                    {
-                        _CaseWindow.ClientSystem = _ClientSystem;
-                    }
+                    ClientSystem = ircMessage.Text.Split(new string[] { " has been automatically corrected to " }, StringSplitOptions.None).ElementAt(1).Split('\"').ElementAt(1);
                 }
 
                 else if (ircMessage.Text.StartsWith("Platform for case #") && ircMessage.Text.Contains(" set to: "))
                 {
-                    _ClientPlatform = ircMessage.Text.Split(new string[] { " set to: " }, StringSplitOptions.None).ElementAt(1);
+                    string clientPlatform = ircMessage.Text.Split(new string[] { " set to: " }, StringSplitOptions.None).ElementAt(1);
 
-                    if (_ClientPlatform.Contains("PC"))
+                    if (clientPlatform.Contains("PC"))
                     {
-                        _ClientPlatform = "PC";
+                        ClientPlatform = "PC";
                     }
-                    else if (_ClientPlatform.Contains("Xbox"))
+                    else if (clientPlatform.Contains("Xbox"))
                     {
-                        _ClientPlatform = "Xbox";
+                        ClientPlatform = "Xbox";
                     }
-                    else if (_ClientPlatform.Contains("Playstation"))
+                    else if (clientPlatform.Contains("Playstation"))
                     {
-                        _ClientPlatform = "Playstation";
+                        ClientPlatform = "Playstation";
                     }
-
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
+                    else
                     {
-                        _CaseWindow.ClientPlatform = _ClientPlatform;
+                        ClientPlatform = clientPlatform;
                     }
                 }
 
                 else if (ircMessage.Text.StartsWith("CODE RED! ") && ircMessage.Text.EndsWith(" is on emergency oxygen!"))
                 {
-                    _ClientO2 = "NOT OK";
-
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
-                    {
-                        _CaseWindow.ClientO2 = _ClientO2;
-                    }
+                    ClientO2 = "NOT OK";
                 }
 
                 else if (ircMessage.Text.StartsWith("Case #") && ircMessage.Text.EndsWith(" is no longer CR."))
                 {
-                    _ClientO2 = "OK";
-
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
-                    {
-                        _CaseWindow.ClientO2 = _ClientO2;
-                    }
+                    ClientO2 = "OK";
                 }
 
                 else if (ircMessage.Text.StartsWith("Language for case #") && ircMessage.Text.Contains(" has now been changed to "))
                 {
-                    _ClientLanguage = ircMessage.Text.Split(new string[] { " has now been changed to " }, StringSplitOptions.None).ElementAt(1);
+                    ClientLanguage = ircMessage.Text.Split(new string[] { " has now been changed to " }, StringSplitOptions.None).ElementAt(1).Split(' ').ElementAt(0);
+                }
 
-                    if (_CaseWindow != null && _CaseWindow.IsLoaded)
-                    {
-                        _CaseWindow.ClientLanguage = _ClientLanguage;
-                    }
+                else if (ircMessage.Text.StartsWith("Status of case #") && ircMessage.Text.Contains(" set to: "))
+                {
+                    string status = ircMessage.Text.Split(new string[] { " set to: " }, StringSplitOptions.None).ElementAt(1);
+                    Status = status.Remove(status.Length - 1);
+                }
+
+                else if (ircMessage.Text.StartsWith("Successfully closed case #"))
+                {
+                    CloseCase(ircMessage.UnixTimestamp);
+                }
+
+                else if (ircMessage.Text.StartsWith("Successfully added case #") && ircMessage.Text.EndsWith(" to the deletion list."))
+                {
+                    CloseCase(ircMessage.UnixTimestamp);
+                }
+
+                else if (ircMessage.Text.StartsWith("Client of case #") && ircMessage.Text.EndsWith(" has been banned by the moderator team and the case has been trashed."))
+                {
+                    CloseCase(ircMessage.UnixTimestamp);
+                }
+
+                else if (ircMessage.Text.StartsWith("Rescue \"") && ircMessage.Text.Contains("\" has been re-opened and added to the board as case #"))
+                {
+                    UncloseCase();
                 }
             }
         }

@@ -18,12 +18,15 @@ namespace Fuel_Rats_IRC_Helper
 {
     static class Settings
     {
-        private static ExeConfigurationFileMap _SettingsExeConfigurationFileMap = new ExeConfigurationFileMap();
-        private static Configuration _SettingsConfiguration;
-        private static KeyValueConfigurationCollection _SettingsKeyValueConfigurationCollection;
+        private static ExeConfigurationFileMap _SettingsExeConfigurationFileMap = new ExeConfigurationFileMap()
+        {
+            ExeConfigFilename = "../Settings.config"
+        };
+        private static Configuration _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
+        private static KeyValueConfigurationCollection _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
 
-        private static Configuration _AppConfiguration;
-        private static KeyValueConfigurationCollection _AppKeyValueConfigurationCollection;
+        private static Configuration _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+        private static KeyValueConfigurationCollection _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
 
         //
         // Summary:
@@ -39,10 +42,6 @@ namespace Fuel_Rats_IRC_Helper
         {
             if (key != "showChangelogOnStartup")
             {
-                _SettingsExeConfigurationFileMap.ExeConfigFilename = "../Settings.config";
-                _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
-                _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
-
                 if (_SettingsKeyValueConfigurationCollection[key] == null)
                 {
                     ResetToDefault(key);
@@ -62,9 +61,6 @@ namespace Fuel_Rats_IRC_Helper
 
             else
             {
-                _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
-
                 if (_AppKeyValueConfigurationCollection[key] == null)
                 {
                     ResetToDefault(key);
@@ -104,18 +100,14 @@ namespace Fuel_Rats_IRC_Helper
             {
                 if (key != "showChangelogOnStartup")
                 {
-                    _SettingsExeConfigurationFileMap.ExeConfigFilename = "../Settings.config";
-                    _SettingsConfiguration = ConfigurationManager.OpenMappedExeConfiguration(_SettingsExeConfigurationFileMap, ConfigurationUserLevel.None);
-                    _SettingsKeyValueConfigurationCollection = _SettingsConfiguration.AppSettings.Settings;
-
-                    if (_SettingsKeyValueConfigurationCollection[key] == null)
+                    if (_SettingsKeyValueConfigurationCollection[key] != null)
                     {
-                        _SettingsKeyValueConfigurationCollection.Add(key, value);
+                        _SettingsKeyValueConfigurationCollection[key].Value = value;
                     }
 
                     else
                     {
-                        _SettingsKeyValueConfigurationCollection[key].Value = value;
+                        _SettingsKeyValueConfigurationCollection.Add(key, value);
                     }
 
                     _SettingsConfiguration.Save(ConfigurationSaveMode.Modified);
@@ -125,17 +117,14 @@ namespace Fuel_Rats_IRC_Helper
 
                 else
                 {
-                    _AppConfiguration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                    _AppKeyValueConfigurationCollection = _AppConfiguration.AppSettings.Settings;
-
-                    if (_AppKeyValueConfigurationCollection[key] == null)
+                    if (_AppKeyValueConfigurationCollection[key] != null)
                     {
-                        _AppKeyValueConfigurationCollection.Add(key, value);
+                        _AppKeyValueConfigurationCollection[key].Value = value;
                     }
 
                     else
                     {
-                        _AppKeyValueConfigurationCollection[key].Value = value;
+                        _AppKeyValueConfigurationCollection.Add(key, value);
                     }
 
                     _AppConfiguration.Save(ConfigurationSaveMode.Modified);

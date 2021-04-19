@@ -300,6 +300,7 @@ namespace Fuel_Rats_IRC_Helper
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Irc.Disconnect();
+            Irc.CloseCaseListWindow();
         }
 
         private void menuitemConnectToIrc_Click(object sender, RoutedEventArgs e)
@@ -926,7 +927,12 @@ namespace Fuel_Rats_IRC_Helper
 
         private void buttonShowCase_Click(object sender, RoutedEventArgs e)
         {
-            Irc.ShowCase(textboxCasenumber.Text);
+            Irc.ShowCaseWindow(textboxCasenumber.Text);
+        }
+
+        private void buttonShowCaseList_Click(object sender, RoutedEventArgs e)
+        {
+            Irc.ShowCaseListWindow();
         }
 
         private void textboxMessage_GotFocus(object sender, RoutedEventArgs e)

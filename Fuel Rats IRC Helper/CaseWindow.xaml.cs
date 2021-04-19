@@ -65,7 +65,7 @@ namespace Fuel_Rats_IRC_Helper
 
                 if (textboxClientCmdrName.IsLoaded)
                 {
-                    textboxClientCmdrName.Text = "CMDR " + value;
+                    textboxClientCmdrName.Text = value;
                 }
             }
         }
@@ -162,7 +162,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void textboxClientCmdrName_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxClientCmdrName.Text = "CMDR " + _ClientCmdrName;
+            textboxClientCmdrName.Text = _ClientCmdrName;
         }
 
         private void textboxClientSystem_Loaded(object sender, RoutedEventArgs e)

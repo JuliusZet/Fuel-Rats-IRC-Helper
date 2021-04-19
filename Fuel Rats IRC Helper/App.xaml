@@ -45,6 +45,7 @@
                 <Setter Property="HeadersVisibility" Value="Column"/>
                 <Setter Property="IsReadOnly" Value="True"/>
                 <Setter Property="RowBackground" Value="Transparent"/>
+                <Setter Property="SelectionUnit" Value="Cell"/>
             </Style>
             <Style TargetType="Label">
                 <Setter Property="VerticalAlignment" Value="Center"/>

@@ -36,25 +36,21 @@ namespace Fuel_Rats_IRC_Helper
         public long UnixTimestamp
         {
             get { return _UnixTimestamp; }
-            set { _UnixTimestamp = value; }
         }
 
         public string Timestamp
         {
             get { return _Timestamp; }
-            set { _Timestamp = value; }
         }
 
         public string SenderNickname
         {
             get { return _SenderNickname; }
-            set { _SenderNickname = value; }
         }
 
         public string Text
         {
             get { return _Text; }
-            set { _Text = value; }
         }
     }
 }

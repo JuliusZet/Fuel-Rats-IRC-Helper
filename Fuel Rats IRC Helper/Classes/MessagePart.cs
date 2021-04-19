@@ -13,32 +13,31 @@
 
 namespace Fuel_Rats_IRC_Helper
 {
-	class MessagePart
+    class MessagePart
     {
-		private string _Name;
-		private string _Text;
+        private string _Name;
+        private string _Text;
 
-		public MessagePart(string name, string text)
-		{
-			Name = name;
-			Text = text;
-		}
+        public MessagePart(string name, string text)
+        {
+            _Name = name;
+            _Text = text;
+        }
 
-		public MessagePart() : this("", "")
-		{
+        public MessagePart() : this("", "")
+        {
 
-		}
+        }
 
-		public string Name
-		{
-			get { return _Name; }
-			set { _Name = value; }
-		}
+        public string Name
+        {
+            get { return _Name; }
+        }
 
-		public string Text
-		{
-			get { return _Text; }
-			set { _Text = value; }
-		}
-	}
+        public string Text
+        {
+            get { return _Text; }
+            set { _Text = value; }
+        }
+    }
 }

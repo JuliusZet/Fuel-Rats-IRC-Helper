@@ -86,7 +86,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             int messagePartToBeReplaced = -1;
 
-            for (int i = 0; i < _MessagePart.Count; ++i)
+            for (int i = 0; i != _MessagePart.Count; ++i)
             {
                 if (_MessagePart.ElementAt(i).Name == messagePartName)
                 {
@@ -124,7 +124,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             int messagePartIndexToBeRemoved = -1;
 
-            for (int i = 0; i < _MessagePart.Count; ++i)
+            for (int i = 0; i != _MessagePart.Count; ++i)
             {
                 if (_MessagePart.ElementAt(i).Name == messagePartName)
                 {
@@ -168,7 +168,7 @@ namespace Fuel_Rats_IRC_Helper
         public static string Generate()
         {
             string message = "";
-            for (int i = 0; i < _MessagePart.Count; ++i)
+            for (int i = 0; i != _MessagePart.Count; ++i)
             {
                 message += _MessagePart.ElementAt(i).Text;
 
@@ -199,6 +199,7 @@ namespace Fuel_Rats_IRC_Helper
         //     5: Multiple IRC helper windows found
         //     6: Elite Dangerous window not found
         //     7: Multiple Elite Dangerous windows found
+        //     8: An error occured while sending the message
         public static int Send(string message)
         {
             string windowTitleIrcClient = Settings.Get("windowTitleIrcClient");
@@ -263,69 +264,78 @@ namespace Fuel_Rats_IRC_Helper
                 return 7;
             }
 
-            SetForegroundWindow(windowIrcClient.ElementAt(0).RawPtr);
-            
-            if (message != "")
+            try
             {
-                if (Settings.Get("messageInsertionMode") == "sendKeys")
-                {
+                SetForegroundWindow(windowIrcClient.ElementAt(0).RawPtr);
 
-                    // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
-                    string newMessage = "";
-                    for (int i = 0; i < message.Length; ++i)
+                if (message != "")
+                {
+                    if (Settings.Get("messageInsertionMode") == "sendKeys")
                     {
-                        switch (message.ElementAt(i))
+
+                        // The function that actually sends the message interprets some characters as special characters, so we need to escape them by enclosing them in braces.
+                        string newMessage = "";
+                        for (int i = 0; i != message.Length; ++i)
                         {
-                            case '+':
-                            case '^':
-                            case '%':
-                            case '~':
-                            case '(':
-                            case ')':
-                            case '[':
-                            case ']':
-                            case '{':
-                            case '}':
-                                newMessage += '{';
-                                newMessage += message.ElementAt(i);
-                                newMessage += '}';
-                                break;
-                            default:
-                                newMessage += message.ElementAt(i);
-                                break;
+                            switch (message.ElementAt(i))
+                            {
+                                case '+':
+                                case '^':
+                                case '%':
+                                case '~':
+                                case '(':
+                                case ')':
+                                case '[':
+                                case ']':
+                                case '{':
+                                case '}':
+                                    newMessage += '{';
+                                    newMessage += message.ElementAt(i);
+                                    newMessage += '}';
+                                    break;
+                                default:
+                                    newMessage += message.ElementAt(i);
+                                    break;
+                            }
                         }
+
+                        System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
                     }
 
-                    System.Windows.Forms.SendKeys.SendWait(newMessage + "{ENTER}");
-                }
-
-                else
-                {
-                    if (Clipboard.ContainsText() == true)
-                    {
-                        string clipboardBackup = Clipboard.GetText();
-                        Clipboard.SetText(message);
-                        System.Windows.Forms.SendKeys.SendWait("^{v}");
-                        Thread.Sleep(10 + message.Length / 5);
-                        System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-                        Clipboard.SetText(clipboardBackup);
-                    }
-                
                     else
                     {
-                        IDataObject clipboardBackup = Clipboard.GetDataObject();
-                        Clipboard.SetText(message);
-                        System.Windows.Forms.SendKeys.SendWait("^{v}");
-                        Thread.Sleep(10 + message.Length / 5);
-                        System.Windows.Forms.SendKeys.SendWait("{ENTER}");
-                        Clipboard.SetDataObject(clipboardBackup);
+                        if (Clipboard.ContainsText() == true)
+                        {
+                            string clipboardBackup = Clipboard.GetText();
+                            Clipboard.SetText(message);
+                            System.Windows.Forms.SendKeys.SendWait("^{v}");
+                            Thread.Sleep(10 + message.Length / 5);
+                            System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                            Clipboard.SetText(clipboardBackup);
+                        }
+
+                        else
+                        {
+                            IDataObject clipboardBackup = Clipboard.GetDataObject();
+                            Clipboard.SetText(message);
+                            System.Windows.Forms.SendKeys.SendWait("^{v}");
+                            Thread.Sleep(10 + message.Length / 5);
+                            System.Windows.Forms.SendKeys.SendWait("{ENTER}");
+                            Clipboard.SetDataObject(clipboardBackup);
+                        }
                     }
                 }
+
+                SetForegroundWindow(windowIrcHelper.ElementAt(0).RawPtr);
+                SetForegroundWindow(windowEliteDangerous.ElementAt(0).RawPtr);
             }
 
-            SetForegroundWindow(windowIrcHelper.ElementAt(0).RawPtr);
-            SetForegroundWindow(windowEliteDangerous.ElementAt(0).RawPtr);
-            
+            catch (Exception exception)
+            {
+                MessageBox.Show("An error occured while trying to send the message! " + exception.Message + " The message was not sent. Please try again.", "Error");
+                return 8;
+            }
+
             return 0;
         }
     }
