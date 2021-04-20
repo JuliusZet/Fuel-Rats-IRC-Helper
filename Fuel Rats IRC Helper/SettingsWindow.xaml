@@ -188,7 +188,7 @@
                         <Button x:Name="buttonTimestampFormatResetToDefault" Grid.Column="2" Grid.Row="10" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonTimestampFormatResetToDefault_Click"/>
                         <Label x:Name="labelTimestampFormatExample" Grid.Column="1" Grid.Row="11" Content="Example: 2009-06-01T13:45:30Z will be displayed as " Margin="10,0,0,5" Padding="5,0,5,5"/>
                         <CheckBox x:Name="checkboxIrcAutoconnect" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2" Content="Automatically connect on startup" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxIrcAutoconnect_Loaded" Checked="checkboxIrcAutoconnect_Checked" Unchecked="checkboxIrcAutoconnect_Unchecked"/>
-                        <CheckBox x:Name="checkboxAutoCopySystemOnRatsignal" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Content="Automatically copy the system name to the clipboard when a RATSIGNAL is received" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxAutoCopySystemOnRatsignal_Loaded" Checked="checkboxAutoCopySystemOnRatsignal_Checked" Unchecked="checkboxAutoCopySystemOnRatsignal_Unchecked"/>
+                        <CheckBox x:Name="checkboxAutoCopySystemOnPcSignal" Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Content="Automatically copy the system name to the clipboard when a PC__SIGNAL is received" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxAutoCopySystemOnPcSignal_Loaded" Checked="checkboxAutoCopySystemOnPcSignal_Checked" Unchecked="checkboxAutoCopySystemOnPcSignal_Unchecked"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

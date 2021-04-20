@@ -117,7 +117,7 @@ namespace Fuel_Rats_IRC_Helper
                             _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientCmdrName, clientSystem, clientPlatform, clientO2, clientLanguage, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
                             RefreshCaseList();
 
-                            if (Settings.Get("autoCopySystemOnRatsignal") == "yes")
+                            if (Settings.Get("autoCopySystemOnPcSignal") == "yes" && clientPlatform == "PC")
                             {
                                 Clipboard.SetText(clientSystem);
                             }

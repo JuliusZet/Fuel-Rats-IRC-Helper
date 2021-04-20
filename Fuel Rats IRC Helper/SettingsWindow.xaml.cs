@@ -269,22 +269,22 @@ namespace Fuel_Rats_IRC_Helper
             Settings.Set("ircAutoconnect", "no");
         }
 
-        private void checkboxAutoCopySystemOnRatsignal_Loaded(object sender, RoutedEventArgs e)
+        private void checkboxAutoCopySystemOnPcSignal_Loaded(object sender, RoutedEventArgs e)
         {
-            if (Settings.Get("autoCopySystemOnRatsignal") == "yes")
+            if (Settings.Get("autoCopySystemOnPcSignal") == "yes")
             {
-                checkboxAutoCopySystemOnRatsignal.IsChecked = true;
+                checkboxAutoCopySystemOnPcSignal.IsChecked = true;
             }
         }
 
-        private void checkboxAutoCopySystemOnRatsignal_Checked(object sender, RoutedEventArgs e)
+        private void checkboxAutoCopySystemOnPcSignal_Checked(object sender, RoutedEventArgs e)
         {
-            Settings.Set("autoCopySystemOnRatsignal", "yes");
+            Settings.Set("autoCopySystemOnPcSignal", "yes");
         }
 
-        private void checkboxAutoCopySystemOnRatsignal_Unchecked(object sender, RoutedEventArgs e)
+        private void checkboxAutoCopySystemOnPcSignal_Unchecked(object sender, RoutedEventArgs e)
         {
-            Settings.Set("autoCopySystemOnRatsignal", "no");
+            Settings.Set("autoCopySystemOnPcSignal", "no");
         }
     }
 }

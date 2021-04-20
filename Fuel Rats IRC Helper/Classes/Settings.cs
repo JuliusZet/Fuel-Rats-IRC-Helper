@@ -157,8 +157,8 @@ namespace Fuel_Rats_IRC_Helper
         {
             switch (key)
             {
-                case "autoCopySystemOnRatsignal":
-                    return Set("autoCopySystemOnRatsignal", "no");
+                case "autoCopySystemOnPcSignal":
+                    return Set("autoCopySystemOnPcSignal", "no");
                 case "checkForUpdatesOnStartup":
                     return Set("checkForUpdatesOnStartup", "yes");
                 case "ircAddress":
