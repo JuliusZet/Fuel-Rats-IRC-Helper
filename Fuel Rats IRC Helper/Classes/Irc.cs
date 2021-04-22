@@ -252,6 +252,7 @@ namespace Fuel_Rats_IRC_Helper
                     {
                         _IrcClient.UseSsl = true;
                     }
+                    _IrcClient.EnableUTF8Recode = true;
                     _IrcClient.OnRawMessage += new IrcEventHandler(OnRawMessage);
                     _IrcClient.Connect(ircAddress, ircPort);
                     _IrcClient.Login(ircNick, ircRealname, 4, "IRC-Helper", ircPassword);
