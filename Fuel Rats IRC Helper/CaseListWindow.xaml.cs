@@ -41,7 +41,7 @@ namespace Fuel_Rats_IRC_Helper
         private void DataGridRow_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Case selectedCase = datagridCaseList.CurrentItem as Case;
-            Irc.ShowCaseWindow(selectedCase.Id);
+            selectedCase.ShowCaseWindow();
         }
     }
 }

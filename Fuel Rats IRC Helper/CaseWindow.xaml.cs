@@ -13,6 +13,8 @@
 
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Fuel_Rats_IRC_Helper
 {
@@ -140,6 +142,121 @@ namespace Fuel_Rats_IRC_Helper
             Title = "Case #" + _CaseNumber;
         }
 
+        private void buttonPrepAuto_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!prep-auto " + _ClientIrcNick;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonModules_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!modules " + _ClientIrcNick;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonGoFr_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!gofr " + _ClientIrcNick;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
+        private void buttonWing_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!wing " + _ClientIrcNick;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonBeacon_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!beacon " + _ClientIrcNick;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonClose_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!close " + _ClientIrcNick;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
+        private void buttonQuit_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!quit " + _ClientIrcNick;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonCrinst_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!crinst " + _ClientIrcNick;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonNick_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!nick " + _CaseNumber;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
+        private void buttonCmdr_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!cmdr " + _CaseNumber;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
+        private void buttonSys_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!sys " + _CaseNumber;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
+        private void buttonPc_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!pc " + _CaseNumber;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonXb_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!xb " + _CaseNumber;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonPs_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!ps " + _CaseNumber;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonCr_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!cr " + _CaseNumber;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonLang_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!lang " + _CaseNumber;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
+        private void buttonGrab_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!grab " + _CaseNumber;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonInject_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!inject " + _CaseNumber;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
         private void datagridCaseChat_Loaded(object sender, RoutedEventArgs e)
         {
             datagridCaseChat.ItemsSource = _IrcMessage;
@@ -147,6 +264,62 @@ namespace Fuel_Rats_IRC_Helper
             if (_IrcMessage.Count != 0)
             {
                 datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_IrcMessage.Count - 1]);
+            }
+        }
+
+        private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            DataGridCell selectedCell = sender as DataGridCell;
+            TextBlock selectedTextblock = selectedCell.Content as TextBlock;
+            if (textboxMessage.Text != "")
+            {
+                textboxMessage.Text += ' ';
+            }
+            textboxMessage.Text += selectedTextblock.Text;
+            textboxMessage.Focus();
+            textboxMessage.CaretIndex = textboxMessage.Text.Length;
+        }
+
+        private void textboxMessage_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (textboxMessage.Text != "" && !textboxMessage.Text.EndsWith(" "))
+            {
+                textboxMessage.Text += ' ';
+            }
+        }
+
+        private void textboxMessage_LostFocus(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = textboxMessage.Text.Trim();
+        }
+
+        private void textboxMessage_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                textboxMessage_LostFocus(null, null);
+                buttonSend_Click(null, null);
+            }
+
+            if (e.Key == Key.Tab)
+            {
+                e.Handled = true;
+                textboxMessage.Text += _ClientIrcNick;
+                textboxMessage.CaretIndex = textboxMessage.Text.Length;
+            }
+        }
+
+        private void buttonClear_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Clear();
+            textboxMessage.Focus();
+        }
+
+        private void buttonSend_Click(object sender, RoutedEventArgs e)
+        {
+            if (Message.Send(textboxMessage.Text, false) == 0)
+            {
+                buttonClear_Click(null, null);
             }
         }
 

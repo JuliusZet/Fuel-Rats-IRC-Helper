@@ -164,8 +164,6 @@
                                     <RowDefinition/>
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Content=""/>
-                                <Label Grid.Column="0" Grid.Row="1" Content=""/>
                                 <RadioButton x:Name="radiobuttonInOpen" Grid.Column="0" Grid.Row="0" Content="in open" GroupName="onlinestatus" Checked="radiobuttonInOpen_Checked"/>
                                 <RadioButton x:Name="radiobuttonInPg" Grid.Column="1" Grid.Row="0" Content="in pg" GroupName="onlinestatus" Checked="radiobuttonInPg_Checked"/>
                                 <RadioButton x:Name="radiobuttonInSolo" Grid.Column="0" Grid.Row="1" Content="in solo" GroupName="onlinestatus" Checked="radiobuttonInSolo_Checked"/>
@@ -207,7 +205,6 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Content=""/>
                                 <RadioButton x:Name="radiobuttonWrPlus" Grid.Column="0" Content="wr+" GroupName="wr" Checked="radiobuttonWrPlus_Checked"/>
                                 <RadioButton x:Name="radiobuttonWrMinus" Grid.Column="1" Content="wr-" GroupName="wr" Checked="radiobuttonWrMinus_Checked"/>
                             </Grid>
@@ -273,7 +270,6 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Content=""/>
                                 <RadioButton x:Name="radiobuttonBcPlus" Grid.Column="0" Content="bc+" GroupName="bc" Checked="radiobuttonBcPlus_Checked"/>
                                 <RadioButton x:Name="radiobuttonBcMinus" Grid.Column="1" Content="bc-" GroupName="bc" Checked="radiobuttonBcMinus_Checked"/>
                             </Grid>
@@ -292,7 +288,6 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Content=""/>
                                 <RadioButton x:Name="radiobuttonInstPlus" Grid.Column="0" Content="inst+" GroupName="inst" Checked="radiobuttonInstPlus_Checked"/>
                                 <RadioButton x:Name="radiobuttonInstMinus" Grid.Column="1" Content="inst-" GroupName="inst" Checked="radiobuttonInstMinus_Checked"/>
                             </Grid>
@@ -345,7 +340,6 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Content=""/>
                         <Button x:Name="buttonShowCase" Grid.Column="0" Content="Show case" Margin="5,0,0,0" Padding="10,0" IsEnabled="False" Click="buttonShowCase_Click"/>
                         <Button x:Name="buttonShowCaseList" Grid.Column="1" Content="Show case list" Margin="5,0,0,0" Padding="10,0" Click="buttonShowCaseList_Click"/>
                     </Grid>
@@ -361,7 +355,6 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Content=""/>
                             <TextBox x:Name="textboxMessage" Grid.Column="0" GotFocus="textboxMessage_GotFocus" LostFocus="textboxMessage_LostFocus" KeyDown="textboxMessage_KeyDown"/>
                             <Button x:Name="buttonClear" Grid.Column="1" Content="Clear" Margin="5,0,0,0" Padding="10,0" Click="buttonClear_Click"/>
                         </Grid>

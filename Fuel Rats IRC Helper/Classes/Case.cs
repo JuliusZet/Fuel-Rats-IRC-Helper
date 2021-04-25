@@ -52,16 +52,23 @@ namespace Fuel_Rats_IRC_Helper
             _CaseWindow = null;
 
             _IrcMessage.Add(ircMessage);
+
+            if (Settings.Get("autoCopySystemOnPcSignal") == "yes" && clientPlatform == "PC")
+            {
+                try
+                {
+                    Clipboard.SetText(clientSystem);
+                }
+                catch (Exception)
+                {
+
+                }
+            }
         }
 
         public Case() : this("unknown", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown", new IrcMessage())
         {
 
-        }
-
-        public int Id
-        {
-            get { return _Id; }
         }
 
         public string CaseNumber

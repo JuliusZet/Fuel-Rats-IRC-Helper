@@ -20,72 +20,159 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="Case" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Case" Height="500" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid Margin="10">
         <Grid.Background>
             <ImageBrush ImageSource="{DynamicResource Fuel Rats Logo}" Stretch="Uniform" Opacity="0.05"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="datagridCaseChat" Grid.Column="0" Loaded="datagridCaseChat_Loaded">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Timestamp}" Width="auto">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding SenderNickname}" Width="auto">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                            <Setter Property="TextBlock.TextAlignment" Value="Right"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Text}" Width="1*">
-                    <DataGridTextColumn.ElementStyle>
-                        <Style>
-                            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
-                        </Style>
-                    </DataGridTextColumn.ElementStyle>
-                </DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Grid Grid.Column="1" Margin="10,0,0,0">
+        <ScrollViewer Grid.Column="0" Margin="0,0,10,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Row="0" Header="Common">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="buttonPrepAuto" Grid.Row="0" Content="!prep-auto" Click="buttonPrepAuto_Click"/>
+                        <Button x:Name="buttonModules" Grid.Row="1" Content="!modules" Click="buttonModules_Click"/>
+                        <Button x:Name="buttonGoFr" Grid.Row="2" Content="!gofr" Click="buttonGoFr_Click"/>
+                        <Button x:Name="buttonWing" Grid.Row="3" Content="!wing" Click="buttonWing_Click"/>
+                        <Button x:Name="buttonBeacon" Grid.Row="4" Content="!beacon" Click="buttonBeacon_Click"/>
+                        <Button x:Name="buttonClose" Grid.Row="5" Content="!close" Click="buttonClose_Click"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="1" Header="CR">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="buttonQuit" Grid.Row="0" Content="!quit" Click="buttonQuit_Click"/>
+                        <Button x:Name="buttonCrinst" Grid.Row="1" Content="!crinst" Click="buttonCrinst_Click"/>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="2" Header="Update">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Button x:Name="buttonNick" Grid.Row="0" Content="!nick" Click="buttonNick_Click"/>
+                        <Button x:Name="buttonCmdr" Grid.Row="1" Content="!cmdr" Click="buttonCmdr_Click"/>
+                        <Button x:Name="buttonSys" Grid.Row="2" Content="!sys" Click="buttonSys_Click"/>
+                        <Button x:Name="buttonPc" Grid.Row="3" Content="!pc" Click="buttonPc_Click"/>
+                        <Button x:Name="buttonXb" Grid.Row="4" Content="!xb" Click="buttonXb_Click"/>
+                        <Button x:Name="buttonPs" Grid.Row="5" Content="!ps" Click="buttonPs_Click"/>
+                        <Button x:Name="buttonCr" Grid.Row="6" Content="!cr" Click="buttonCr_Click"/>
+                        <Button x:Name="buttonLang" Grid.Row="7" Content="!lang" Click="buttonLang_Click"/>
+                        <Button x:Name="buttonGrab" Grid.Row="8" Content="!grab" Click="buttonGrab_Click"/>
+                        <Button x:Name="buttonInject" Grid.Row="9" Content="!inject" Click="buttonInject_Click"/>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </ScrollViewer>
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <GroupBox Grid.Row="0" Header="Case number">
-                <TextBox x:Name="textboxCasenumber" IsReadOnly="True" Loaded="textboxCasenumber_Loaded"/>
-            </GroupBox>
-            <GroupBox Grid.Row="1" Header="IRC nickname">
-                <TextBox x:Name="textboxClientIrcNick" IsReadOnly="True" Loaded="textboxClientIrcNick_Loaded"/>
-            </GroupBox>
-            <GroupBox Grid.Row="2" Header="CMDR name">
-                <TextBox x:Name="textboxClientCmdrName" IsReadOnly="True" Loaded="textboxClientCmdrName_Loaded"/>
-            </GroupBox>
-            <GroupBox Grid.Row="3" Header="System">
-                <TextBox x:Name="textboxClientSystem" IsReadOnly="True" Loaded="textboxClientSystem_Loaded"/>
-            </GroupBox>
-            <GroupBox Grid.Row="4" Header="Platform">
-                <TextBox x:Name="textboxClientPlatform" IsReadOnly="True" Loaded="textboxClientPlatform_Loaded"/>
-            </GroupBox>
-            <GroupBox Grid.Row="5" Header="O2">
-                <TextBox x:Name="textboxClientO2" IsReadOnly="True" Loaded="textboxClientO2_Loaded"/>
-            </GroupBox>
-            <GroupBox Grid.Row="6" Header="Language">
-                <TextBox x:Name="textboxClientLanguage" IsReadOnly="True" Loaded="textboxClientLanguage_Loaded"/>
-            </GroupBox>
+            <DataGrid x:Name="datagridCaseChat" Grid.Row="0" Margin="0,0,0,5" Loaded="datagridCaseChat_Loaded">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Timestamp}" Width="auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding SenderNickname}" Width="auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                                <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Text}" Width="1*">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style>
+                                <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <EventSetter Event="MouseDoubleClick" Handler="DataGridCell_MouseDoubleClick"/>
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBox x:Name="textboxMessage" Grid.Column="0" GotFocus="textboxMessage_GotFocus" LostFocus="textboxMessage_LostFocus" KeyDown="textboxMessage_KeyDown"/>
+                <Button x:Name="buttonClear" Grid.Column="1" Content="x" Padding="5,0" Click="buttonClear_Click"/>
+                <Button x:Name="buttonSend" Grid.Column="2" Content="Send" Margin="5,0,0,0" Padding="10,0" Click="buttonSend_Click"/>
+            </Grid>
         </Grid>
+        <ScrollViewer Grid.Column="2" Margin="10,0,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Grid.Row="0" Header="Case number">
+                    <TextBox x:Name="textboxCasenumber" IsReadOnly="True" Loaded="textboxCasenumber_Loaded"/>
+                </GroupBox>
+                <GroupBox Grid.Row="1" Header="IRC nickname">
+                    <TextBox x:Name="textboxClientIrcNick" IsReadOnly="True" Loaded="textboxClientIrcNick_Loaded"/>
+                </GroupBox>
+                <GroupBox Grid.Row="2" Header="CMDR name">
+                    <TextBox x:Name="textboxClientCmdrName" IsReadOnly="True" Loaded="textboxClientCmdrName_Loaded"/>
+                </GroupBox>
+                <GroupBox Grid.Row="3" Header="System">
+                    <TextBox x:Name="textboxClientSystem" IsReadOnly="True" Loaded="textboxClientSystem_Loaded"/>
+                </GroupBox>
+                <GroupBox Grid.Row="4" Header="Platform">
+                    <TextBox x:Name="textboxClientPlatform" IsReadOnly="True" Loaded="textboxClientPlatform_Loaded"/>
+                </GroupBox>
+                <GroupBox Grid.Row="5" Header="O2">
+                    <TextBox x:Name="textboxClientO2" IsReadOnly="True" Loaded="textboxClientO2_Loaded"/>
+                </GroupBox>
+                <GroupBox Grid.Row="6" Header="Language">
+                    <TextBox x:Name="textboxClientLanguage" IsReadOnly="True" Loaded="textboxClientLanguage_Loaded"/>
+                </GroupBox>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Window>

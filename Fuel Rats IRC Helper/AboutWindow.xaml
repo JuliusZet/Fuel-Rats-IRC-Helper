@@ -28,19 +28,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Content="Fuel Rats IRC Helper"/>
         <Label x:Name="labelVersion" Grid.Row="1" Content="Version" Loaded="labelVersion_Loaded"/>
-        <Label Grid.Row="2" Content=""/>
         <Label Grid.Row="3" Content="Created by Julius Zitzmann on 2020-05-08."/>
         <Label Grid.Row="4" Content="Copyright © 2021 Julius Zitzmann. All rights reserved."/>
-        <Label Grid.Row="5" Content=""/>
         <Label Grid.Row="6" Content="Feature requests, bug reports or questions?"/>
         <Label Grid.Row="7" Content="info@julius-zitzmann.de"/>
     </Grid>

@@ -49,7 +49,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="27"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -79,7 +79,6 @@
                             <TextBox x:Name="textboxWindowTitleEliteDangerous" Grid.Column="1" Loaded="textboxWindowTitleEliteDangerous_Loaded" TextChanged="textboxWindowTitleEliteDangerous_TextChanged"/>
                             <Button x:Name="buttonWindowTitleEliteDangerousResetToDefault" Grid.Column="2" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonWindowTitleEliteDangerousResetToDefault_Click"/>
                         </Grid>
-                        <Label Grid.Row="7" Content=""/>
                         <Label Grid.Row="8" Content="Message insertion method:" FontWeight="Bold" Margin="20,0,0,0"/>
                         <RadioButton x:Name="radiobuttonCopyPaste" Grid.Row="9" GroupName="messageInsertionMode" HorizontalAlignment="Left" Margin="40,0,0,5" Loaded="radiobuttonCopyPaste_Loaded" Checked="radiobuttonCopyPaste_Checked">
                             <Grid>
