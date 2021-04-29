@@ -125,13 +125,64 @@ namespace Fuel_Rats_IRC_Helper
 
                     catch (Exception exception)
                     {
-                        MessageBox.Show("An error occured while parsing information from the RATSIGNAL! " + exception.Message + " Some information could be missing.", "Error");
+                        MessageBox.Show("An error occured while parsing information from the RATSIGNAL! " + exception.Message + " Some information might be missing.", "Error");
                     }
 
                     Application.Current.Dispatcher.Invoke(() =>
                     {
                         _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientCmdrName, clientSystem, clientPlatform, clientO2, clientLanguage, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
-                        RefreshCaseList();
+                        Irc.RefreshCaseList();
+                    });
+                }
+
+                // If the message is an alternative Ratsignal
+                else if (e.Data.Message.StartsWith(Settings.Get("ratsignalAltStartsWith")) && e.Data.Nick == Settings.Get("ircNickBot"))
+                {
+
+                    // Try to add a new case to the case list
+
+                    string caseNumber = "";
+                    string clientIrcNick = "";
+                    string clientSystem = "";
+                    string clientPlatform = "";
+                    string timestamp = "";
+
+                    try
+                    {
+                        timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
+
+                        List<string> ratsignal = new List<string>(e.Data.Message.Split(new string[] { "Received R@TSIGNAL from ", ". Calling all available rats for ", " case in ", "  (Case #", ") " }, StringSplitOptions.None));
+
+                        clientIrcNick = ratsignal.ElementAt(1);
+
+                        clientPlatform = ratsignal.ElementAt(2);
+                        if (clientPlatform.Contains("PC"))
+                        {
+                            clientPlatform = "PC";
+                        }
+                        else if (clientPlatform.Contains("Xbox"))
+                        {
+                            clientPlatform = "Xbox";
+                        }
+                        else if (clientPlatform.Contains("Playstation"))
+                        {
+                            clientPlatform = "Playstation";
+                        }
+
+                        clientSystem = ratsignal.ElementAt(3).Split('\"').ElementAt(1);
+
+                        caseNumber = ratsignal.ElementAt(4);
+                    }
+
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show("An error occured while parsing information from the R@TSIGNAL! " + exception.Message + " Some information might be missing.", "Error");
+                    }
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientSystem, clientPlatform, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
+                        Irc.RefreshCaseList();
                     });
                 }
 

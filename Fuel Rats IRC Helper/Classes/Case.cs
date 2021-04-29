@@ -66,6 +66,11 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
+        public Case(string caseNumber, string clientIrcNick, string clientSystem, string clientPlatform, IrcMessage ircMessage) : this(caseNumber, clientIrcNick, "unknown", clientSystem, clientPlatform, "unknown", "unknown", ircMessage)
+        {
+
+        }
+
         public Case() : this("unknown", "unknown", "unknown", "unknown", "unknown", "unknown", "unknown", new IrcMessage())
         {
 

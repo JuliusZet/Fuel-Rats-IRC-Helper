@@ -208,6 +208,8 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" Content="Case tracker" FontWeight="Bold" FontSize="16"/>
                         <Label Grid.Column="0" Grid.Row="1" Content="Rescue channel:" Margin="20,0,0,5"/>
@@ -224,11 +226,15 @@
                         <Label Grid.Column="0" Grid.Row="6" Content="RATSIGNAL starts with:" Margin="20,0,0,5"/>
                         <TextBox x:Name="textboxRatsignalStartsWith" Grid.Column="1" Grid.Row="6" Margin="0,0,0,5" Loaded="textboxRatsignalStartsWith_Loaded" TextChanged="textboxRatsignalStartsWith_TextChanged"/>
                         <Button x:Name="textboxRatsignalStartsWithResetToDefault" Grid.Column="2" Grid.Row="6" Content="Reset to default" Margin="5,0,0,5" Padding="10,0" Click="textboxRatsignalStartsWithResetToDefault_Click"/>
-                        <Label x:Name="labelCaseTracker3" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="3" Content="When a message comes in, that starts with &quot;RATSIGNAL - &quot;, then a new case will be added to the case list." Margin="20,0,0,0" Padding="5,5,5,0"/>
-                        <Label Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3" Content="All other messages are associated to cases in the case list when the message:" Margin="20,0,0,0" Padding="5,0,5,0"/>
-                        <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" Content="- contains a hashtag followed by the case number (usually message from a rat or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
-                        <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3" Content="- contains the client's IRC nickname (usually message from a spatch or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
-                        <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" Content="- is sent by the client" Margin="20,0,0,5" Padding="5,0,5,5"/>
+                        <Label Grid.Column="0" Grid.Row="7" Content="Alternative R@TSIGNAL starts with:" Margin="20,0,0,5"/>
+                        <TextBox x:Name="textboxAltRatsignalStartsWith" Grid.Column="1" Grid.Row="7" Margin="0,0,0,5" Loaded="textboxAltRatsignalStartsWith_Loaded" TextChanged="textboxAltRatsignalStartsWith_TextChanged"/>
+                        <Button x:Name="textboxAltRatsignalStartsWithResetToDefault" Grid.Column="2" Grid.Row="7" Content="Reset to default" Margin="5,0,0,5" Padding="10,0" Click="textboxAltRatsignalStartsWithResetToDefault_Click"/>
+                        <Label x:Name="labelCaseTracker3" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="3" Content="When the bot sends a message, that starts with &quot;RATSIGNAL - &quot; or &quot;Received R@TSIGNAL from &quot;," Margin="20,0,0,0" Padding="5,5,5,0"/>
+                        <Label Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="3" Content="then a new case will be added to the case list." Margin="20,0,0,0" Padding="5,0,5,0"/>
+                        <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3" Content="All other messages are associated to cases in the case list when the message:" Margin="20,0,0,0" Padding="5,0,5,0"/>
+                        <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" Content="- contains a hashtag followed by the case number (usually message from a rat or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
+                        <Label Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Content="- contains the client's IRC nickname (usually message from a spatch or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
+                        <Label Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="3" Content="- is sent by the client" Margin="20,0,0,5" Padding="5,0,5,5"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

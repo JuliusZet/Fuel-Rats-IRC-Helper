@@ -185,6 +185,8 @@ namespace Fuel_Rats_IRC_Helper
                     return Set("messageInsertionMode", "copyPaste");
                 case "ratsignalStartsWith":
                     return Set("ratsignalStartsWith", "RATSIGNAL - ");
+                case "ratsignalAltStartsWith":
+                    return Set("ratsignalAltStartsWith", "Received R@TSIGNAL from ");
                 case "showChangelogOnStartup":
                     return Set("showChangelogOnStartup", "yes");
                 case "timestampFormat":

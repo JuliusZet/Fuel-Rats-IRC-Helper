@@ -343,9 +343,9 @@ namespace Fuel_Rats_IRC_Helper
         {
             Settings.Set("ratsignalStartsWith", textboxRatsignalStartsWith.Text);
 
-            if (labelCaseTracker3.IsLoaded)
+            if (labelCaseTracker3.IsLoaded && textboxAltRatsignalStartsWith.IsLoaded)
             {
-                labelCaseTracker3.Content = "When a message comes in, that starts with  \"" + textboxRatsignalStartsWith.Text + "\", then a new case will be added to the case list.";
+                labelCaseTracker3.Content = "When the bot sends a message, that starts with \"" + textboxRatsignalStartsWith.Text + "\" or \"" + textboxAltRatsignalStartsWith.Text + "\",";
             }
         }
 
@@ -353,6 +353,27 @@ namespace Fuel_Rats_IRC_Helper
         {
             Settings.ResetToDefault("ratsignalStartsWith");
             textboxRatsignalStartsWith.Text = Settings.Get("ratsignalStartsWith");
+        }
+
+        private void textboxAltRatsignalStartsWith_Loaded(object sender, RoutedEventArgs e)
+        {
+            textboxAltRatsignalStartsWith.Text = Settings.Get("ratsignalAltStartsWith");
+        }
+
+        private void textboxAltRatsignalStartsWith_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Settings.Set("ratsignalAltStartsWith", textboxAltRatsignalStartsWith.Text);
+
+            if (labelCaseTracker3.IsLoaded && textboxRatsignalStartsWith.IsLoaded)
+            {
+                labelCaseTracker3.Content = "When the bot sends a message, that starts with \"" + textboxRatsignalStartsWith.Text + "\" or \"" + textboxAltRatsignalStartsWith.Text + "\",";
+            }
+        }
+
+        private void textboxAltRatsignalStartsWithResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetToDefault("ratsignalAltStartsWith");
+            textboxAltRatsignalStartsWith.Text = Settings.Get("ratsignalAltStartsWith");
         }
     }
 }
