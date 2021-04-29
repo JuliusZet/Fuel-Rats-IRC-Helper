@@ -325,7 +325,7 @@ namespace Fuel_Rats_IRC_Helper
 
         private void textboxCasenumber_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxCasenumber.Text = '#' + _CaseNumber;
+            textboxCasenumber.Text = _CaseNumber;
         }
 
         private void textboxClientIrcNick_Loaded(object sender, RoutedEventArgs e)

@@ -55,7 +55,7 @@
                 </Style>
             </DataGrid.Resources>
         </DataGrid>
-        <GroupBox Grid.Row="1" Header="Color legend" Background="#BFFFFFFF">
+        <GroupBox Grid.Row="1" Header="Color legend">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>

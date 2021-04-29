@@ -152,13 +152,27 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <GroupBox Grid.Row="0" Header="Case number">
-                    <TextBox x:Name="textboxCasenumber" IsReadOnly="True" Loaded="textboxCasenumber_Loaded"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="#"/>
+                        <TextBox x:Name="textboxCasenumber" Grid.Column="1" IsReadOnly="True" Loaded="textboxCasenumber_Loaded"/>
+                    </Grid>
                 </GroupBox>
                 <GroupBox Grid.Row="1" Header="IRC nickname">
                     <TextBox x:Name="textboxClientIrcNick" IsReadOnly="True" Loaded="textboxClientIrcNick_Loaded"/>
                 </GroupBox>
                 <GroupBox Grid.Row="2" Header="CMDR name">
-                    <TextBox x:Name="textboxClientCmdrName" IsReadOnly="True" Loaded="textboxClientCmdrName_Loaded"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="CMDR"/>
+                        <TextBox x:Name="textboxClientCmdrName" Grid.Column="1" IsReadOnly="True" Loaded="textboxClientCmdrName_Loaded"/>
+                    </Grid>
                 </GroupBox>
                 <GroupBox Grid.Row="3" Header="System">
                     <TextBox x:Name="textboxClientSystem" IsReadOnly="True" Loaded="textboxClientSystem_Loaded"/>

@@ -165,10 +165,14 @@ namespace Fuel_Rats_IRC_Helper
                     return Set("ircAddress", "localhost");
                 case "ircAutoconnect":
                     return Set("ircAutoconnect", "no");
-                case "ircChannel":
-                    return Set("ircChannel", "#fuelrats");
+                case "ircChannelChat":
+                    return Set("ircChannelChat", "#ratchat");
+                case "ircChannelRescue":
+                    return Set("ircChannelRescue", "#fuelrats");
                 case "ircNick":
                     return Set("ircNick", "myNickname");
+                case "ircNickBot":
+                    return Set("ircNickBot", "MechaSqueak[BOT]");
                 case "ircPassword":
                     return Set("ircPassword", "myPassword");
                 case "ircPort":
@@ -179,6 +183,8 @@ namespace Fuel_Rats_IRC_Helper
                     return Set("ircUseSsl", "no");
                 case "messageInsertionMode":
                     return Set("messageInsertionMode", "copyPaste");
+                case "ratsignalStartsWith":
+                    return Set("ratsignalStartsWith", "RATSIGNAL - ");
                 case "showChangelogOnStartup":
                     return Set("showChangelogOnStartup", "yes");
                 case "timestampFormat":

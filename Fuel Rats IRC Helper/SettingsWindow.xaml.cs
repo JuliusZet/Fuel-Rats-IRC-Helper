@@ -202,22 +202,6 @@ namespace Fuel_Rats_IRC_Helper
             passwordboxIrcPassword.Password = Settings.Get("ircPassword");
         }
 
-        private void textboxIrcChannel_Loaded(object sender, RoutedEventArgs e)
-        {
-            textboxIrcChannel.Text = Settings.Get("ircChannel");
-        }
-
-        private void textboxIrcChannel_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Settings.Set("ircChannel", textboxIrcChannel.Text);
-        }
-
-        private void buttonIrcChannelResetToDefault_Click(object sender, RoutedEventArgs e)
-        {
-            Settings.ResetToDefault("ircChannel");
-            textboxIrcChannel.Text = Settings.Get("ircChannel");
-        }
-
         private void textboxTimestampFormat_Loaded(object sender, RoutedEventArgs e)
         {
             textboxTimestampFormat.Text = Settings.Get("timestampFormat");
@@ -285,6 +269,90 @@ namespace Fuel_Rats_IRC_Helper
         private void checkboxAutoCopySystemOnPcSignal_Unchecked(object sender, RoutedEventArgs e)
         {
             Settings.Set("autoCopySystemOnPcSignal", "no");
+        }
+
+        private void textboxRescueChannel_Loaded(object sender, RoutedEventArgs e)
+        {
+            textboxRescueChannel.Text = Settings.Get("ircChannelRescue");
+        }
+
+        private void textboxRescueChannel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Settings.Set("ircChannelRescue", textboxRescueChannel.Text);
+
+            if (labelCaseTracker1.IsLoaded)
+            {
+                labelCaseTracker1.Content = "All messages in \"" + textboxRescueChannel.Text + "\" (rescue channel) are processed. Additionally,";
+            }
+        }
+
+        private void buttonRescueChannelResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetToDefault("ircChannelRescue");
+            textboxRescueChannel.Text = Settings.Get("ircChannelRescue");
+        }
+
+        private void textboxChatChannel_Loaded(object sender, RoutedEventArgs e)
+        {
+            textboxChatChannel.Text = Settings.Get("ircChannelChat");
+        }
+
+        private void textboxChatChannel_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Settings.Set("ircChannelChat", textboxChatChannel.Text);
+
+            if (labelCaseTracker2.IsLoaded && textboxIrcNickBot.IsLoaded)
+            {
+                labelCaseTracker2.Content = "messages in \"" + textboxChatChannel.Text + "\" (chat channel) are processed, when they are sent by the bot named \"" + textboxIrcNickBot.Text + "\".";
+            }
+        }
+
+        private void buttonChatChannelResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetToDefault("ircChannelChat");
+            textboxChatChannel.Text = Settings.Get("ircChannelChat");
+        }
+
+        private void textboxIrcNickBot_Loaded(object sender, RoutedEventArgs e)
+        {
+            textboxIrcNickBot.Text = Settings.Get("ircNickBot");
+        }
+
+        private void textboxIrcNickBot_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Settings.Set("ircNickBot", textboxIrcNickBot.Text);
+
+            if (labelCaseTracker2.IsLoaded && textboxChatChannel.IsLoaded)
+            {
+                labelCaseTracker2.Content = "messages in \"" + textboxChatChannel.Text + "\" (chat channel) are processed, when they are sent by the bot named \"" + textboxIrcNickBot.Text + "\".";
+            }
+        }
+
+        private void buttonIrcNickBotResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetToDefault("ircNickBot");
+            textboxIrcNickBot.Text = Settings.Get("ircNickBot");
+        }
+
+        private void textboxRatsignalStartsWith_Loaded(object sender, RoutedEventArgs e)
+        {
+            textboxRatsignalStartsWith.Text = Settings.Get("ratsignalStartsWith");
+        }
+
+        private void textboxRatsignalStartsWith_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Settings.Set("ratsignalStartsWith", textboxRatsignalStartsWith.Text);
+
+            if (labelCaseTracker3.IsLoaded)
+            {
+                labelCaseTracker3.Content = "When a message comes in, that starts with  \"" + textboxRatsignalStartsWith.Text + "\", then a new case will be added to the case list.";
+            }
+        }
+
+        private void textboxRatsignalStartsWithResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetToDefault("ratsignalStartsWith");
+            textboxRatsignalStartsWith.Text = Settings.Get("ratsignalStartsWith");
         }
     }
 }

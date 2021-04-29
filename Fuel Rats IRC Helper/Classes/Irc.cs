@@ -29,18 +29,28 @@ namespace Fuel_Rats_IRC_Helper
 
         private static void OnRawMessage(object sender, IrcEventArgs e)
         {
-            if (e.Data.Type == ReceiveType.ChannelMessage && (e.Data.Channel == Settings.Get("ircChannel") || e.Data.Nick == "MechaSqueak[BOT]"))
+            if (e.Data.Type == ReceiveType.ChannelMessage && (e.Data.Channel == Settings.Get("ircChannelRescue") || (e.Data.Channel == Settings.Get("ircChannelChat") && e.Data.Nick == Settings.Get("ircNickBot"))))
             {
                 long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
                 // If the message is a Ratsignal
-                if (e.Data.Message.StartsWith("RATSIGNAL - ") && e.Data.Nick == "MechaSqueak[BOT]")
+                if (e.Data.Message.StartsWith(Settings.Get("ratsignalStartsWith")) && e.Data.Nick == Settings.Get("ircNickBot"))
                 {
 
                     // Try to add a new case to the case list
+
+                    string caseNumber = "";
+                    string clientIrcNick = "";
+                    string clientCmdrName = "";
+                    string clientSystem = "";
+                    string clientPlatform = "";
+                    string clientO2 = "";
+                    string clientLanguage = "";
+                    string timestamp = "";
+
                     try
                     {
-                        string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
+                        timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
                         List<string> ratsignal = new List<string>(e.Data.Message.Split(new string[] { " - " }, StringSplitOptions.None));
 
@@ -48,19 +58,19 @@ namespace Fuel_Rats_IRC_Helper
                         ratsignal.AddRange(ratsignal.ElementAt(ratsignalPartToSplit).Split('('));
                         ratsignal.RemoveAt(ratsignalPartToSplit);
 
-                        string clientCmdrName = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("CMDR "); });
+                        clientCmdrName = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("CMDR "); });
                         if (clientCmdrName != null && clientCmdrName.Length > 5)
                         {
                             clientCmdrName = clientCmdrName.Substring(5);
                         }
 
-                        string clientSystem = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Reported System: "); });
+                        clientSystem = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Reported System: "); });
                         if (clientSystem != null && clientSystem.Length > 17)
                         {
                             clientSystem = clientSystem.Substring(17).Split('\"').ElementAt(1);
                         }
 
-                        string clientPlatform = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Platform: "); });
+                        clientPlatform = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Platform: "); });
                         if (clientPlatform != null && clientPlatform.Length > 10)
                         {
                             clientPlatform = clientPlatform.Substring(10);
@@ -79,7 +89,7 @@ namespace Fuel_Rats_IRC_Helper
                             }
                         }
 
-                        string clientO2 = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("O2: "); });
+                        clientO2 = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("O2: "); });
                         if (clientO2 != null && clientO2.Length > 4)
                         {
                             clientO2 = clientO2.Substring(4);
@@ -90,13 +100,13 @@ namespace Fuel_Rats_IRC_Helper
                             }
                         }
 
-                        string clientLanguage = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Language: "); });
+                        clientLanguage = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Language: "); });
                         if (clientLanguage != null && clientLanguage.Length > 10)
                         {
                             clientLanguage = clientLanguage.Substring(10).Split(' ').ElementAt(0);
                         }
 
-                        string clientIrcNick = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("IRC Nick "); });
+                        clientIrcNick = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("IRC Nick "); });
                         if (clientIrcNick != null && clientIrcNick.Length > 9)
                         {
                             clientIrcNick = clientIrcNick.Substring(9).Trim();
@@ -106,23 +116,23 @@ namespace Fuel_Rats_IRC_Helper
                             clientIrcNick = clientCmdrName;
                         }
 
-                        string caseNumber = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Case #"); });
+                        caseNumber = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Case #"); });
                         if (caseNumber != null && caseNumber.Length > 7)
                         {
                             caseNumber = caseNumber.Substring(7, caseNumber.Length - 10);
                         }
-
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientCmdrName, clientSystem, clientPlatform, clientO2, clientLanguage, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
-                            RefreshCaseList();
-                        });
                     }
 
                     catch (Exception exception)
                     {
-                        MessageBox.Show("An error occured while parsing information from the RATSIGNAL! " + exception.Message + " The case was not added to the list.", "Error");
+                        MessageBox.Show("An error occured while parsing information from the RATSIGNAL! " + exception.Message + " Some information could be missing.", "Error");
                     }
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientCmdrName, clientSystem, clientPlatform, clientO2, clientLanguage, new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message)));
+                        RefreshCaseList();
+                    });
                 }
 
                 // If the message is not a Ratsignal
@@ -130,31 +140,38 @@ namespace Fuel_Rats_IRC_Helper
                 {
 
                     // Try to associate the message to a case
-                    for (int i = 0; i != _Case.Count; ++i)
+                    try
                     {
-                        int indexOfCaseNumber = e.Data.Message.IndexOf("#" + _Case.ElementAt(i).CaseNumber);
-                        int indexOfCharacterAfterCaseNumber = -1;
-                        if (indexOfCaseNumber != -1 && indexOfCaseNumber + _Case.ElementAt(i).CaseNumber.Length + 1 != e.Data.Message.Length)
+                        for (int i = 0; i != _Case.Count; ++i)
                         {
-                            indexOfCharacterAfterCaseNumber = indexOfCaseNumber + _Case.ElementAt(i).CaseNumber.Length + 1;
-                        }
-
-                        // If the message contains "#1" but not #10, #11, etc. (= message from rat or bot) or
-                        // if the message contains the client's IRC nick (= message from spatch or bot) or
-                        // if the message was sent by the client
-                        if ((indexOfCharacterAfterCaseNumber != -1 && (e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) < '0' || e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) > '9')) || (indexOfCaseNumber != -1 && indexOfCharacterAfterCaseNumber == -1)
-                            || e.Data.Message.Contains(_Case.ElementAt(i).ClientIrcNick)
-                            || e.Data.Nick == _Case.ElementAt(i).ClientIrcNick)
-                        {
-                            string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
-                            Application.Current.Dispatcher.Invoke(() =>
+                            int indexOfCaseNumber = e.Data.Message.IndexOf("#" + _Case.ElementAt(i).CaseNumber);
+                            int indexOfCharacterAfterCaseNumber = -1;
+                            if (indexOfCaseNumber != -1 && indexOfCaseNumber + _Case.ElementAt(i).CaseNumber.Length + 1 != e.Data.Message.Length)
                             {
-                                _Case.ElementAt(i).AddMessage(new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message));
-                            });
+                                indexOfCharacterAfterCaseNumber = indexOfCaseNumber + _Case.ElementAt(i).CaseNumber.Length + 1;
+                            }
 
-                            //If the message was associated to a case, there is no need to continue searching.
-                            break;
+                            // If the message contains "#1" but not #10, #11, etc. (= message from rat or bot) or
+                            // if the message contains the client's IRC nick (= message from spatch or bot) or
+                            // if the message was sent by the client
+                            if ((indexOfCharacterAfterCaseNumber != -1 && (e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) < '0' || e.Data.Message.ElementAt(indexOfCharacterAfterCaseNumber) > '9')) || (indexOfCaseNumber != -1 && indexOfCharacterAfterCaseNumber == -1)
+                                || e.Data.Message.Contains(_Case.ElementAt(i).ClientIrcNick)
+                                || e.Data.Nick == _Case.ElementAt(i).ClientIrcNick)
+                            {
+                                string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    _Case.ElementAt(i).AddMessage(new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message));
+                                });
+
+                                //If the message was associated to a case, there is no need to continue searching.
+                                break;
+                            }
                         }
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
             }
@@ -227,7 +244,8 @@ namespace Fuel_Rats_IRC_Helper
                 string ircNick = Settings.Get("ircNick");
                 string ircRealname = Settings.Get("ircRealname");
                 string ircPassword = Settings.Get("ircPassword");
-                string ircChannel = Settings.Get("ircChannel");
+                string ircChannelRescue = Settings.Get("ircChannelRescue");
+                string ircChannelChat = Settings.Get("ircChannelChat");
 
                 try
                 {
@@ -239,7 +257,8 @@ namespace Fuel_Rats_IRC_Helper
                     _IrcClient.OnRawMessage += new IrcEventHandler(OnRawMessage);
                     _IrcClient.Connect(ircAddress, ircPort);
                     _IrcClient.Login(ircNick, ircRealname, 4, "IRC-Helper", ircPassword);
-                    _IrcClient.RfcJoin(ircChannel);
+                    _IrcClient.RfcJoin(ircChannelRescue);
+                    _IrcClient.RfcJoin(ircChannelChat);
                     _IrcListener = new Thread(new ThreadStart(_IrcClient.Listen));
                     _IrcListener.SetApartmentState(ApartmentState.STA);
                     _IrcListener.Start();

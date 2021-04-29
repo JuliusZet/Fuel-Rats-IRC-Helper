@@ -245,7 +245,7 @@ namespace Fuel_Rats_IRC_Helper
 
             RefreshCaseChat();
 
-            if (ircMessage.SenderNickname == "MechaSqueak[BOT]")
+            if (ircMessage.SenderNickname == Settings.Get("ircNickBot"))
             {
                 if (ircMessage.Text.StartsWith("Caution: Client of case #") && ircMessage.Text.Contains(" has changed IRC nick to "))
                 {

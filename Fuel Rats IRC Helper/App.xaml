@@ -29,9 +29,6 @@
                     </DrawingGroup>
                 </DrawingImage.Drawing>
             </DrawingImage>
-            <Style TargetType="Button">
-                <Setter Property="MinHeight" Value="27"/>
-            </Style>
             <Style TargetType="CheckBox">
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
             </Style>
@@ -49,6 +46,9 @@
                 <Setter Property="IsReadOnly" Value="True"/>
                 <Setter Property="RowBackground" Value="Transparent"/>
                 <Setter Property="SelectionUnit" Value="Cell"/>
+            </Style>
+            <Style TargetType="GroupBox">
+                <Setter Property="Background" Value="#BFFFFFFF"/>
             </Style>
             <Style TargetType="Label">
                 <Setter Property="VerticalAlignment" Value="Center"/>
@@ -68,7 +68,7 @@
                 <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
             </Style>
             <Style TargetType="TabControl">
-                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="Background" Value="#BFFFFFFF"/>
                 <Setter Property="TabStripPlacement" Value="Left"/>
             </Style>
             <Style TargetType="TextBox">
