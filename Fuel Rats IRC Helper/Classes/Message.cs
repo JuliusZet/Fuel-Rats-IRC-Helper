@@ -189,9 +189,9 @@ namespace Fuel_Rats_IRC_Helper
         //   message:
         //     message that should be sent to the IRC client
         //
-        //   changeFocusAfterSending:
+        //   focusEliteDangerous:
         //     true: focus the IRC client, send the message, focus the IRC helper and focus Elite Dangerous (default)
-        //     false: only focus the IRC client and send the message
+        //     false: only focus the IRC client, send the message and focus the IRC helper
         //
         // Returns:
         //   Error code:
@@ -199,20 +199,16 @@ namespace Fuel_Rats_IRC_Helper
         //     1: Window titles of the IRC client and/or Elite Dangerous not specified in settings
         //     2: IRC client window not found
         //     3: Multiple IRC client windows found
-        //     4: IRC helper window not found (How would that even happen? I don't know. :D Why did I put this in here? I don't know. XD)
-        //     5: Multiple IRC helper windows found
-        //     6: Elite Dangerous window not found
-        //     7: Multiple Elite Dangerous windows found
-        //     8: An error occured while sending the message
-        public static int Send(string message, bool changeFocusAfterSending)
+        //     4: Elite Dangerous window not found
+        //     5: Multiple Elite Dangerous windows found
+        //     6: An error occured while sending the message
+        public static int Send(string message, bool focusEliteDangerous)
         {
             string windowTitleIrcClient = Settings.Get("windowTitleIrcClient");
-            string windowTitleIrcHelper = "";
             string windowTitleEliteDangerous = "";
 
-            if (changeFocusAfterSending == true)
+            if (focusEliteDangerous == true)
             {
-                windowTitleIrcHelper = "Fuel Rats - IRC Helper";
                 windowTitleEliteDangerous = Settings.Get("windowTitleEliteDangerous");
 
                 if (windowTitleIrcClient == "" && windowTitleEliteDangerous == "")
@@ -235,36 +231,22 @@ namespace Fuel_Rats_IRC_Helper
             }
 
             IEnumerable<WindowHandle> windowIrcClient = TopLevelWindowUtils.FindWindows(wh => wh.GetWindowText().Contains(windowTitleIrcClient));
-            IEnumerable<WindowHandle> windowIrcHelper = new WindowHandle[] { };
             IEnumerable<WindowHandle> windowEliteDangerous = new WindowHandle[] { };
 
-            if (changeFocusAfterSending == true)
+            if (focusEliteDangerous == true)
             {
-                windowIrcHelper = TopLevelWindowUtils.FindWindows(wh => wh.GetWindowText().Contains(windowTitleIrcHelper));
                 windowEliteDangerous = TopLevelWindowUtils.FindWindows(wh => wh.GetWindowText().Contains(windowTitleEliteDangerous));
-
-                if (windowIrcHelper.Count() == 0)
-                {
-                    MessageBox.Show("I don't know how you managed to trigger this error message, but your message could not be sent, because there is no window whose title contains \"" + windowTitleIrcHelper + "\"! Please try again.", "Error");
-                    return 4;
-                }
-
-                else if (windowIrcHelper.Count() > 1)
-                {
-                    MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleIrcHelper + "\"! Please make sure there is only one window whose title contains \"" + windowTitleIrcHelper + "\" and try again.", "Error");
-                    return 5;
-                }
 
                 if (windowEliteDangerous.Count() == 0)
                 {
                     MessageBox.Show("Your message could not be sent! There is no window whose title contains \"" + windowTitleEliteDangerous + "\"! Please launch Elite Dangerous or go to Settings -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
-                    return 6;
+                    return 4;
                 }
 
                 else if (windowEliteDangerous.Count() > 1)
                 {
                     MessageBox.Show("Your message could not be sent! There are more than one windows whose titles contain \"" + windowTitleEliteDangerous + "\"! Please make sure there is only one instance of the game running or go to Settings -> Behaviour to specify your Elite Dangerous window title. Then try again.", "Error");
-                    return 7;
+                    return 5;
                 }
             }
 
@@ -282,6 +264,8 @@ namespace Fuel_Rats_IRC_Helper
 
             try
             {
+                WindowHandle windowIrcHelper = TopLevelWindowUtils.GetForegroundWindow();
+
                 SetForegroundWindow(windowIrcClient.ElementAt(0).RawPtr);
 
                 if (message != "")
@@ -342,9 +326,10 @@ namespace Fuel_Rats_IRC_Helper
                     }
                 }
 
-                if (changeFocusAfterSending == true)
+                SetForegroundWindow(windowIrcHelper.RawPtr);
+
+                if (focusEliteDangerous == true)
                 {
-                    SetForegroundWindow(windowIrcHelper.ElementAt(0).RawPtr);
                     SetForegroundWindow(windowEliteDangerous.ElementAt(0).RawPtr);
                 }
             }
@@ -352,7 +337,7 @@ namespace Fuel_Rats_IRC_Helper
             catch (Exception exception)
             {
                 MessageBox.Show("An error occured while trying to send the message! " + exception.Message + " The message was not sent. Please try again.", "Error");
-                return 8;
+                return 6;
             }
 
             return 0;
