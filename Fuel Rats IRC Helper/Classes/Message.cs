@@ -20,7 +20,7 @@ using Win32Interop.WinHandles;
 
 namespace Fuel_Rats_IRC_Helper
 {
-    static class Message
+    public static class Message
     {
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern int SetForegroundWindow(IntPtr hwnd);

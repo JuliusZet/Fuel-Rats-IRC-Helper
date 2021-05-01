@@ -13,7 +13,7 @@
 
 namespace Fuel_Rats_IRC_Helper
 {
-    class MessagePart
+    public class MessagePart
     {
         private string _Name;
         private string _Text;

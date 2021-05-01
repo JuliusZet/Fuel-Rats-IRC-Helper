@@ -150,6 +150,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <GroupBox Grid.Row="0" Header="Case number">
                     <Grid>
@@ -185,6 +186,19 @@
                 </GroupBox>
                 <GroupBox Grid.Row="6" Header="Language">
                     <TextBox x:Name="textboxClientLanguage" IsReadOnly="True" Loaded="textboxClientLanguage_Loaded"/>
+                </GroupBox>
+                <GroupBox Grid.Row="7" Header="Assigned rats">
+                    <DataGrid x:Name="datagridAssignedRats" Loaded="datagridAssignedRats_Loaded">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding IrcNick}" Width="auto" Header="Nick"/>
+                            <DataGridTextColumn Binding="{Binding CmdrName}" Width="auto" Header="CMDR"/>
+                        </DataGrid.Columns>
+                        <DataGrid.Resources>
+                            <Style TargetType="DataGridCell">
+                                <EventSetter Event="MouseDoubleClick" Handler="DataGridCell_MouseDoubleClick"/>
+                            </Style>
+                        </DataGrid.Resources>
+                    </DataGrid>
                 </GroupBox>
             </Grid>
         </ScrollViewer>

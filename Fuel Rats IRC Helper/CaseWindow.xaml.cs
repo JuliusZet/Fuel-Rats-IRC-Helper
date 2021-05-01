@@ -31,8 +31,9 @@ namespace Fuel_Rats_IRC_Helper
         private string _ClientO2;
         private string _ClientLanguage;
         private List<IrcMessage> _IrcMessage;
+        private List<Rat> _AssignedRat;
 
-        public CaseWindow(string caseNumber, string clientIrcNick, string clientCmdrName, string clientSystem, string clientPlatform, string clientO2, string clientLanguage, List<IrcMessage> ircMessage)
+        public CaseWindow(string caseNumber, string clientIrcNick, string clientCmdrName, string clientSystem, string clientPlatform, string clientO2, string clientLanguage, List<IrcMessage> ircMessage, List<Rat> assignedRat)
         {
             _CaseNumber = caseNumber;
             _ClientIrcNick = clientIrcNick;
@@ -42,6 +43,7 @@ namespace Fuel_Rats_IRC_Helper
             _ClientO2 = clientO2;
             _ClientLanguage = clientLanguage;
             _IrcMessage = ircMessage;
+            _AssignedRat = assignedRat;
 
             InitializeComponent();
         }
@@ -134,6 +136,14 @@ namespace Fuel_Rats_IRC_Helper
                 {
                     datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_IrcMessage.Count - 1]);
                 }
+            }
+        }
+
+        public void RefreshAssignedRat()
+        {
+            if (datagridAssignedRats.IsLoaded)
+            {
+                datagridAssignedRats.Items.Refresh();
             }
         }
 
@@ -304,8 +314,10 @@ namespace Fuel_Rats_IRC_Helper
             if (e.Key == Key.Tab)
             {
                 e.Handled = true;
-                textboxMessage.Text += _ClientIrcNick;
-                textboxMessage.CaretIndex = textboxMessage.Text.Length;
+                int selectionStart = textboxMessage.SelectionStart;
+                int selectionLength = textboxMessage.SelectionLength;
+                textboxMessage.Text = textboxMessage.Text.Remove(selectionStart, selectionLength).Insert(selectionStart, _ClientIrcNick);
+                textboxMessage.CaretIndex = selectionStart + _ClientIrcNick.Length;
             }
         }
 
@@ -356,6 +368,11 @@ namespace Fuel_Rats_IRC_Helper
         private void textboxClientLanguage_Loaded(object sender, RoutedEventArgs e)
         {
             textboxClientLanguage.Text = _ClientLanguage;
+        }
+
+        private void datagridAssignedRats_Loaded(object sender, RoutedEventArgs e)
+        {
+            datagridAssignedRats.ItemsSource = _AssignedRat;
         }
     }
 }

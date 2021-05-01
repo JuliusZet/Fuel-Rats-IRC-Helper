@@ -16,7 +16,7 @@ using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
 {
-    static class Settings
+    public static class Settings
     {
         private static ExeConfigurationFileMap _SettingsExeConfigurationFileMap = new ExeConfigurationFileMap()
         {
@@ -184,7 +184,7 @@ namespace Fuel_Rats_IRC_Helper
                 case "messageInsertionMode":
                     return Set("messageInsertionMode", "copyPaste");
                 case "ratsignalStartsWith":
-                    return Set("ratsignalStartsWith", "RATSIGNAL - ");
+                    return Set("ratsignalStartsWith", "0,7RATSIGNAL");
                 case "ratsignalAltStartsWith":
                     return Set("ratsignalAltStartsWith", "Received R@TSIGNAL from ");
                 case "showChangelogOnStartup":

@@ -18,7 +18,7 @@ using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
 {
-    class Case
+    public class Case
     {
         private static int _NextId;
         private int _Id;
@@ -31,6 +31,7 @@ namespace Fuel_Rats_IRC_Helper
         private string _ClientLanguage;
         private string _Status;
         private List<IrcMessage> _IrcMessage;
+        private List<Rat> _AssignedRat;
         private DateTimeOffset _StartTime;
         private DateTimeOffset _EndTime;
         private CaseWindow _CaseWindow;
@@ -47,6 +48,7 @@ namespace Fuel_Rats_IRC_Helper
             _ClientLanguage = clientLanguage;
             _Status = "Open";
             _IrcMessage = new List<IrcMessage>();
+            _AssignedRat = new List<Rat>();
             _StartTime = DateTimeOffset.FromUnixTimeSeconds(ircMessage.UnixTimestamp);
             _EndTime = DateTimeOffset.MaxValue;
             _CaseWindow = null;
@@ -200,7 +202,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             if (_CaseWindow == null || !_CaseWindow.IsLoaded)
             {
-                _CaseWindow = new CaseWindow(_CaseNumber, _ClientIrcNick, _ClientCmdrName, _ClientSystem, _ClientPlatform, _ClientO2, _ClientLanguage, _IrcMessage);
+                _CaseWindow = new CaseWindow(_CaseNumber, _ClientIrcNick, _ClientCmdrName, _ClientSystem, _ClientPlatform, _ClientO2, _ClientLanguage, _IrcMessage, _AssignedRat);
                 _CaseWindow.Show();
             }
 
@@ -216,6 +218,14 @@ namespace Fuel_Rats_IRC_Helper
             if (_CaseWindow != null && _CaseWindow.IsLoaded)
             {
                 _CaseWindow.RefreshCaseChat();
+            }
+        }
+
+        public void RefreshAssignedRat()
+        {
+            if (_CaseWindow != null && _CaseWindow.IsLoaded)
+            {
+                _CaseWindow.RefreshAssignedRat();
             }
         }
 
@@ -249,6 +259,18 @@ namespace Fuel_Rats_IRC_Helper
             _IrcMessage.Add(ircMessage);
 
             RefreshCaseChat();
+
+            if (ircMessage.Text.StartsWith("!go"))
+            {
+                List<string> go = new List<string>(ircMessage.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+
+                for (int i = 2; i != go.Count; ++i)
+                {
+                    _AssignedRat.Add(new Rat(go.ElementAt(i)));
+
+                    RefreshAssignedRat();
+                }
+            }
 
             if (ircMessage.SenderNickname == Settings.Get("ircNickBot"))
             {
@@ -334,6 +356,31 @@ namespace Fuel_Rats_IRC_Helper
                 else if (ircMessage.Text.StartsWith("Rescue \"") && ircMessage.Text.Contains("\" has been re-opened and added to the board as case #"))
                 {
                     UncloseCase();
+                }
+
+                else if (ircMessage.Text.Contains(": \"") && _IrcMessage.ElementAt(_IrcMessage.Count - 2).Text.StartsWith("!go"))
+                {
+                    List<string> go = new List<string>(ircMessage.Text.Split(new string[] { ": \"", "\", \"" }, StringSplitOptions.None));
+
+                    for (int i = _AssignedRat.Count - 1, j = go.Count - 1; i != -1 && j != 0; --i, --j)
+                    {
+                        _AssignedRat.ElementAt(i).CmdrName = go.ElementAt(j).Trim('\"');
+                        RefreshAssignedRat();
+                    }
+                }
+
+                else if (ircMessage.Text.StartsWith("Unassigned ") && ircMessage.Text.Contains(" from case #"))
+                {
+                    string ratToUnassign = ircMessage.Text.Split(new string[] { "Unassigned ", " from case #" }, StringSplitOptions.None).ElementAt(1);
+
+                    for (int i = 0; i != _AssignedRat.Count; ++i)
+                    {
+                        if (_AssignedRat.ElementAt(i).CmdrName == ratToUnassign)
+                        {
+                            _AssignedRat.RemoveAt(i);
+                            break;
+                        }
+                    }
                 }
             }
         }

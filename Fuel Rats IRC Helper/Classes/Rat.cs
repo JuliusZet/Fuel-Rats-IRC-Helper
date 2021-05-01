@@ -13,7 +13,7 @@
 
 namespace Fuel_Rats_IRC_Helper
 {
-    class Rat
+    public class Rat
     {
         private static int _NextId;
         private int _Id;
@@ -35,6 +35,17 @@ namespace Fuel_Rats_IRC_Helper
         public Rat() : this("unknwon", "unknwon")
         {
 
+        }
+
+        public string IrcNick
+        {
+            get { return _IrcNick; }
+        }
+
+        public string CmdrName
+        {
+            get { return _CmdrName; }
+            set { _CmdrName = value; }
         }
     }
 }

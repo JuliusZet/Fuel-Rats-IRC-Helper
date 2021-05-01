@@ -20,7 +20,7 @@ using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
 {
-    static class Irc
+    public static class Irc
     {
         private static IrcClient _IrcClient = new IrcClient();
         private static List<Case> _Case = new List<Case>();
@@ -44,7 +44,7 @@ namespace Fuel_Rats_IRC_Helper
                     string clientCmdrName = "";
                     string clientSystem = "";
                     string clientPlatform = "";
-                    string clientO2 = "";
+                    string clientO2 = "OK";
                     string clientLanguage = "";
                     string timestamp = "";
 
@@ -52,74 +52,51 @@ namespace Fuel_Rats_IRC_Helper
                     {
                         timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
-                        List<string> ratsignal = new List<string>(e.Data.Message.Split(new string[] { " - " }, StringSplitOptions.None));
-
-                        int ratsignalPartToSplit = ratsignal.Count - 1;
-                        ratsignal.AddRange(ratsignal.ElementAt(ratsignalPartToSplit).Split('('));
-                        ratsignal.RemoveAt(ratsignalPartToSplit);
-
-                        clientCmdrName = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("CMDR "); });
-                        if (clientCmdrName != null && clientCmdrName.Length > 5)
+                        if (e.Data.Message.Contains("Case #"))
                         {
-                            clientCmdrName = clientCmdrName.Substring(5);
+                            caseNumber = e.Data.Message.Split(new string[] { "Case #" }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "" }, StringSplitOptions.None).ElementAt(0);
                         }
 
-                        clientSystem = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Reported System: "); });
-                        if (clientSystem != null && clientSystem.Length > 17)
+                        if (e.Data.Message.Contains("6PC"))
                         {
-                            clientSystem = clientSystem.Substring(17).Split('\"').ElementAt(1);
+                            clientPlatform = "PC";
+                        }
+                        else if (e.Data.Message.Contains("3Xbox"))
+                        {
+                            clientPlatform = "Xbox";
+                        }
+                        else if (e.Data.Message.Contains("12Playstation"))
+                        {
+                            clientPlatform = "Playstation";
                         }
 
-                        clientPlatform = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Platform: "); });
-                        if (clientPlatform != null && clientPlatform.Length > 10)
+                        if (e.Data.Message.Contains("(4Code Red)"))
                         {
-                            clientPlatform = clientPlatform.Substring(10);
-
-                            if (clientPlatform.Contains("PC"))
-                            {
-                                clientPlatform = "PC";
-                            }
-                            else if (clientPlatform.Contains("Xbox"))
-                            {
-                                clientPlatform = "Xbox";
-                            }
-                            else if (clientPlatform.Contains("Playstation"))
-                            {
-                                clientPlatform = "Playstation";
-                            }
+                            clientO2 = "NOT OK";
                         }
 
-                        clientO2 = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("O2: "); });
-                        if (clientO2 != null && clientO2.Length > 4)
+                        if (e.Data.Message.Contains("CMDR "))
                         {
-                            clientO2 = clientO2.Substring(4);
-
-                            if (clientO2.Contains("NOT OK"))
-                            {
-                                clientO2 = "NOT OK";
-                            }
+                            clientCmdrName = e.Data.Message.Split(new string[] { "CMDR " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " – " }, StringSplitOptions.None).ElementAt(0);
                         }
 
-                        clientLanguage = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Language: "); });
-                        if (clientLanguage != null && clientLanguage.Length > 10)
+                        if (e.Data.Message.Contains("System: "))
                         {
-                            clientLanguage = clientLanguage.Substring(10).Split(' ').ElementAt(0);
+                            clientSystem = e.Data.Message.Split(new string[] { "System: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " – " }, StringSplitOptions.None).ElementAt(0).Split('\"').ElementAt(1);
                         }
 
-                        clientIrcNick = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("IRC Nick "); });
-                        if (clientIrcNick != null && clientIrcNick.Length > 9)
+                        if (e.Data.Message.Contains("Language: "))
                         {
-                            clientIrcNick = clientIrcNick.Substring(9).Trim();
+                            clientLanguage = e.Data.Message.Split(new string[] { "Language: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
+                        }
+
+                        if (e.Data.Message.Contains("Nick: "))
+                        {
+                            clientIrcNick = e.Data.Message.Split(new string[] { "Nick: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
                         }
                         else
                         {
                             clientIrcNick = clientCmdrName;
-                        }
-
-                        caseNumber = ratsignal.Find(delegate (string ratsignalPart) { return ratsignalPart.StartsWith("Case #"); });
-                        if (caseNumber != null && caseNumber.Length > 7)
-                        {
-                            caseNumber = caseNumber.Substring(7, caseNumber.Length - 10);
                         }
                     }
 
@@ -151,7 +128,7 @@ namespace Fuel_Rats_IRC_Helper
                     {
                         timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
-                        List<string> ratsignal = new List<string>(e.Data.Message.Split(new string[] { "Received R@TSIGNAL from ", ". Calling all available rats for ", " case in ", "  (Case #", ") " }, StringSplitOptions.None));
+                        List<string> ratsignal = new List<string>(e.Data.Message.Split(new string[] { Settings.Get("ratsignalAltStartsWith"), ". Calling all available rats for ", " case in ", "  (Case #", ") " }, StringSplitOptions.None));
 
                         clientIrcNick = ratsignal.ElementAt(1);
 
@@ -196,6 +173,11 @@ namespace Fuel_Rats_IRC_Helper
                         for (int i = 0; i != _Case.Count; ++i)
                         {
                             int indexOfCaseNumber = e.Data.Message.IndexOf("#" + _Case.ElementAt(i).CaseNumber);
+                            if (indexOfCaseNumber == -1 && e.Data.Message.StartsWith("!go"))
+                            {
+                                indexOfCaseNumber = e.Data.Message.IndexOf(" " + _Case.ElementAt(i).CaseNumber);
+                            }
+
                             int indexOfCharacterAfterCaseNumber = -1;
                             if (indexOfCaseNumber != -1 && indexOfCaseNumber + _Case.ElementAt(i).CaseNumber.Length + 1 != e.Data.Message.Length)
                             {
