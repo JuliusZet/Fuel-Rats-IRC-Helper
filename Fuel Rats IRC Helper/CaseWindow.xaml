@@ -188,7 +188,7 @@
                     <TextBox x:Name="textboxClientLanguage" IsReadOnly="True" Loaded="textboxClientLanguage_Loaded"/>
                 </GroupBox>
                 <GroupBox Grid.Row="7" Header="Assigned rats">
-                    <DataGrid x:Name="datagridAssignedRats" Loaded="datagridAssignedRats_Loaded">
+                    <DataGrid x:Name="datagridAssignedRats" GridLinesVisibility="Horizontal" Loaded="datagridAssignedRats_Loaded">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding IrcNick}" Width="auto" Header="Nick"/>
                             <DataGridTextColumn Binding="{Binding CmdrName}" Width="auto" Header="CMDR"/>

@@ -200,6 +200,24 @@ namespace Fuel_Rats_IRC_Helper
                                 //If the message was associated to a case, there is no need to continue searching.
                                 break;
                             }
+
+                            // If the message contains the IRC nick of an assigned rat or
+                            // If the message was sent by an assigned rat
+                            for (int j = 0; j != Case.ElementAt(i).AssignedRat.Count; ++j)
+                            {
+                                if (e.Data.Message.Contains(Case.ElementAt(i).AssignedRat.ElementAt(j).IrcNick)
+                                    || e.Data.Nick == Case.ElementAt(i).AssignedRat.ElementAt(j).IrcNick)
+                                {
+                                    string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
+                                    Application.Current.Dispatcher.Invoke(() =>
+                                    {
+                                        _Case.ElementAt(i).AddMessage(new IrcMessage(unixTimestamp, timestamp, e.Data.Nick, e.Data.Message));
+                                    });
+
+                                    //If the message was associated to a case, there is no need to continue searching.
+                                    break;
+                                }
+                            }
                         }
                     }
                     catch (Exception)

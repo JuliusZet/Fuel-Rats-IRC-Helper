@@ -182,6 +182,11 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
+        public List<Rat> AssignedRat
+        {
+            get { return _AssignedRat; }
+        }
+
         public bool IsClosed
         {
             get
@@ -378,6 +383,7 @@ namespace Fuel_Rats_IRC_Helper
                         if (_AssignedRat.ElementAt(i).CmdrName == ratToUnassign)
                         {
                             _AssignedRat.RemoveAt(i);
+                            RefreshAssignedRat();
                             break;
                         }
                     }
