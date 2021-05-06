@@ -8,7 +8,7 @@ Facilitating the use of the Fuel Rats IRC
 + Colorizes already sent messages
 + Tracks cases by processing received messages from the Fuel Rats IRC server
 + Displays details about cases and filtered chats in separate windows
-+ Provides some very usful functionality for dispatchers as well
++ Provides some very useful functionality for dispatchers as well
 <img src="https://i.imgur.com/Xz1QKbg.png">
 <img src="https://i.imgur.com/KPqv47C.png">
 <img src="https://i.imgur.com/ETZGK1M.png">
