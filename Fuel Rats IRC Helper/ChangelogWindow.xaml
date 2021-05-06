@@ -36,13 +36,21 @@
                 </Paragraph>
                 <Paragraph>
                     <Run Text="Version 1.4.0.0" FontSize="16" TextDecorations="Underline"/>
-                    <Run Text=" tba"/>
+                    <Run Text=" 2021-05-06"/>
                     <LineBreak/>
                     <Run Text="+ Added IRC client functionality"/>
                     <LineBreak/>
-                    <Run Text="    - Cases are tracked by processing all received messages from the IRC server"/>
+                    <Run Text="    - Received messages from the IRC server are processed and associated to cases"/>
                     <LineBreak/>
-                    <Run Text="    - Details about cases and filtered chats can be displayed in separate windows"/>
+                    <Run Text="    - Messages are now sent directly via the integrated IRC client"/>
+                    <LineBreak/>
+                    <Run Text="+ Added Case list window where all cases that were created during runtime are listed"/>
+                    <LineBreak/>
+                    <Run Text="+ Added Case windows where details and filtered chats are displayed"/>
+                    <LineBreak/>
+                    <Run Text="    - There are also some useful buttons and functions for dispatchers"/>
+                    <LineBreak/>
+                    <Run Text="+ Added option to automatically copy the system name to clipboard when a PC_SIGNAL is received"/>
                     <LineBreak/>
                     <Run Text="+ Added distance unit &quot;Mls&quot;"/>
                     <LineBreak/>
@@ -50,7 +58,9 @@
                     <LineBreak/>
                     <Run Text="* Renamed Preferences window to Settings"/>
                     <LineBreak/>
-                    <Run Text="* Improved layout when resizing the main window"/>
+                    <Run Text="* Improved layout"/>
+                    <LineBreak/>
+                    <Run Text="* Improved readability"/>
                     <LineBreak/>
                     <Run Text="* Improved startup locations of windows"/>
                     <LineBreak/>

@@ -1,4 +1,21 @@
 ﻿# Changelog
+### Version 1.4.0.0 (2021-05-06)
++ Added IRC client functionality
+  + Received messages from the IRC server are processed and associated to cases
+  + Messages are now sent directly via the integrated IRC client
++ Added Case list window where all cases that were created during runtime are listed
++ Added Case windows where details and filtered chats are displayed
+  + There are also some useful buttons and functions for dispatchers
++ Added option to automatically copy the system name to clipboard when a PC_SIGNAL is received
++ Added distance unit "Mls"
++ Reordered menu bar items
++ Renamed Preferences window to Settings
++ Improved layout
++ Improved readability
++ Improved startup locations of windows
++ Improved performance
++ Fixed a bug when clearing the Syscorr and Navcheck textboxes
++ Fixed a typo in the changelog
 ### Version 1.3.1.0 (2021-03-11)
 + Added "Reset to default" buttons in Settings -> Behaviour
 + Imporoved some messages (for example "#0 in open" now outputs "#0 client in open")

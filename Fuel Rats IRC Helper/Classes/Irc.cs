@@ -54,7 +54,7 @@ namespace Fuel_Rats_IRC_Helper
 
             else
             {
-                MessageBox.Show("Your message could not be sent, because you are not connected to the IRC! Please connect and try again", "Error");
+                MessageBox.Show("Your message could not be sent, because you are not connected to the IRC! Please connect and try again.", "Error");
                 return 1;
             }
         }
@@ -76,69 +76,63 @@ namespace Fuel_Rats_IRC_Helper
                 string clientPlatform = "";
                 string clientO2 = "OK";
                 string clientLanguage = "";
-                string timestamp = "";
+                string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
-                try
+                if (message.Contains("Case #"))
                 {
-                    timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
+                    caseNumber = message.Split(new string[] { "Case #" }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "" }, StringSplitOptions.None).ElementAt(0);
+                }
 
-                    if (message.Contains("Case #"))
-                    {
-                        caseNumber = message.Split(new string[] { "Case #" }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "" }, StringSplitOptions.None).ElementAt(0);
-                    }
+                if (message.Contains("6PC"))
+                {
+                    clientPlatform = "PC";
+                }
+                else if (message.Contains("3Xbox"))
+                {
+                    clientPlatform = "Xbox";
+                }
+                else if (message.Contains("12Playstation"))
+                {
+                    clientPlatform = "Playstation";
+                }
 
-                    if (message.Contains("6PC"))
-                    {
-                        clientPlatform = "PC";
-                    }
-                    else if (message.Contains("3Xbox"))
-                    {
-                        clientPlatform = "Xbox";
-                    }
-                    else if (message.Contains("12Playstation"))
-                    {
-                        clientPlatform = "Playstation";
-                    }
+                if (message.Contains("(4Code Red)"))
+                {
+                    clientO2 = "NOT OK";
+                }
 
-                    if (message.Contains("(4Code Red)"))
-                    {
-                        clientO2 = "NOT OK";
-                    }
+                if (message.Contains("CMDR "))
+                {
+                    clientCmdrName = message.Split(new string[] { "CMDR " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " – " }, StringSplitOptions.None).ElementAt(0);
+                }
 
-                    if (message.Contains("CMDR "))
+                if (message.Contains("System: "))
+                {
+                    clientSystem = message.Split(new string[] { "System: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " – " }, StringSplitOptions.None).ElementAt(0);
+                    if (clientSystem.StartsWith("\""))
                     {
-                        clientCmdrName = message.Split(new string[] { "CMDR " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " – " }, StringSplitOptions.None).ElementAt(0);
-                    }
-
-                    if (message.Contains("System: "))
-                    {
-                        clientSystem = message.Split(new string[] { "System: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " – " }, StringSplitOptions.None).ElementAt(0).Split('\"').ElementAt(1);
-                    }
-
-                    if (message.Contains("Language: "))
-                    {
-                        clientLanguage = message.Split(new string[] { "Language: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
-                    }
-
-                    if (message.Contains("Nick: "))
-                    {
-                        clientIrcNick = message.Split(new string[] { "Nick: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
-                    }
-                    else
-                    {
-                        clientIrcNick = clientCmdrName;
+                        clientSystem = clientSystem.Split('\"').ElementAt(1);
                     }
                 }
 
-                catch (Exception exception)
+                if (message.Contains("Language: "))
                 {
-                    MessageBox.Show("An error occured while parsing information from the RATSIGNAL! " + exception.Message + " Some information might be missing.", "Error");
+                    clientLanguage = message.Split(new string[] { "Language: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
+                }
+
+                if (message.Contains("Nick: "))
+                {
+                    clientIrcNick = message.Split(new string[] { "Nick: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
+                }
+                else
+                {
+                    clientIrcNick = clientCmdrName;
                 }
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientCmdrName, clientSystem, clientPlatform, clientO2, clientLanguage, new IrcMessage(unixTimestamp, timestamp, nick, message)));
-                    Irc.RefreshCaseList();
+                    RefreshCaseList();
                 });
             }
 
@@ -149,20 +143,15 @@ namespace Fuel_Rats_IRC_Helper
                 // Try to add a new case to the case list
 
                 string caseNumber = "";
-                string clientIrcNick = "";
+                string clientIrcNick = message.Split(new string[] { ". " }, StringSplitOptions.None).ElementAt(0);
                 string clientSystem = "";
                 string clientPlatform = "";
-                string timestamp = "";
+                string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
-                try
+                if (message.Contains("Calling all available rats for "))
                 {
-                    timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
-
-                    List<string> ratsignal = new List<string>(message.Split(new string[] { Settings.Get("ratsignalAltStartsWith"), ". Calling all available rats for ", " case in ", "  (Case #", ") " }, StringSplitOptions.None));
-
-                    clientIrcNick = ratsignal.ElementAt(1);
-
-                    clientPlatform = ratsignal.ElementAt(2);
+                    clientPlatform = message.Split(new string[] { "Calling all available rats for " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " case " }, StringSplitOptions.None).ElementAt(0);
+                 
                     if (clientPlatform.Contains("PC"))
                     {
                         clientPlatform = "PC";
@@ -175,21 +164,27 @@ namespace Fuel_Rats_IRC_Helper
                     {
                         clientPlatform = "Playstation";
                     }
-
-                    clientSystem = ratsignal.ElementAt(3).Split('\"').ElementAt(1);
-
-                    caseNumber = ratsignal.ElementAt(4);
                 }
 
-                catch (Exception exception)
+                if (message.Contains("in "))
                 {
-                    MessageBox.Show("An error occured while parsing information from the R@TSIGNAL! " + exception.Message + " Some information might be missing.", "Error");
+                    clientSystem = message.Split(new string[] { "in " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "  " }, StringSplitOptions.None).ElementAt(0);
+
+                    if (clientSystem.StartsWith("\""))
+                    {
+                        clientSystem = clientSystem.Split('\"').ElementAt(1);
+                    }
+                }
+
+                if (message.Contains("(Case #"))
+                {
+                    caseNumber = message.Split(new string[] { "(Case #" }, StringSplitOptions.None).ElementAt(1).Split(new string[] { ") " }, StringSplitOptions.None).ElementAt(0);
                 }
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     _Case.Insert(0, new Case(caseNumber, clientIrcNick, clientSystem, clientPlatform, new IrcMessage(unixTimestamp, timestamp, nick, message)));
-                    Irc.RefreshCaseList();
+                    RefreshCaseList();
                 });
             }
 
@@ -199,6 +194,7 @@ namespace Fuel_Rats_IRC_Helper
 
                 // Try to associate the message to a case
 
+                // A case number can be found usually behind a hashtag or a "!go[...] "
                 string casenumber = "";
                 if (message.Contains('#'))
                 {
@@ -312,6 +308,7 @@ namespace Fuel_Rats_IRC_Helper
             }
 
             _Case.Clear();
+            RefreshCaseList();
         }
 
         public static void ShowCaseWindow(string caseNumber)
