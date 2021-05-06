@@ -191,7 +191,7 @@
                     <DataGrid x:Name="datagridAssignedRats" GridLinesVisibility="Horizontal" Loaded="datagridAssignedRats_Loaded">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding IrcNick}" Width="auto" Header="Nick"/>
-                            <DataGridTextColumn Binding="{Binding CmdrName}" Width="auto" Header="CMDR"/>
+                            <DataGridTextColumn Binding="{Binding CmdrName}" Width="1*" Header="CMDR"/>
                         </DataGrid.Columns>
                         <DataGrid.Resources>
                             <Style TargetType="DataGridCell">

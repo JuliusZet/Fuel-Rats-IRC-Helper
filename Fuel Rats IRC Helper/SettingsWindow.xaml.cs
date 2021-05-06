@@ -46,62 +46,40 @@ namespace Fuel_Rats_IRC_Helper
             Settings.Set("checkForUpdatesOnStartup", "no");
         }
 
-        private void textboxWindowTitleIrcClient_Loaded(object sender, RoutedEventArgs e)
+        private void checkboxIrcAutoconnect_Loaded(object sender, RoutedEventArgs e)
         {
-            textboxWindowTitleIrcClient.Text = Settings.Get("windowTitleIrcClient");
-        }
-
-        private void textboxWindowTitleIrcClient_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Settings.Set("windowTitleIrcClient", textboxWindowTitleIrcClient.Text);
-        }
-
-        private void buttonWindowTitleIrcClientResetToDefault_Click(object sender, RoutedEventArgs e)
-        {
-            Settings.ResetToDefault("windowTitleIrcClient");
-            textboxWindowTitleIrcClient.Text = Settings.Get("windowTitleIrcClient");
-        }
-
-        private void textboxWindowTitleEliteDangerous_Loaded(object sender, RoutedEventArgs e)
-        {
-            textboxWindowTitleEliteDangerous.Text = Settings.Get("windowTitleEliteDangerous");
-        }
-
-        private void textboxWindowTitleEliteDangerous_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            Settings.Set("windowTitleEliteDangerous", textboxWindowTitleEliteDangerous.Text);
-        }
-
-        private void buttonWindowTitleEliteDangerousResetToDefault_Click(object sender, RoutedEventArgs e)
-        {
-            Settings.ResetToDefault("windowTitleEliteDangerous");
-            textboxWindowTitleEliteDangerous.Text = Settings.Get("windowTitleEliteDangerous");
-        }
-
-        private void radiobuttonCopyPaste_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (Settings.Get("messageInsertionMode") == "copyPaste")
+            if (Settings.Get("ircAutoconnect") == "yes")
             {
-                radiobuttonCopyPaste.IsChecked = true;
+                checkboxIrcAutoconnect.IsChecked = true;
             }
         }
 
-        private void radiobuttonCopyPaste_Checked(object sender, RoutedEventArgs e)
+        private void checkboxIrcAutoconnect_Checked(object sender, RoutedEventArgs e)
         {
-            Settings.Set("messageInsertionMode", "copyPaste");
+            Settings.Set("ircAutoconnect", "yes");
         }
 
-        private void radiobuttonSendkeys_Loaded(object sender, RoutedEventArgs e)
+        private void checkboxIrcAutoconnect_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (Settings.Get("messageInsertionMode") == "sendKeys")
+            Settings.Set("ircAutoconnect", "no");
+        }
+
+        private void checkboxAutoCopySystemOnPcSignal_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Settings.Get("autoCopySystemOnPcSignal") == "yes")
             {
-                radiobuttonSendkeys.IsChecked = true;
+                checkboxAutoCopySystemOnPcSignal.IsChecked = true;
             }
         }
 
-        private void radiobuttonSendkeys_Checked(object sender, RoutedEventArgs e)
+        private void checkboxAutoCopySystemOnPcSignal_Checked(object sender, RoutedEventArgs e)
         {
-            Settings.Set("messageInsertionMode", "sendKeys");
+            Settings.Set("autoCopySystemOnPcSignal", "yes");
+        }
+
+        private void checkboxAutoCopySystemOnPcSignal_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.Set("autoCopySystemOnPcSignal", "no");
         }
 
         private void checkboxIrcUseSsl_Loaded(object sender, RoutedEventArgs e)
@@ -235,42 +213,6 @@ namespace Fuel_Rats_IRC_Helper
             textboxTimestampFormat.Text = Settings.Get("timestampFormat");
         }
 
-        private void checkboxIrcAutoconnect_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (Settings.Get("ircAutoconnect") == "yes")
-            {
-                checkboxIrcAutoconnect.IsChecked = true;
-            }
-        }
-
-        private void checkboxIrcAutoconnect_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings.Set("ircAutoconnect", "yes");
-        }
-
-        private void checkboxIrcAutoconnect_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Settings.Set("ircAutoconnect", "no");
-        }
-
-        private void checkboxAutoCopySystemOnPcSignal_Loaded(object sender, RoutedEventArgs e)
-        {
-            if (Settings.Get("autoCopySystemOnPcSignal") == "yes")
-            {
-                checkboxAutoCopySystemOnPcSignal.IsChecked = true;
-            }
-        }
-
-        private void checkboxAutoCopySystemOnPcSignal_Checked(object sender, RoutedEventArgs e)
-        {
-            Settings.Set("autoCopySystemOnPcSignal", "yes");
-        }
-
-        private void checkboxAutoCopySystemOnPcSignal_Unchecked(object sender, RoutedEventArgs e)
-        {
-            Settings.Set("autoCopySystemOnPcSignal", "no");
-        }
-
         private void textboxRescueChannel_Loaded(object sender, RoutedEventArgs e)
         {
             textboxRescueChannel.Text = Settings.Get("ircChannelRescue");
@@ -374,6 +316,22 @@ namespace Fuel_Rats_IRC_Helper
         {
             Settings.ResetToDefault("ratsignalAltStartsWith");
             textboxAltRatsignalStartsWith.Text = Settings.Get("ratsignalAltStartsWith");
+        }
+
+        private void textboxWindowTitleEliteDangerous_Loaded(object sender, RoutedEventArgs e)
+        {
+            textboxWindowTitleEliteDangerous.Text = Settings.Get("windowTitleEliteDangerous");
+        }
+
+        private void textboxWindowTitleEliteDangerous_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Settings.Set("windowTitleEliteDangerous", textboxWindowTitleEliteDangerous.Text);
+        }
+
+        private void buttonWindowTitleEliteDangerousResetToDefault_Click(object sender, RoutedEventArgs e)
+        {
+            Settings.ResetToDefault("windowTitleEliteDangerous");
+            textboxWindowTitleEliteDangerous.Text = Settings.Get("windowTitleEliteDangerous");
         }
     }
 }

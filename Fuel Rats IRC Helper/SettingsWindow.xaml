@@ -32,100 +32,13 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="General" FontWeight="Bold" FontSize="16"/>
-                        <CheckBox x:Name="checkboxCheckForUpdatesOnStartup" Grid.Row="1" Content="Check for updates on startup" HorizontalAlignment="Left" Margin="20,0,0,0" Loaded="checkboxCheckForUpdatesOnStartup_Loaded" Checked="checkboxCheckForUpdatesOnStartup_Checked" Unchecked="checkboxCheckForUpdatesOnStartup_Unchecked"/>
-                    </Grid>
-                </ScrollViewer>
-            </TabItem>
-            <TabItem Header="Behaviour">
-                <ScrollViewer>
-                    <Grid Margin="10,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="27"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Content="Behaviour" FontWeight="Bold" FontSize="16"/>
-                        <Label Grid.Row="1" Content="When clicking the &quot;Send&quot; button the application will:" FontWeight="Bold" Margin="20,0,0,0"/>
-                        <Grid Grid.Row="2" Margin="40,0,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Content="1. Focus the IRC client window whose title contains"/>
-                            <TextBox x:Name="textboxWindowTitleIrcClient" Grid.Column="1" Loaded="textboxWindowTitleIrcClient_Loaded" TextChanged="textboxWindowTitleIrcClient_TextChanged"/>
-                            <Button x:Name="buttonWindowTitleIrcClientResetToDefault" Grid.Column="2" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonWindowTitleIrcClientResetToDefault_Click"/>
-                        </Grid>
-                        <Label Grid.Row="3" Content="2. Insert the message from the textbox &quot;Your message&quot;" Margin="40,0,0,0"/>
-                        <Label Grid.Row="4" Content="3. Press the return key" Margin="40,0,0,0"/>
-                        <Label Grid.Row="5" Content="4. Focus the Fuel Rats IRC Helper window again" Margin="40,0,0,0"/>
-                        <Grid Grid.Row="6" Margin="40,0,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0" Content="5. Focus the Elite Dangerous window whose title contains"/>
-                            <TextBox x:Name="textboxWindowTitleEliteDangerous" Grid.Column="1" Loaded="textboxWindowTitleEliteDangerous_Loaded" TextChanged="textboxWindowTitleEliteDangerous_TextChanged"/>
-                            <Button x:Name="buttonWindowTitleEliteDangerousResetToDefault" Grid.Column="2" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonWindowTitleEliteDangerousResetToDefault_Click"/>
-                        </Grid>
-                        <Label Grid.Row="8" Content="Message insertion method:" FontWeight="Bold" Margin="20,0,0,0"/>
-                        <RadioButton x:Name="radiobuttonCopyPaste" Grid.Row="9" GroupName="messageInsertionMode" HorizontalAlignment="Left" Margin="40,0,0,5" Loaded="radiobuttonCopyPaste_Loaded" Checked="radiobuttonCopyPaste_Checked">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="Copy and paste the message with the clipboard (Default)"/>
-                                <Grid Grid.Row="1" Margin="5,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="+ "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="Fastest way to insert the message, regardless of its length"/>
-                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="+ "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Hotkeys will not be triggered during insertion"/>
-                                </Grid>
-                            </Grid>
-                        </RadioButton>
-                        <RadioButton x:Name="radiobuttonSendkeys" Grid.Row="10" GroupName="messageInsertionMode" HorizontalAlignment="Left" Margin="40,0,0,0" Loaded="radiobuttonSendkeys_Loaded" Checked="radiobuttonSendkeys_Checked">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Grid.Row="0" Text="Write out the message key by key"/>
-                                <Grid Grid.Row="1" Margin="5,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="auto"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto"/>
-                                        <RowDefinition Height="auto"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="- "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="The longer the message, the more time it takes to insert it"/>
-                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="- "/>
-                                    <TextBlock Grid.Column="1" Grid.Row="1" Text="Hotkeys could be triggered during insertion"/>
-                                </Grid>
-                            </Grid>
-                        </RadioButton>
+                        <CheckBox x:Name="checkboxCheckForUpdatesOnStartup" Grid.Row="1" Content="Check for updates on startup" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxCheckForUpdatesOnStartup_Loaded" Checked="checkboxCheckForUpdatesOnStartup_Checked" Unchecked="checkboxCheckForUpdatesOnStartup_Unchecked"/>
+                        <CheckBox x:Name="checkboxIrcAutoconnect" Grid.Row="2" Content="Automatically connect to the IRC on startup" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxIrcAutoconnect_Loaded" Checked="checkboxIrcAutoconnect_Checked" Unchecked="checkboxIrcAutoconnect_Unchecked"/>
+                        <CheckBox x:Name="checkboxAutoCopySystemOnPcSignal" Grid.Row="3" Content="Automatically copy the system name to the clipboard when a PC__SIGNAL is received" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxAutoCopySystemOnPcSignal_Loaded" Checked="checkboxAutoCopySystemOnPcSignal_Checked" Unchecked="checkboxAutoCopySystemOnPcSignal_Unchecked"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
@@ -138,8 +51,6 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -182,8 +93,6 @@
                         </Grid>
                         <Button x:Name="buttonTimestampFormatResetToDefault" Grid.Column="2" Grid.Row="9" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonTimestampFormatResetToDefault_Click"/>
                         <Label x:Name="labelTimestampFormatExample" Grid.Column="1" Grid.Row="10" Content="Example: 2009-06-01T13:45:30Z will be displayed as " Margin="10,0,0,5" Padding="5,0,5,5"/>
-                        <CheckBox x:Name="checkboxIrcAutoconnect" Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" Content="Automatically connect on startup" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxIrcAutoconnect_Loaded" Checked="checkboxIrcAutoconnect_Checked" Unchecked="checkboxIrcAutoconnect_Unchecked"/>
-                        <CheckBox x:Name="checkboxAutoCopySystemOnPcSignal" Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Content="Automatically copy the system name to the clipboard when a PC__SIGNAL is received" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxAutoCopySystemOnPcSignal_Loaded" Checked="checkboxAutoCopySystemOnPcSignal_Checked" Unchecked="checkboxAutoCopySystemOnPcSignal_Unchecked"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>
@@ -196,6 +105,7 @@
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -234,7 +144,38 @@
                         <Label Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3" Content="All other messages are associated to cases in the case list when the message:" Margin="20,0,0,0" Padding="5,0,5,0"/>
                         <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" Content="- contains a hashtag followed by the case number (usually this indicates a message from a rat or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
                         <Label Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Content="- contains the client's IRC nickname (usually this indicates a message from a spatch or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
-                        <Label Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="3" Content="- is sent by the client" Margin="20,0,0,5" Padding="5,0,5,5"/>
+                        <Label Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="3" Content="- is sent by the client" Margin="20,0,0,0" Padding="5,0,5,0"/>
+                        <Label Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="3" Content="- is sent by an assigned rat" Margin="20,0,0,5" Padding="5,0,5,5"/>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Behaviour">
+                <ScrollViewer>
+                    <Grid Margin="10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="27"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Content="Behaviour" FontWeight="Bold" FontSize="16"/>
+                        <Label Grid.Row="1" Content="When clicking the &quot;Send&quot; button in the main window the application will:" FontWeight="Bold" Margin="20,0,0,0"/>
+                        <Label Grid.Row="2" Content="1. Send the message from the textbox &quot;Your message&quot; to the rescue channel" Margin="40,0,0,0"/>
+                        <Grid Grid.Row="3" Margin="40,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Content="2. Focus the Elite Dangerous window whose title contains"/>
+                            <TextBox x:Name="textboxWindowTitleEliteDangerous" Grid.Column="1" Loaded="textboxWindowTitleEliteDangerous_Loaded" TextChanged="textboxWindowTitleEliteDangerous_TextChanged"/>
+                            <Button x:Name="buttonWindowTitleEliteDangerousResetToDefault" Grid.Column="2" Content="Reset to default" Margin="5,0,0,0" Padding="10,0" Click="buttonWindowTitleEliteDangerousResetToDefault_Click"/>
+                        </Grid>
+                        <Label Grid.Row="5" Content="When clicking the &quot;Send&quot; button in a Case window the application will:" FontWeight="Bold" Margin="20,0,0,0"/>
+                        <Label Grid.Row="6" Content="Send the message from the message textbox of that Case window to the rescue channel" Margin="40,0,0,0"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

@@ -181,8 +181,6 @@ namespace Fuel_Rats_IRC_Helper
                     return Set("ircRealname", "myRealname");
                 case "ircUseSsl":
                     return Set("ircUseSsl", "no");
-                case "messageInsertionMode":
-                    return Set("messageInsertionMode", "copyPaste");
                 case "ratsignalStartsWith":
                     return Set("ratsignalStartsWith", "0,7RATSIGNAL");
                 case "ratsignalAltStartsWith":
@@ -193,8 +191,6 @@ namespace Fuel_Rats_IRC_Helper
                     return Set("timestampFormat", "HH:mm:ss");
                 case "windowTitleEliteDangerous":
                     return Set("windowTitleEliteDangerous", "Elite - Dangerous (CLIENT)");
-                case "windowTitleIrcClient":
-                    return Set("windowTitleIrcClient", "#fuelrats");
                 default:
                     return 2;
             }
