@@ -117,12 +117,12 @@ namespace Fuel_Rats_IRC_Helper
 
                 if (message.Contains("Language: "))
                 {
-                    clientLanguage = message.Split(new string[] { "Language: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
+                    clientLanguage = message.Split(new string[] { "Language: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " " }, StringSplitOptions.None).ElementAt(0);
                 }
 
                 if (message.Contains("Nick: "))
                 {
-                    clientIrcNick = message.Split(new string[] { "Nick: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " (" }, StringSplitOptions.None).ElementAt(0);
+                    clientIrcNick = message.Split(new string[] { "Nick: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " " }, StringSplitOptions.None).ElementAt(0);
                 }
                 else
                 {

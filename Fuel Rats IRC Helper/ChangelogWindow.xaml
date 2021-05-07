@@ -35,6 +35,12 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.4.0.1" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-05-07"/>
+                    <LineBreak/>
+                    <Run Text="* Slightly improved parsing of information from RATSIGNALs"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.0.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-05-06"/>
                     <LineBreak/>

@@ -1,4 +1,6 @@
 ﻿# Changelog
+### Version 1.4.0.1 (2021-05-07)
++ Slightly improved parsing of information from RATSIGNALs
 ### Version 1.4.0.0 (2021-05-06)
 + Added IRC client functionality
   + Received messages from the IRC server are processed and associated to cases
