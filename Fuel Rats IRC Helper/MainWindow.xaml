@@ -26,21 +26,31 @@
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0">
-            <MenuItem Header="_Fuel Rats IRC Helper">
-                <MenuItem x:Name="menuitemSettings" Header="_Settings" Click="menuitemSettings_Click"/>
-                <MenuItem x:Name="menuitemClose" Header="_Close" Click="menuitemClose_Click"/>
-            </MenuItem>
-            <MenuItem Header="_IRC">
-                <MenuItem x:Name="menuitemConnectToIrc" Header="_Connect to IRC" Click="menuitemConnectToIrc_Click"/>
-                <MenuItem x:Name="menuitemDisconnectFromIrc" Header="_Disconnect from IRC" Click="menuitemDisconnectFromIrc_Click"/>
-            </MenuItem>
-            <MenuItem Header="_Help">
-                <MenuItem x:Name="menuitemAbout" Header="_About Fuel Rats IRC Helper" Click="menuitemAbout_Click"/>
-                <MenuItem x:Name="menuitemChangelog" Header="_Changelog" Click="menuitemChangelog_Click"/>
-                <MenuItem x:Name="menuitemCheckForUpdates" Header="Check for _Updates" Click="menuitemCheckForUpdates_Click"/>
-            </MenuItem>
-        </Menu>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Menu Grid.Column="0">
+                <MenuItem Header="_Fuel Rats IRC Helper">
+                    <MenuItem x:Name="menuitemSettings" Header="_Settings" Click="menuitemSettings_Click"/>
+                    <MenuItem x:Name="menuitemClose" Header="_Close" Click="menuitemClose_Click"/>
+                </MenuItem>
+                <MenuItem Header="_IRC">
+                    <MenuItem x:Name="menuitemConnectToIrc" Header="_Connect to IRC" Click="menuitemConnectToIrc_Click"/>
+                    <MenuItem x:Name="menuitemDisconnectFromIrc" Header="_Disconnect from IRC" Click="menuitemDisconnectFromIrc_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem x:Name="menuitemAbout" Header="_About Fuel Rats IRC Helper" Click="menuitemAbout_Click"/>
+                    <MenuItem x:Name="menuitemChangelog" Header="_Changelog" Click="menuitemChangelog_Click"/>
+                    <MenuItem x:Name="menuitemCheckForUpdates" Header="Check for _Updates" Click="menuitemCheckForUpdates_Click"/>
+                </MenuItem>
+            </Menu>
+            <StatusBar Grid.Column="1" Background="#FFF0F0F0">
+                <StatusBarItem x:Name="statusbaritemIrcConnectionStatus" x:FieldModifier="public" Padding="6,0" FontSize="12" Content="Not connected to IRC"/>
+                <Ellipse x:Name="ellipseIrcConnectionStatusLed" x:FieldModifier="public" Width="12" Height="12" Fill="Gray"/>
+            </StatusBar>
+        </Grid>
         <ScrollViewer Grid.Row="1">
             <Grid Margin="10">
                 <Grid.RowDefinitions>

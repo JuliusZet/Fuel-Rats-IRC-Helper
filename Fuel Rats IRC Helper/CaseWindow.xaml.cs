@@ -279,13 +279,11 @@ namespace Fuel_Rats_IRC_Helper
 
         private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DataGridCell selectedCell = sender as DataGridCell;
-            TextBlock selectedTextblock = selectedCell.Content as TextBlock;
             if (textboxMessage.Text != "")
             {
                 textboxMessage.Text += ' ';
             }
-            textboxMessage.Text += selectedTextblock.Text;
+            textboxMessage.Text += ((sender as DataGridCell).Content as TextBlock).Text;
             textboxMessage.Focus();
             textboxMessage.CaretIndex = textboxMessage.Text.Length;
         }

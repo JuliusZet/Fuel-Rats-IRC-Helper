@@ -120,6 +120,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Column="0" Grid.Row="0" Content="Case tracker" FontWeight="Bold" FontSize="16"/>
                         <Label Grid.Column="0" Grid.Row="1" Content="Rescue channel:" Margin="20,0,0,5"/>
@@ -145,7 +146,8 @@
                         <Label Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="3" Content="- contains a hashtag followed by the case number (usually this indicates a message from a rat or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
                         <Label Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="3" Content="- contains the client's IRC nickname (usually this indicates a message from a spatch or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
                         <Label Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="3" Content="- is sent by the client" Margin="20,0,0,0" Padding="5,0,5,0"/>
-                        <Label Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="3" Content="- is sent by an assigned rat" Margin="20,0,0,5" Padding="5,0,5,5"/>
+                        <Label Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="3" Content="- contains an assigned rat's IRC nickname (usually this indicates a message from a spatch or a bot)" Margin="20,0,0,0" Padding="5,0,5,0"/>
+                        <Label Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="3" Content="- is sent by an assigned rat (in case they forgot to include the case number :P)" Margin="20,0,0,5" Padding="5,0,5,5"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

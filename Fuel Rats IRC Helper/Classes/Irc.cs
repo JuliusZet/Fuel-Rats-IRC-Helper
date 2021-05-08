@@ -17,25 +17,80 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Media;
 
 namespace Fuel_Rats_IRC_Helper
 {
     public static class Irc
     {
-        private static IrcClient _IrcClient = new IrcClient();
+        private static IrcClient _IrcClient = null;
         private static List<Case> _Case = new List<Case>();
-        private static Thread _IrcListener;
+        private static Thread _IrcListener = null;
         private static CaseListWindow _CaseListWindow = null;
 
-        private static void OnRawMessage(object sender, IrcEventArgs e)
+        private static void OnConnecting(object sender, EventArgs e)
         {
-            if (e.Data.Type == ReceiveType.ChannelMessage && (e.Data.Channel == Settings.Get("ircChannelRescue") || (e.Data.Channel == Settings.Get("ircChannelChat") && e.Data.Nick == Settings.Get("ircNickBot"))))
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (Application.Current.MainWindow as MainWindow).ellipseIrcConnectionStatusLed.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 165, 0));
+                (Application.Current.MainWindow as MainWindow).statusbaritemIrcConnectionStatus.Content = "Connecting to IRC. Please wait.";
+            });
+        }
+
+        private static void OnConnected(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (Application.Current.MainWindow as MainWindow).ellipseIrcConnectionStatusLed.Fill = new SolidColorBrush(Color.FromArgb(255, 0, 128, 0));
+                (Application.Current.MainWindow as MainWindow).statusbaritemIrcConnectionStatus.Content = "Connected to IRC";
+            });
+        }
+
+        private static void OnConnectionError(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (Application.Current.MainWindow as MainWindow).ellipseIrcConnectionStatusLed.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                (Application.Current.MainWindow as MainWindow).statusbaritemIrcConnectionStatus.Content = "IRC Connection Error. Please check your connection and settings.";
+            });
+        }
+
+        private static void OnChannelMessage(object sender, IrcEventArgs e)
+        {
+            if (e.Data.Channel == Settings.Get("ircChannelRescue") || (e.Data.Channel == Settings.Get("ircChannelChat") && e.Data.Nick == Settings.Get("ircNickBot")))
             {
                 string message = e.Data.Message;
                 string nick = e.Data.Nick;
 
                 ProcessMessage(nick, message);
             }
+        }
+
+        private static void OnDisconnecting(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (Application.Current.MainWindow as MainWindow).ellipseIrcConnectionStatusLed.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 165, 0));
+                (Application.Current.MainWindow as MainWindow).statusbaritemIrcConnectionStatus.Content = "Disconnecting from IRC. Please wait.";
+            });
+        }
+
+        private static void OnDisconnected(object sender, EventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (Application.Current.MainWindow as MainWindow).ellipseIrcConnectionStatusLed.Fill = new SolidColorBrush(Color.FromArgb(255, 128, 128, 128));
+                (Application.Current.MainWindow as MainWindow).statusbaritemIrcConnectionStatus.Content = "Disconnected from IRC";
+            });
+        }
+
+        private static void OnError(object sender, ErrorEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                (Application.Current.MainWindow as MainWindow).ellipseIrcConnectionStatusLed.Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0));
+                (Application.Current.MainWindow as MainWindow).statusbaritemIrcConnectionStatus.Content = "Error: " + e.ErrorMessage;
+            });
         }
 
         public static List<Case> Case
@@ -45,7 +100,7 @@ namespace Fuel_Rats_IRC_Helper
 
         public static int SendMessageToRescueChannel(string message)
         {
-            if (_IrcClient.IsConnected)
+            if (_IrcClient != null && _IrcClient.IsConnected)
             {
                 _IrcClient.SendMessage(SendType.Message, Settings.Get("ircChannelRescue"), message);
                 ProcessMessage(_IrcClient.Nickname, message);
@@ -198,7 +253,7 @@ namespace Fuel_Rats_IRC_Helper
                 string casenumber = "";
                 if (message.Contains('#'))
                 {
-                    casenumber = message.Split('#').ElementAt(1).Split(' ').ElementAt(0);
+                    casenumber = message.Split('#').ElementAt(1).Split(' ').ElementAt(0).Split('.').ElementAt(0);
                 }
                 else if (message.StartsWith("!go") && message.Contains(' '))
                 {
@@ -251,13 +306,9 @@ namespace Fuel_Rats_IRC_Helper
 
         public static void Connect()
         {
-            if (!_IrcClient.IsConnected)
+            if (_IrcClient == null || !_IrcClient.IsConnected)
             {
-                bool ircUseSsl = false;
-                if (Settings.Get("ircUseSsl") == "yes")
-                {
-                    ircUseSsl = true;
-                }
+                bool ircUseSsl = Settings.Get("ircUseSsl") == "yes";
                 string ircAddress = Settings.Get("ircAddress");
                 int.TryParse(Settings.Get("ircPort"), out int ircPort);
                 string ircNick = Settings.Get("ircNick");
@@ -266,27 +317,37 @@ namespace Fuel_Rats_IRC_Helper
                 string ircChannelRescue = Settings.Get("ircChannelRescue");
                 string ircChannelChat = Settings.Get("ircChannelChat");
 
+                _IrcClient = new IrcClient()
+                {
+                    EnableUTF8Recode = true,
+                    UseSsl = ircUseSsl
+                };
+
+                _IrcClient.OnConnecting += new EventHandler(OnConnecting);
+                _IrcClient.OnConnected += new EventHandler(OnConnected);
+                _IrcClient.OnConnectionError += new EventHandler(OnConnectionError);
+                _IrcClient.OnChannelMessage += new IrcEventHandler(OnChannelMessage);
+                _IrcClient.OnDisconnecting += new EventHandler(OnDisconnecting);
+                _IrcClient.OnDisconnected += new EventHandler(OnDisconnected);
+                _IrcClient.OnError += new ErrorEventHandler(OnError);
+
                 try
                 {
-                    if (ircUseSsl)
-                    {
-                        _IrcClient.UseSsl = true;
-                    }
-                    _IrcClient.EnableUTF8Recode = true;
-                    _IrcClient.OnRawMessage += new IrcEventHandler(OnRawMessage);
                     _IrcClient.Connect(ircAddress, ircPort);
                     _IrcClient.Login(ircNick, ircRealname, 4, "IRC-Helper", ircPassword);
                     _IrcClient.RfcJoin(ircChannelRescue);
                     _IrcClient.RfcJoin(ircChannelChat);
-                    _IrcListener = new Thread(new ThreadStart(_IrcClient.Listen));
-                    _IrcListener.SetApartmentState(ApartmentState.STA);
-                    _IrcListener.Start();
                 }
 
                 catch (Exception exception)
                 {
                     MessageBox.Show("An error occured while connecting to the IRC! " + exception.Message, "Error");
+                    OnConnectionError(null, null);
                 }
+
+                _IrcListener = new Thread(new ThreadStart(_IrcClient.Listen));
+                _IrcListener.SetApartmentState(ApartmentState.STA);
+                _IrcListener.Start();
             }
 
             else
@@ -297,9 +358,15 @@ namespace Fuel_Rats_IRC_Helper
 
         public static void Disconnect()
         {
-            if (_IrcClient.IsConnected)
+            if (_IrcClient != null)
             {
-                _IrcClient.RfcQuit();
+                if (_IrcClient.IsConnected)
+                {
+                    _IrcClient.RfcQuit();
+                    _IrcClient.Disconnect();
+                }
+
+                _IrcClient = null;
             }
 
             for (int i = 0; i != _Case.Count; ++i)

@@ -35,6 +35,20 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.4.1.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-05-08"/>
+                    <LineBreak/>
+                    <Run Text="+ Added IRC connection status indicator to main window"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed all messages being displayed twice after re-connection"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed detection of rat un-assignment"/>
+                    <LineBreak/>
+                    <Run Text="* Updated explanation in Settings how messages are associated to cases"/>
+                    <LineBreak/>
+                    <Run Text="* Improved performance"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.0.1" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-05-07"/>
                     <LineBreak/>

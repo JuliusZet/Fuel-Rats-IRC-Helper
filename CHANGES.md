@@ -1,4 +1,10 @@
 ﻿# Changelog
+### Version 1.4.1.0 (2021-05-08)
++ Added IRC connection status indicator to main window
++ Fixed all messages being displayed twice after re-connection
++ Fixed detection of rat un-assignment
++ Updated explanation in Settings how messages are associated to cases
++ Improved performance
 ### Version 1.4.0.1 (2021-05-07)
 + Slightly improved parsing of information from RATSIGNALs
 ### Version 1.4.0.0 (2021-05-06)
