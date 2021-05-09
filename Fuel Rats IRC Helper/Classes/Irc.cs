@@ -119,23 +119,23 @@ namespace Fuel_Rats_IRC_Helper
             long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
             // If the message is a Ratsignal
-            if (message.StartsWith(Settings.Get("ratsignalStartsWith")) && nick == Settings.Get("ircNickBot"))
+            if (message.Contains(Settings.Get("ratsignalStartsWith")) && nick == Settings.Get("ircNickBot"))
             {
 
                 // Try to add a new case to the case list
 
-                string caseNumber = "";
-                string clientIrcNick = "";
-                string clientCmdrName = "";
-                string clientSystem = "";
-                string clientPlatform = "";
+                string caseNumber = "unknown";
+                string clientIrcNick = "unknown";
+                string clientCmdrName = "unknown";
+                string clientSystem = "unknown";
+                string clientPlatform = "unknown";
                 string clientO2 = "OK";
-                string clientLanguage = "";
+                string clientLanguage = "unknown";
                 string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
                 if (message.Contains("Case #"))
                 {
-                    caseNumber = message.Split(new string[] { "Case #" }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "" }, StringSplitOptions.None).ElementAt(0);
+                    caseNumber = message.Split(new string[] { "Case #" }, StringSplitOptions.None).ElementAt(1).Split('').ElementAt(0);
                 }
 
                 if (message.Contains("6PC"))
@@ -172,12 +172,12 @@ namespace Fuel_Rats_IRC_Helper
 
                 if (message.Contains("Language: "))
                 {
-                    clientLanguage = message.Split(new string[] { "Language: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " " }, StringSplitOptions.None).ElementAt(0);
+                    clientLanguage = message.Split(new string[] { "Language: " }, StringSplitOptions.None).ElementAt(1).Split(' ').ElementAt(0);
                 }
 
                 if (message.Contains("Nick: "))
                 {
-                    clientIrcNick = message.Split(new string[] { "Nick: " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " " }, StringSplitOptions.None).ElementAt(0);
+                    clientIrcNick = message.Split(new string[] { "Nick: " }, StringSplitOptions.None).ElementAt(1).Split(' ').ElementAt(0);
                 }
                 else
                 {
@@ -192,21 +192,21 @@ namespace Fuel_Rats_IRC_Helper
             }
 
             // If the message is an alternative Ratsignal
-            else if (message.StartsWith(Settings.Get("ratsignalAltStartsWith")) && nick == Settings.Get("ircNickBot"))
+            else if (message.Contains(Settings.Get("ratsignalAltStartsWith")) && nick == Settings.Get("ircNickBot"))
             {
 
                 // Try to add a new case to the case list
 
-                string caseNumber = "";
-                string clientIrcNick = message.Split(new string[] { ". " }, StringSplitOptions.None).ElementAt(0);
-                string clientSystem = "";
-                string clientPlatform = "";
+                string caseNumber = "unknown";
+                string clientIrcNick = message.Split(new string[] { Settings.Get("ratsignalAltStartsWith") }, StringSplitOptions.None).ElementAt(1).Split(new string[] { ". Calling all available rats for " }, StringSplitOptions.None).ElementAt(0);
+                string clientSystem = "unknown";
+                string clientPlatform = "unknown";
                 string timestamp = DateTimeOffset.FromUnixTimeSeconds(unixTimestamp).ToString(Settings.Get("timestampFormat"));
 
-                if (message.Contains("Calling all available rats for "))
+                if (message.Contains(". Calling all available rats for "))
                 {
-                    clientPlatform = message.Split(new string[] { "Calling all available rats for " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " case " }, StringSplitOptions.None).ElementAt(0);
-                 
+                    clientPlatform = message.Split(new string[] { ". Calling all available rats for " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " case in " }, StringSplitOptions.None).ElementAt(0);
+
                     if (clientPlatform.Contains("PC"))
                     {
                         clientPlatform = "PC";
@@ -221,9 +221,9 @@ namespace Fuel_Rats_IRC_Helper
                     }
                 }
 
-                if (message.Contains("in "))
+                if (message.Contains(" case in "))
                 {
-                    clientSystem = message.Split(new string[] { "in " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "  " }, StringSplitOptions.None).ElementAt(0);
+                    clientSystem = message.Split(new string[] { " case in " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "  (Case #" }, StringSplitOptions.None).ElementAt(0);
 
                     if (clientSystem.StartsWith("\""))
                     {
@@ -231,9 +231,9 @@ namespace Fuel_Rats_IRC_Helper
                     }
                 }
 
-                if (message.Contains("(Case #"))
+                if (message.Contains("  (Case #"))
                 {
-                    caseNumber = message.Split(new string[] { "(Case #" }, StringSplitOptions.None).ElementAt(1).Split(new string[] { ") " }, StringSplitOptions.None).ElementAt(0);
+                    caseNumber = message.Split(new string[] { "  (Case #" }, StringSplitOptions.None).ElementAt(1).Split(new string[] { ") " }, StringSplitOptions.None).ElementAt(0);
                 }
 
                 Application.Current.Dispatcher.Invoke(() =>
@@ -255,9 +255,9 @@ namespace Fuel_Rats_IRC_Helper
                 {
                     casenumber = message.Split('#').ElementAt(1).Split(' ').ElementAt(0).Split('.').ElementAt(0);
                 }
-                else if (message.StartsWith("!go") && message.Contains(' '))
+                else if (message.Contains("!go") && message.Contains(' '))
                 {
-                    casenumber = message.Split(' ').ElementAt(1);
+                    casenumber = message.Split(new string[] { "!go" }, StringSplitOptions.None).ElementAt(1).Split(' ').ElementAt(1);
                 }
 
                 for (int i = 0; i != _Case.Count; ++i)

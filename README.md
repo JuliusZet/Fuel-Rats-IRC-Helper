@@ -2,8 +2,10 @@
 Facilitating the use of the Fuel Rats IRC
 
 ## Features
-+ This (unofficial) application can help Fuel Rats to use the Fuel Rats IRC
-+ Generates messages and sends them to the specified IRC server (Use of Bouncer highly recommended!)
++ Helps Fuel Rats to use the Fuel Rats IRC
++ Generates messages and sends them to the specified IRC server
+  + Note that this is NOT a fully featured IRC client! It is highly recommended to use a bouncer to tunnel both your normal IRC client and this IRC Helper to the Fuel Rats IRC server through one connection.
+  + The app was tested to work with the default settings of the bouncer <a href="https://wiki.znc.in/" target="_blank">ZNC</a>
 + Assists at following the Standard Operating Procedure
 + Colorizes already sent messages
 + Tracks cases by processing received messages from the Fuel Rats IRC server
@@ -19,6 +21,7 @@ Facilitating the use of the Fuel Rats IRC
 ## Install
 + Download the setup.exe file from <a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">here</a>
 + Double-click on the setup.exe file to install
++ Set up a bouncer, if not done already (<a href="https://wiki.znc.in/" target="_blank">ZNC</a> recommended)
 + Launch the application from the start menu
 
 ## Uninstall

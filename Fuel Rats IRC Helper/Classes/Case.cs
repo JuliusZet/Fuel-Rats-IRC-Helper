@@ -265,9 +265,9 @@ namespace Fuel_Rats_IRC_Helper
 
             RefreshCaseChat();
 
-            if (ircMessage.Text.StartsWith("!go"))
+            if (ircMessage.Text.Contains("!go"))
             {
-                List<string> go = new List<string>(ircMessage.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+                List<string> go = new List<string>(ircMessage.Text.Split(new string[] { "!go" }, StringSplitOptions.None).ElementAt(1).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
 
                 for (int i = 2; i != go.Count; ++i)
                 {
@@ -279,28 +279,44 @@ namespace Fuel_Rats_IRC_Helper
 
             if (ircMessage.SenderNickname == Settings.Get("ircNickBot"))
             {
-                if (ircMessage.Text.StartsWith("Caution: Client of case #") && ircMessage.Text.Contains(" has changed IRC nick to "))
+                if (ircMessage.Text.Contains("Caution: Client of case #") && ircMessage.Text.Contains(" has changed IRC nick to "))
                 {
                     ClientIrcNick = ircMessage.Text.Split(new string[] { " has changed IRC nick to " }, StringSplitOptions.None).ElementAt(1);
                 }
 
-                else if (ircMessage.Text.StartsWith("Client name for case #") && ircMessage.Text.Contains(" has been changed to: "))
+                else if (ircMessage.Text.Contains("Client name for case #") && ircMessage.Text.Contains(" has been changed to: "))
                 {
                     string clientCmdrName = ircMessage.Text.Split(new string[] { " has been changed to: " }, StringSplitOptions.None).ElementAt(1);
                     ClientCmdrName = clientCmdrName.Remove(clientCmdrName.Length - 1);
                 }
 
-                else if (ircMessage.Text.StartsWith("System for case #") && ircMessage.Text.Contains(" has been changed to "))
+                else if (ircMessage.Text.Contains("System for case #") && ircMessage.Text.Contains(" has been changed to "))
                 {
-                    ClientSystem = ircMessage.Text.Split(new string[] { " has been changed to " }, StringSplitOptions.None).ElementAt(1).Split('\"').ElementAt(1);
+                    string clientSystem = ircMessage.Text.Split(new string[] { " has been changed to " }, StringSplitOptions.None).ElementAt(1);
+                    if (clientSystem.StartsWith("\""))
+                    {
+                        ClientSystem = clientSystem.Split('\"').ElementAt(1);
+                    }
+                    else
+                    {
+                        ClientSystem = clientSystem;
+                    }
                 }
 
-                else if (ircMessage.Text.StartsWith("ATTENTION: System for case #") && ircMessage.Text.Contains(" has been automatically corrected to "))
+                else if (ircMessage.Text.Contains("ATTENTION: System for case #") && ircMessage.Text.Contains(" has been automatically corrected to "))
                 {
-                    ClientSystem = ircMessage.Text.Split(new string[] { " has been automatically corrected to " }, StringSplitOptions.None).ElementAt(1).Split('\"').ElementAt(1);
+                    string clientSystem = ircMessage.Text.Split(new string[] { " has been automatically corrected to " }, StringSplitOptions.None).ElementAt(1);
+                    if (clientSystem.StartsWith("\""))
+                    {
+                        ClientSystem = clientSystem.Split('\"').ElementAt(1);
+                    }
+                    else
+                    {
+                        ClientSystem = clientSystem;
+                    }
                 }
 
-                else if (ircMessage.Text.StartsWith("Platform for case #") && ircMessage.Text.Contains(" set to: "))
+                else if (ircMessage.Text.Contains("Platform for case #") && ircMessage.Text.Contains(" set to: "))
                 {
                     string clientPlatform = ircMessage.Text.Split(new string[] { " set to: " }, StringSplitOptions.None).ElementAt(1);
 
@@ -322,48 +338,48 @@ namespace Fuel_Rats_IRC_Helper
                     }
                 }
 
-                else if (ircMessage.Text.StartsWith("CODE RED! ") && ircMessage.Text.EndsWith(" is on emergency oxygen!"))
+                else if (ircMessage.Text.Contains("CODE RED! ") && ircMessage.Text.Contains(" is on emergency oxygen!"))
                 {
                     ClientO2 = "NOT OK";
                 }
 
-                else if (ircMessage.Text.StartsWith("Case #") && ircMessage.Text.EndsWith(" is no longer CR."))
+                else if (ircMessage.Text.Contains("Case #") && ircMessage.Text.Contains(" is no longer CR."))
                 {
                     ClientO2 = "OK";
                 }
 
-                else if (ircMessage.Text.StartsWith("Language for case #") && ircMessage.Text.Contains(" has now been changed to "))
+                else if (ircMessage.Text.Contains("Language for case #") && ircMessage.Text.Contains(" has now been changed to "))
                 {
                     ClientLanguage = ircMessage.Text.Split(new string[] { " has now been changed to " }, StringSplitOptions.None).ElementAt(1).Split(' ').ElementAt(0);
                 }
 
-                else if (ircMessage.Text.StartsWith("Status of case #") && ircMessage.Text.Contains(" set to: "))
+                else if (ircMessage.Text.Contains("Status of case #") && ircMessage.Text.Contains(" set to: "))
                 {
                     string status = ircMessage.Text.Split(new string[] { " set to: " }, StringSplitOptions.None).ElementAt(1);
                     Status = status.Remove(status.Length - 1);
                 }
 
-                else if (ircMessage.Text.StartsWith("Successfully closed case #"))
+                else if (ircMessage.Text.Contains("Successfully closed case #"))
                 {
                     CloseCase(ircMessage.UnixTimestamp);
                 }
 
-                else if (ircMessage.Text.StartsWith("Successfully added case #") && ircMessage.Text.EndsWith(" to the deletion list."))
+                else if (ircMessage.Text.Contains("Successfully added case #") && ircMessage.Text.Contains(" to the deletion list."))
                 {
                     CloseCase(ircMessage.UnixTimestamp);
                 }
 
-                else if (ircMessage.Text.StartsWith("Client of case #") && ircMessage.Text.EndsWith(" has been banned by the moderator team and the case has been trashed."))
+                else if (ircMessage.Text.Contains("Client of case #") && ircMessage.Text.Contains(" has been banned by the moderator team and the case has been trashed."))
                 {
                     CloseCase(ircMessage.UnixTimestamp);
                 }
 
-                else if (ircMessage.Text.StartsWith("Rescue \"") && ircMessage.Text.Contains("\" has been re-opened and added to the board as case #"))
+                else if (ircMessage.Text.Contains("Rescue \"") && ircMessage.Text.Contains("\" has been re-opened and added to the board as case #"))
                 {
                     UncloseCase();
                 }
 
-                else if (ircMessage.Text.Contains(": \"") && _IrcMessage.ElementAt(_IrcMessage.Count - 2).Text.StartsWith("!go"))
+                else if (ircMessage.Text.Contains(": \"") && _IrcMessage.ElementAt(_IrcMessage.Count - 2).Text.Contains("!go"))
                 {
                     List<string> go = new List<string>(ircMessage.Text.Split(new string[] { ": \"", "\", \"" }, StringSplitOptions.None));
 
@@ -374,9 +390,9 @@ namespace Fuel_Rats_IRC_Helper
                     }
                 }
 
-                else if (ircMessage.Text.StartsWith("Unassigned ") && ircMessage.Text.Contains(" from case #"))
+                else if (ircMessage.Text.Contains("Unassigned ") && ircMessage.Text.Contains(" from case #"))
                 {
-                    string ratToUnassign = ircMessage.Text.Split(new string[] { "Unassigned ", " from case #" }, StringSplitOptions.None).ElementAt(1);
+                    string ratToUnassign = ircMessage.Text.Split(new string[] { "Unassigned " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " from case #" }, StringSplitOptions.None).ElementAt(0);
 
                     for (int i = 0; i != _AssignedRat.Count; ++i)
                     {

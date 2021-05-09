@@ -1,4 +1,6 @@
 ﻿# Changelog
+### Version 1.4.1.1 (2021-05-08)
++ Improved parsing of information from messages to also work with ZNC's insertion of timestamps
 ### Version 1.4.1.0 (2021-05-08)
 + Added IRC connection status indicator to main window
 + Fixed all messages being displayed twice after re-connection

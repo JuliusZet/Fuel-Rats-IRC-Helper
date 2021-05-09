@@ -35,6 +35,12 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.4.1.1" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-05-09"/>
+                    <LineBreak/>
+                    <Run Text="* Improved parsing of information from messages to also work with ZNC's insertion of timestamps"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.1.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-05-08"/>
                     <LineBreak/>
