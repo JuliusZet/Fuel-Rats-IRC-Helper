@@ -34,11 +34,15 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Label Grid.Row="0" Content="General" FontWeight="Bold" FontSize="16"/>
                         <CheckBox x:Name="checkboxCheckForUpdatesOnStartup" Grid.Row="1" Content="Check for updates on startup" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxCheckForUpdatesOnStartup_Loaded" Checked="checkboxCheckForUpdatesOnStartup_Checked" Unchecked="checkboxCheckForUpdatesOnStartup_Unchecked"/>
                         <CheckBox x:Name="checkboxIrcAutoconnect" Grid.Row="2" Content="Automatically connect to the IRC on startup" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxIrcAutoconnect_Loaded" Checked="checkboxIrcAutoconnect_Checked" Unchecked="checkboxIrcAutoconnect_Unchecked"/>
                         <CheckBox x:Name="checkboxAutoCopySystemOnPcSignal" Grid.Row="3" Content="Automatically copy the system name to the clipboard when a PC__SIGNAL is received" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxAutoCopySystemOnPcSignal_Loaded" Checked="checkboxAutoCopySystemOnPcSignal_Checked" Unchecked="checkboxAutoCopySystemOnPcSignal_Unchecked"/>
+                        <CheckBox x:Name="checkboxEnableDebugLogs" Grid.Row="4" Content="Enable debug logs (Will take effect on next connection to IRC)" HorizontalAlignment="Left" Margin="20,0,0,5" Loaded="checkboxEnableDebugLogs_Loaded" Checked="checkboxEnableDebugLogs_Checked" Unchecked="checkboxEnableDebugLogs_Unchecked"/>
+                        <Button x:Name="buttonShowDebugLogs" Grid.Row="5" Content="Show debug logs" Margin="40,0,0,5" Padding="10,0" HorizontalAlignment="Left" IsEnabled="False" Click="buttonShowDebugLogs_Click"/>
                     </Grid>
                 </ScrollViewer>
             </TabItem>

@@ -161,6 +161,8 @@ namespace Fuel_Rats_IRC_Helper
                     return Set("autoCopySystemOnPcSignal", "no");
                 case "checkForUpdatesOnStartup":
                     return Set("checkForUpdatesOnStartup", "yes");
+                case "debugLogs":
+                    return Set("debugLogs", "disabled");
                 case "ircAddress":
                     return Set("ircAddress", "localhost");
                 case "ircAutoconnect":

@@ -93,6 +93,14 @@ namespace Fuel_Rats_IRC_Helper
             });
         }
 
+        private static void OnRawMessage(object sender, IrcEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                Log.Append(e.Data.RawMessage);
+            });
+        }
+
         public static List<Case> Case
         {
             get { return _Case; }
@@ -330,6 +338,11 @@ namespace Fuel_Rats_IRC_Helper
                 _IrcClient.OnDisconnecting += new EventHandler(OnDisconnecting);
                 _IrcClient.OnDisconnected += new EventHandler(OnDisconnected);
                 _IrcClient.OnError += new ErrorEventHandler(OnError);
+
+                if (Settings.Get("debugLogs") == "enabled")
+                {
+                    _IrcClient.OnRawMessage += new IrcEventHandler(OnRawMessage);
+                }
 
                 try
                 {

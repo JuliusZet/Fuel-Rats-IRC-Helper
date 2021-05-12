@@ -303,6 +303,20 @@ namespace Fuel_Rats_IRC_Helper
             Irc.CloseCaseListWindow();
         }
 
+        private void menuitemSettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsWindow setttingsWindow = new SettingsWindow
+            {
+                Owner = this
+            };
+            setttingsWindow.ShowDialog();
+        }
+
+        private void menuitemClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
         private void menuitemConnectToIrc_Click(object sender, RoutedEventArgs e)
         {
             Irc.Connect();
@@ -311,20 +325,6 @@ namespace Fuel_Rats_IRC_Helper
         private void menuitemDisconnectFromIrc_Click(object sender, RoutedEventArgs e)
         {
             Irc.Disconnect();
-        }
-
-        private void menuitemClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void menuitemSettings_Click(object sender, RoutedEventArgs e)
-        {
-            SettingsWindow setttingsWindow = new SettingsWindow
-            {
-                Owner = this
-            };
-            setttingsWindow.ShowDialog();
         }
 
         private void menuitemAbout_Click(object sender, RoutedEventArgs e)

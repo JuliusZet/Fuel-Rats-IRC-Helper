@@ -35,6 +35,18 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.4.2.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-05-12"/>
+                    <LineBreak/>
+                    <Run Text="+ Added debug log functionality"/>
+                    <LineBreak/>
+                    <Run Text="* Added -auto suffix to supported facts in Case windows"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed information parsing from !go command"/>
+                    <LineBreak/>
+                    <Run Text="* Added detection for client nick changes"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.1.1" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-05-09"/>
                     <LineBreak/>

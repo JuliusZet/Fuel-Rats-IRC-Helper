@@ -82,6 +82,32 @@ namespace Fuel_Rats_IRC_Helper
             Settings.Set("autoCopySystemOnPcSignal", "no");
         }
 
+        private void checkboxEnableDebugLogs_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (Settings.Get("debugLogs") == "enabled")
+            {
+                checkboxEnableDebugLogs.IsChecked = true;
+                buttonShowDebugLogs.IsEnabled = true;
+            }
+        }
+
+        private void checkboxEnableDebugLogs_Checked(object sender, RoutedEventArgs e)
+        {
+            Settings.Set("debugLogs", "enabled");
+            buttonShowDebugLogs.IsEnabled = true;
+        }
+
+        private void checkboxEnableDebugLogs_Unchecked(object sender, RoutedEventArgs e)
+        {
+            Settings.Set("debugLogs", "disabled");
+            buttonShowDebugLogs.IsEnabled = false;
+        }
+
+        private void buttonShowDebugLogs_Click(object sender, RoutedEventArgs e)
+        {
+            Log.Show();
+        }
+
         private void checkboxIrcUseSsl_Loaded(object sender, RoutedEventArgs e)
         {
             if (Settings.Get("ircUseSsl") == "yes")
