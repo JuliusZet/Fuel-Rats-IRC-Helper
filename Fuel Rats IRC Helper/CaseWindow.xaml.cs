@@ -134,7 +134,7 @@ namespace Fuel_Rats_IRC_Helper
 
                 if (_IrcMessage.Count != 0)
                 {
-                    datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_IrcMessage.Count - 1]);
+                    datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[datagridCaseChat.Items.Count - 1]);
                 }
             }
         }
@@ -152,7 +152,7 @@ namespace Fuel_Rats_IRC_Helper
             Title = "Case #" + _CaseNumber;
         }
 
-        private void buttonPrepAuto_Click(object sender, RoutedEventArgs e)
+        private void buttonPrep_Click(object sender, RoutedEventArgs e)
         {
             textboxMessage.Text = "!prep-auto " + _ClientIrcNick;
             buttonSend_Click(null, null);
@@ -160,26 +160,26 @@ namespace Fuel_Rats_IRC_Helper
 
         private void buttonModules_Click(object sender, RoutedEventArgs e)
         {
-            textboxMessage.Text = "!modules " + _ClientIrcNick;
+            textboxMessage.Text = "!modules-auto " + _ClientIrcNick;
             buttonSend_Click(null, null);
         }
 
         private void buttonGoFr_Click(object sender, RoutedEventArgs e)
         {
-            textboxMessage.Text = "!gofr " + _ClientIrcNick;
+            textboxMessage.Text = "!gofr-auto " + _ClientIrcNick;
             textboxMessage.Focus();
             textboxMessage.CaretIndex = textboxMessage.Text.Length;
         }
 
         private void buttonWing_Click(object sender, RoutedEventArgs e)
         {
-            textboxMessage.Text = "!wing " + _ClientIrcNick;
+            textboxMessage.Text = "!wing-auto " + _ClientIrcNick;
             buttonSend_Click(null, null);
         }
 
         private void buttonBeacon_Click(object sender, RoutedEventArgs e)
         {
-            textboxMessage.Text = "!beacon " + _ClientIrcNick;
+            textboxMessage.Text = "!beacon-auto " + _ClientIrcNick;
             buttonSend_Click(null, null);
         }
 
@@ -192,13 +192,13 @@ namespace Fuel_Rats_IRC_Helper
 
         private void buttonQuit_Click(object sender, RoutedEventArgs e)
         {
-            textboxMessage.Text = "!quit " + _ClientIrcNick;
+            textboxMessage.Text = "!quit-auto " + _ClientIrcNick;
             buttonSend_Click(null, null);
         }
 
         private void buttonCrinst_Click(object sender, RoutedEventArgs e)
         {
-            textboxMessage.Text = "!crinst " + _ClientIrcNick;
+            textboxMessage.Text = "!crinst-auto " + _ClientIrcNick;
             buttonSend_Click(null, null);
         }
 
@@ -273,7 +273,7 @@ namespace Fuel_Rats_IRC_Helper
 
             if (_IrcMessage.Count != 0)
             {
-                datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[_IrcMessage.Count - 1]);
+                datagridCaseChat.ScrollIntoView(datagridCaseChat.Items[datagridCaseChat.Items.Count - 1]);
             }
         }
 

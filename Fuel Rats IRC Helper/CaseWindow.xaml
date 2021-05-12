@@ -47,11 +47,11 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Button x:Name="buttonPrepAuto" Grid.Row="0" Content="!prep-auto" Click="buttonPrepAuto_Click"/>
-                        <Button x:Name="buttonModules" Grid.Row="1" Content="!modules" Click="buttonModules_Click"/>
-                        <Button x:Name="buttonGoFr" Grid.Row="2" Content="!gofr" Click="buttonGoFr_Click"/>
-                        <Button x:Name="buttonWing" Grid.Row="3" Content="!wing" Click="buttonWing_Click"/>
-                        <Button x:Name="buttonBeacon" Grid.Row="4" Content="!beacon" Click="buttonBeacon_Click"/>
+                        <Button x:Name="buttonPrep" Grid.Row="0" Content="!prep-auto" Click="buttonPrep_Click"/>
+                        <Button x:Name="buttonModules" Grid.Row="1" Content="!modules-auto" Click="buttonModules_Click"/>
+                        <Button x:Name="buttonGoFr" Grid.Row="2" Content="!gofr-auto" Click="buttonGoFr_Click"/>
+                        <Button x:Name="buttonWing" Grid.Row="3" Content="!wing-auto" Click="buttonWing_Click"/>
+                        <Button x:Name="buttonBeacon" Grid.Row="4" Content="!beacon-auto" Click="buttonBeacon_Click"/>
                         <Button x:Name="buttonClose" Grid.Row="5" Content="!close" Click="buttonClose_Click"/>
                     </Grid>
                 </GroupBox>
@@ -61,8 +61,8 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                        <Button x:Name="buttonQuit" Grid.Row="0" Content="!quit" Click="buttonQuit_Click"/>
-                        <Button x:Name="buttonCrinst" Grid.Row="1" Content="!crinst" Click="buttonCrinst_Click"/>
+                        <Button x:Name="buttonQuit" Grid.Row="0" Content="!quit-auto" Click="buttonQuit_Click"/>
+                        <Button x:Name="buttonCrinst" Grid.Row="1" Content="!crinst-auto" Click="buttonCrinst_Click"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox Grid.Row="2" Header="Update">

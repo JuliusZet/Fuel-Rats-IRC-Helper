@@ -265,11 +265,18 @@ namespace Fuel_Rats_IRC_Helper
 
             RefreshCaseChat();
 
-            if (ircMessage.Text.Contains("!go"))
+            if (ircMessage.Text.Contains("!go") && (ircMessage.Text.Contains(' ' + CaseNumber + ' ') || ircMessage.Text.Contains(' ' + ClientIrcNick + ' ')))
             {
                 List<string> go = new List<string>(ircMessage.Text.Split(new string[] { "!go" }, StringSplitOptions.None).ElementAt(1).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
 
-                for (int i = 2; i != go.Count; ++i)
+                int i = 2;
+
+                if (go.ElementAt(1) != CaseNumber && go.ElementAt(1) != ClientIrcNick)
+                {
+                    i = 1;
+                }
+
+                for (; i != go.Count; ++i)
                 {
                     _AssignedRat.Add(new Rat(go.ElementAt(i)));
 
@@ -282,6 +289,12 @@ namespace Fuel_Rats_IRC_Helper
                 if (ircMessage.Text.Contains("Caution: Client of case #") && ircMessage.Text.Contains(" has changed IRC nick to "))
                 {
                     ClientIrcNick = ircMessage.Text.Split(new string[] { " has changed IRC nick to " }, StringSplitOptions.None).ElementAt(1);
+                }
+
+                else if (ircMessage.Text.Contains("Client nick for case #") && ircMessage.Text.Contains(" has been changed to "))
+                {
+                    string clientIrcNick = ircMessage.Text.Split(new string[] { " has been changed to " }, StringSplitOptions.None).ElementAt(1);
+                    ClientIrcNick = clientIrcNick.Remove(clientIrcNick.Length - 1);
                 }
 
                 else if (ircMessage.Text.Contains("Client name for case #") && ircMessage.Text.Contains(" has been changed to: "))
