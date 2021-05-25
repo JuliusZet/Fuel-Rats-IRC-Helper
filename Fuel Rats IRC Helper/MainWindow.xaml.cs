@@ -126,7 +126,7 @@ namespace Fuel_Rats_IRC_Helper
             checkboxFr.IsChecked = false;
             checkboxOnlineStatus.IsChecked = false;
             checkboxSysconf.IsChecked = false;
-            checkboxWr.IsChecked = false;
+            checkboxTm.IsChecked = false;
             checkboxPrep.IsChecked = false;
             checkboxNavcheck.IsChecked = false;
             checkboxBc.IsChecked = false;
@@ -192,14 +192,14 @@ namespace Fuel_Rats_IRC_Helper
                 groupboxSysconf.BorderBrush = greenGroupboxBorderBrush;
             }
 
-            if (radiobuttonWrPlus.IsChecked == true)
+            if (radiobuttonTmPlus.IsChecked == true)
             {
-                groupboxWr.BorderBrush = greenGroupboxBorderBrush;
+                groupboxTm.BorderBrush = greenGroupboxBorderBrush;
             }
 
-            else if (radiobuttonWrMinus.IsChecked == true)
+            else if (radiobuttonTmMinus.IsChecked == true)
             {
-                groupboxWr.BorderBrush = redGroupboxBorderBrush;
+                groupboxTm.BorderBrush = redGroupboxBorderBrush;
             }
 
             if (radiobuttonPrepPlus.IsChecked == true)
@@ -265,7 +265,7 @@ namespace Fuel_Rats_IRC_Helper
             groupboxFr.BorderBrush = defaultGroupboxBorderBrush;
             groupboxOnlineStatus.BorderBrush = defaultGroupboxBorderBrush;
             groupboxSysconf.BorderBrush = defaultGroupboxBorderBrush;
-            groupboxWr.BorderBrush = defaultGroupboxBorderBrush;
+            groupboxTm.BorderBrush = defaultGroupboxBorderBrush;
             groupboxPrep.BorderBrush = defaultGroupboxBorderBrush;
             groupboxNavcheck.BorderBrush = defaultGroupboxBorderBrush;
             groupboxBc.BorderBrush = defaultGroupboxBorderBrush;
@@ -619,35 +619,35 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
-        private void checkboxWr_Checked(object sender, RoutedEventArgs e)
+        private void checkboxTm_Checked(object sender, RoutedEventArgs e)
         {
-            Message.Append("Wr", "");
+            Message.Append("Tm", "");
 
-            if (radiobuttonWrMinus.IsChecked != true)
+            if (radiobuttonTmMinus.IsChecked != true)
             {
-                radiobuttonWrPlus.IsChecked = true;
+                radiobuttonTmPlus.IsChecked = true;
             }
         }
 
-        private void checkboxWr_Unchecked(object sender, RoutedEventArgs e)
+        private void checkboxTm_Unchecked(object sender, RoutedEventArgs e)
         {
-            Message.Remove("Wr");
+            Message.Remove("Tm");
             textboxMessage.Text = Message.Generate();
-            radiobuttonWrPlus.IsChecked = false;
-            radiobuttonWrMinus.IsChecked = false;
+            radiobuttonTmPlus.IsChecked = false;
+            radiobuttonTmMinus.IsChecked = false;
         }
 
-        private void radiobuttonWrPlus_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonTmPlus_Checked(object sender, RoutedEventArgs e)
         {
-            checkboxWr.IsChecked = true;
-            Message.Replace("Wr", "wr+");
+            checkboxTm.IsChecked = true;
+            Message.Replace("Tm", "tm+");
             textboxMessage.Text = Message.Generate();
         }
 
-        private void radiobuttonWrMinus_Checked(object sender, RoutedEventArgs e)
+        private void radiobuttonTmMinus_Checked(object sender, RoutedEventArgs e)
         {
-            checkboxWr.IsChecked = true;
-            Message.Replace("Wr", "wr-");
+            checkboxTm.IsChecked = true;
+            Message.Replace("Tm", "tm-");
             textboxMessage.Text = Message.Generate();
         }
 

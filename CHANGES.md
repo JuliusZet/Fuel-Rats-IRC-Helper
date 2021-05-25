@@ -1,4 +1,15 @@
 ﻿# Changelog
+### Version 1.4.3.0 (2021-05-25)
++ Added support for Elite Dangerous Odyssey
+  + Added detection for whether a client is using Odyssey or not
+  + Added "!odyssey" button to Case windows
+  + Replaced "!wing" facts with "!team"
+  + Replaced "wr" callouts with "tm"
+### Version 1.4.2.0 (2021-05-12)
++ Added debug log functionality
++ Added -auto suffix to supported facts in Case windows
++ Fixed information parsing from !go command
++ Added detection for client nick changes
 ### Version 1.4.1.1 (2021-05-08)
 + Improved parsing of information from messages to also work with ZNC's insertion of timestamps
 ### Version 1.4.1.0 (2021-05-08)

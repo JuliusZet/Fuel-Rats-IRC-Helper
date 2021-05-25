@@ -20,7 +20,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="Case" Height="500" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        Title="Case" Height="510" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Grid Margin="10">
         <Grid.Background>
             <ImageBrush ImageSource="{DynamicResource Fuel Rats Logo}" Stretch="Uniform" Opacity="0.05"/>
@@ -50,7 +50,7 @@
                         <Button x:Name="buttonPrep" Grid.Row="0" Content="!prep-auto" Click="buttonPrep_Click"/>
                         <Button x:Name="buttonModules" Grid.Row="1" Content="!modules-auto" Click="buttonModules_Click"/>
                         <Button x:Name="buttonGoFr" Grid.Row="2" Content="!gofr-auto" Click="buttonGoFr_Click"/>
-                        <Button x:Name="buttonWing" Grid.Row="3" Content="!wing-auto" Click="buttonWing_Click"/>
+                        <Button x:Name="buttonTeam" Grid.Row="3" Content="!team-auto" Click="buttonTeam_Click"/>
                         <Button x:Name="buttonBeacon" Grid.Row="4" Content="!beacon-auto" Click="buttonBeacon_Click"/>
                         <Button x:Name="buttonClose" Grid.Row="5" Content="!close" Click="buttonClose_Click"/>
                     </Grid>
@@ -78,17 +78,19 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
                         <Button x:Name="buttonNick" Grid.Row="0" Content="!nick" Click="buttonNick_Click"/>
                         <Button x:Name="buttonCmdr" Grid.Row="1" Content="!cmdr" Click="buttonCmdr_Click"/>
                         <Button x:Name="buttonSys" Grid.Row="2" Content="!sys" Click="buttonSys_Click"/>
                         <Button x:Name="buttonPc" Grid.Row="3" Content="!pc" Click="buttonPc_Click"/>
-                        <Button x:Name="buttonXb" Grid.Row="4" Content="!xb" Click="buttonXb_Click"/>
-                        <Button x:Name="buttonPs" Grid.Row="5" Content="!ps" Click="buttonPs_Click"/>
-                        <Button x:Name="buttonCr" Grid.Row="6" Content="!cr" Click="buttonCr_Click"/>
-                        <Button x:Name="buttonLang" Grid.Row="7" Content="!lang" Click="buttonLang_Click"/>
-                        <Button x:Name="buttonGrab" Grid.Row="8" Content="!grab" Click="buttonGrab_Click"/>
-                        <Button x:Name="buttonInject" Grid.Row="9" Content="!inject" Click="buttonInject_Click"/>
+                        <Button x:Name="buttonOdyssey" Grid.Row="4" Content="!odyssey" Click="buttonOdyssey_Click"/>
+                        <Button x:Name="buttonXb" Grid.Row="5" Content="!xb" Click="buttonXb_Click"/>
+                        <Button x:Name="buttonPs" Grid.Row="6" Content="!ps" Click="buttonPs_Click"/>
+                        <Button x:Name="buttonCr" Grid.Row="7" Content="!cr" Click="buttonCr_Click"/>
+                        <Button x:Name="buttonLang" Grid.Row="8" Content="!lang" Click="buttonLang_Click"/>
+                        <Button x:Name="buttonGrab" Grid.Row="9" Content="!grab" Click="buttonGrab_Click"/>
+                        <Button x:Name="buttonInject" Grid.Row="10" Content="!inject" Click="buttonInject_Click"/>
                     </Grid>
                 </GroupBox>
             </Grid>

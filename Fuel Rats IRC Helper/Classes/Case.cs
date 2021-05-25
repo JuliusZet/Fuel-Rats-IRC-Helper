@@ -351,6 +351,16 @@ namespace Fuel_Rats_IRC_Helper
                     }
                 }
 
+                else if (ircMessage.Text.Contains("Case #") && ircMessage.Text.Contains(" is marked as using Odyssey"))
+                {
+                    ClientPlatform = "PC (Odyssey)";
+                }
+
+                else if (ircMessage.Text.Contains("Case #") && ircMessage.Text.Contains(" is marked as not using Odyssey"))
+                {
+                    ClientPlatform = "PC";
+                }
+
                 else if (ircMessage.Text.Contains("CODE RED! ") && ircMessage.Text.Contains(" is on emergency oxygen!"))
                 {
                     ClientO2 = "NOT OK";

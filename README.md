@@ -11,8 +11,8 @@ Facilitating the use of the Fuel Rats IRC
 + Tracks cases by processing received messages from the Fuel Rats IRC server
 + Displays details about cases and filtered chats in separate windows
 + Provides some very useful functionality for dispatchers as well
-<img src="https://i.imgur.com/tYwgIbH.png">
-<img src="https://i.imgur.com/KPqv47C.png">
+<img src="https://i.imgur.com/w3joC2T.png">
+<img src="https://i.imgur.com/9xIjBuY.png">
 <img src="https://i.imgur.com/OMTV86k.png">
 <img src="https://i.imgur.com/BbkHXzJ.png">
 <img src="https://i.imgur.com/6Bggmsn.png">

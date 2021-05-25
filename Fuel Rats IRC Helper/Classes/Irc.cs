@@ -146,7 +146,11 @@ namespace Fuel_Rats_IRC_Helper
                     caseNumber = message.Split(new string[] { "Case #" }, StringSplitOptions.None).ElementAt(1).Split('').ElementAt(0);
                 }
 
-                if (message.Contains("6PC"))
+                if (message.Contains("(7Odyssey)"))
+                {
+                    clientPlatform = "PC (Odyssey)";
+                }
+                else if (message.Contains("6PC"))
                 {
                     clientPlatform = "PC";
                 }

@@ -35,6 +35,20 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.4.3.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-05-25"/>
+                    <LineBreak/>
+                    <Run Text="+ Added support for Elite Dangerous Odyssey"/>
+                    <LineBreak/>
+                    <Run Text="    - Added detection for whether a client is using Odyssey or not"/>
+                    <LineBreak/>
+                    <Run Text="    - Added &quot;!odyssey&quot; button to Case windows"/>
+                    <LineBreak/>
+                    <Run Text="    - Replaced &quot;!wing&quot; facts with &quot;!team&quot;"/>
+                    <LineBreak/>
+                    <Run Text="    - Replaced &quot;wr&quot; callouts with &quot;tm&quot;"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.2.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-05-12"/>
                     <LineBreak/>

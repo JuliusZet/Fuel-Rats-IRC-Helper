@@ -171,9 +171,9 @@ namespace Fuel_Rats_IRC_Helper
             textboxMessage.CaretIndex = textboxMessage.Text.Length;
         }
 
-        private void buttonWing_Click(object sender, RoutedEventArgs e)
+        private void buttonTeam_Click(object sender, RoutedEventArgs e)
         {
-            textboxMessage.Text = "!wing-auto " + _ClientIrcNick;
+            textboxMessage.Text = "!team-auto " + _ClientIrcNick;
             buttonSend_Click(null, null);
         }
 
@@ -226,6 +226,12 @@ namespace Fuel_Rats_IRC_Helper
         private void buttonPc_Click(object sender, RoutedEventArgs e)
         {
             textboxMessage.Text = "!pc " + _CaseNumber;
+            buttonSend_Click(null, null);
+        }
+
+        private void buttonOdyssey_Click(object sender, RoutedEventArgs e)
+        {
+            textboxMessage.Text = "!odyssey  " + _CaseNumber;
             buttonSend_Click(null, null);
         }
 

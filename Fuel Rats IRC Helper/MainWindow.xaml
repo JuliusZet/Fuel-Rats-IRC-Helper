@@ -202,21 +202,21 @@
                             </Grid>
                         </GroupBox>
                     </Grid>
-                    <!-- Wing request status -->
+                    <!-- Team status -->
                     <Grid Grid.Column="0" Grid.Row="3">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox x:Name="checkboxWr" Grid.Column="0" Content="" Checked="checkboxWr_Checked" Unchecked="checkboxWr_Unchecked"/>
-                        <GroupBox x:Name="groupboxWr" Grid.Column="1" Header="Wing request status">
+                        <CheckBox x:Name="checkboxTm" Grid.Column="0" Content="" Checked="checkboxTm_Checked" Unchecked="checkboxTm_Unchecked"/>
+                        <GroupBox x:Name="groupboxTm" Grid.Column="1" Header="Team status">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="radiobuttonWrPlus" Grid.Column="0" Content="wr+" GroupName="wr" Checked="radiobuttonWrPlus_Checked"/>
-                                <RadioButton x:Name="radiobuttonWrMinus" Grid.Column="1" Content="wr-" GroupName="wr" Checked="radiobuttonWrMinus_Checked"/>
+                                <RadioButton x:Name="radiobuttonTmPlus" Grid.Column="0" Content="tm+" GroupName="tm" Checked="radiobuttonTmPlus_Checked"/>
+                                <RadioButton x:Name="radiobuttonTmMinus" Grid.Column="1" Content="tm-" GroupName="tm" Checked="radiobuttonTmMinus_Checked"/>
                             </Grid>
                         </GroupBox>
                     </Grid>
