@@ -187,6 +187,26 @@ namespace Fuel_Rats_IRC_Helper
             get { return _AssignedRat; }
         }
 
+        public string AssignedRats
+        {
+            get
+            {
+                string rats = "";
+
+                for (int i = 0; i != _AssignedRat.Count; ++i)
+                {
+                    rats += _AssignedRat.ElementAt(i).CmdrName;
+
+                    if (i + 1 != _AssignedRat.Count)
+                    {
+                        rats += ", ";
+                    }
+                }
+
+                return rats;
+            }
+        }
+
         public bool IsClosed
         {
             get
@@ -232,6 +252,8 @@ namespace Fuel_Rats_IRC_Helper
             {
                 _CaseWindow.RefreshAssignedRat();
             }
+
+            Irc.RefreshCaseList();
         }
 
         public void CloseCaseWindow()

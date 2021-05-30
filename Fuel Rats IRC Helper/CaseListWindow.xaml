@@ -36,6 +36,7 @@
                 <DataGridTextColumn Binding="{Binding ClientLanguage}" Width="auto" Header="Lang"/>
                 <DataGridTextColumn Binding="{Binding ClientPlatform}" Width="auto" Header="Plat"/>
                 <DataGridTextColumn Binding="{Binding ClientSystem}" Width="1*" Header="System"/>
+                <DataGridTextColumn Binding="{Binding AssignedRats}" Width="1*" Header="Rats"/>
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style TargetType="DataGridRow">
