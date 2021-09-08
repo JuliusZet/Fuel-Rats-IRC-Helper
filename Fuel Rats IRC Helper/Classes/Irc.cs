@@ -170,7 +170,7 @@ namespace Fuel_Rats_IRC_Helper
 
                 if (message.Contains("CMDR "))
                 {
-                    clientCmdrName = message.Split(new string[] { "CMDR " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { " – " }, StringSplitOptions.None).ElementAt(0);
+                    clientCmdrName = message.Split(new string[] { "CMDR " }, StringSplitOptions.None).ElementAt(1).Split(new string[] { "", " – " }, StringSplitOptions.None).ElementAt(0);
                 }
 
                 if (message.Contains("System: "))
