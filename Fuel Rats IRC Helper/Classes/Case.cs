@@ -322,7 +322,14 @@ namespace Fuel_Rats_IRC_Helper
                 else if (ircMessage.Text.Contains("Client name for case #") && ircMessage.Text.Contains(" has been changed to: "))
                 {
                     string clientCmdrName = ircMessage.Text.Split(new string[] { " has been changed to: " }, StringSplitOptions.None).ElementAt(1);
-                    ClientCmdrName = clientCmdrName.Remove(clientCmdrName.Length - 1);
+                    if (clientCmdrName.Contains(" "))
+                    {
+                        ClientCmdrName = clientCmdrName.Split(new string[] { " " }, StringSplitOptions.None).ElementAt(0);
+                    }
+                    else
+                    {
+                        ClientCmdrName = clientCmdrName.Remove(clientCmdrName.Length - 1);
+                    }
                 }
 
                 else if (ircMessage.Text.Contains("System for case #") && ircMessage.Text.Contains(" has been changed to "))
