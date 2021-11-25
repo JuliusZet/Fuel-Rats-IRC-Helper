@@ -146,15 +146,15 @@ namespace Fuel_Rats_IRC_Helper
                     caseNumber = message.Split(new string[] { "Case #" }, StringSplitOptions.None).ElementAt(1).Split('').ElementAt(0);
                 }
 
-                if (message.Contains("(7Odyssey)"))
+                if (message.Contains("(07Odyssey)"))
                 {
                     clientPlatform = "PC (Odyssey)";
                 }
-                else if (message.Contains("6PC"))
+                else if (message.Contains("06PC"))
                 {
                     clientPlatform = "PC";
                 }
-                else if (message.Contains("3Xbox"))
+                else if (message.Contains("03Xbox"))
                 {
                     clientPlatform = "Xbox";
                 }
@@ -163,7 +163,7 @@ namespace Fuel_Rats_IRC_Helper
                     clientPlatform = "Playstation";
                 }
 
-                if (message.Contains("(4Code Red)"))
+                if (message.Contains("(04Code Red)"))
                 {
                     clientO2 = "NOT OK";
                 }

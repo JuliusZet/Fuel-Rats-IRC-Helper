@@ -1,4 +1,8 @@
 ﻿# Changelog
+### Version 1.4.4.0 (2021-11-25)
++ Added column "Rats" to Case list
++ Updated detection of RATSIGNALs to comply with November 24 Release of SwiftSqueak
++ Updated how information is gathered from RATSIGNALs
 ### Version 1.4.3.0 (2021-05-25)
 + Added support for Elite Dangerous Odyssey
   + Added detection for whether a client is using Odyssey or not

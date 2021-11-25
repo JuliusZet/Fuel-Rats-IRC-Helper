@@ -279,7 +279,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             if (Settings.Get("checkForUpdatesOnStartup") == "yes")
             {
-                CheckForUpdates(true);
+                CheckForUpdates(silentCheck: true);
             }
 
             if (Settings.Get("showChangelogOnStartup") == "yes")
@@ -289,6 +289,13 @@ namespace Fuel_Rats_IRC_Helper
                     Owner = this
                 };
                 changelogWindow.ShowDialog();
+            }
+
+            // If this is the first time the app is launched after an update
+            if (ApplicationDeployment.IsNetworkDeployed && Settings.Get("version") != ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString())
+            {
+                Settings.ResetToDefault("ratsignalStartsWith");
+                Settings.Set("version", ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString());
             }
 
             if (Settings.Get("ircAutoconnect") == "yes")

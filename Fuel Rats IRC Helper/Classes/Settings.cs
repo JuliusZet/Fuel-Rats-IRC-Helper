@@ -184,13 +184,15 @@ namespace Fuel_Rats_IRC_Helper
                 case "ircUseSsl":
                     return Set("ircUseSsl", "no");
                 case "ratsignalStartsWith":
-                    return Set("ratsignalStartsWith", "0,7RATSIGNAL");
+                    return Set("ratsignalStartsWith", "00,07RATSIGNAL");
                 case "ratsignalAltStartsWith":
                     return Set("ratsignalAltStartsWith", "Received R@TSIGNAL from ");
                 case "showChangelogOnStartup":
                     return Set("showChangelogOnStartup", "yes");
                 case "timestampFormat":
                     return Set("timestampFormat", "HH:mm:ss");
+                case "version":
+                    return Set("version", "0.0.0.0");
                 case "windowTitleEliteDangerous":
                     return Set("windowTitleEliteDangerous", "Elite - Dangerous (CLIENT)");
                 default:

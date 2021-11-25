@@ -35,6 +35,16 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.4.4.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-11-25"/>
+                    <LineBreak/>
+                    <Run Text="+ Added column &quot;Rats&quot; to Case list"/>
+                    <LineBreak/>
+                    <Run Text="* Updated detection of RATSIGNALs to comply with November 24 Release of SwiftSqueak"/>
+                    <LineBreak/>
+                    <Run Text="* Updated how information is gathered from RATSIGNALs"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.3.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-05-25"/>
                     <LineBreak/>
