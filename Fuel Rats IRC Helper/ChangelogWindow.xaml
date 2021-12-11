@@ -35,6 +35,12 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.4.4.1" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2021-12-11"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed the copy system name to clipboard function to also work when an Odyssey case comes in"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.4.0" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-11-25"/>
                     <LineBreak/>

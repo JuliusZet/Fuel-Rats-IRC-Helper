@@ -1,4 +1,6 @@
 ﻿# Changelog
+### Version 1.4.4.1 (2021-12-11)
++ Fixed the copy system name to clipboard function to also work when an Odyssey case comes in
 ### Version 1.4.4.0 (2021-11-25)
 + Added column "Rats" to Case list
 + Updated detection of RATSIGNALs to comply with November 24 Release of SwiftSqueak

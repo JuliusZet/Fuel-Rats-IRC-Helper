@@ -55,7 +55,7 @@ namespace Fuel_Rats_IRC_Helper
 
             _IrcMessage.Add(ircMessage);
 
-            if (Settings.Get("autoCopySystemOnPcSignal") == "yes" && clientPlatform == "PC")
+            if (Settings.Get("autoCopySystemOnPcSignal") == "yes" && (clientPlatform == "PC" || clientPlatform == "PC (Odyssey)"))
             {
                 try
                 {
