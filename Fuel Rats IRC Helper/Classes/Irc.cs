@@ -24,7 +24,7 @@ namespace Fuel_Rats_IRC_Helper
     public static class Irc
     {
         private static IrcClient _IrcClient = null;
-        private static List<Case> _Case = new List<Case>();
+        internal static List<Case> _Case = new List<Case>();
         private static Thread _IrcListener = null;
         private static CaseListWindow _CaseListWindow = null;
 

@@ -28,11 +28,33 @@ namespace Fuel_Rats_IRC_Helper
     public partial class MainWindow : Window
     {
         private readonly List<string> _DistanceUnit;
+        private System.Windows.Forms.Timer _caseCleanupTimer;
 
         public MainWindow()
         {
             _DistanceUnit = new List<string>(new string[]{ "m", "km", "Mm", "ls", "kls", "Mls", "ly" });
             InitializeComponent();
+            _caseCleanupTimer = new System.Windows.Forms.Timer();
+            _caseCleanupTimer.Interval = 60000;
+            _caseCleanupTimer.Tick += _caseCleanupTimer_Tick;
+            _caseCleanupTimer.Enabled = true;
+        }
+
+        private void _caseCleanupTimer_Tick(object sender, EventArgs e)
+        {
+            for (int i = Irc._Case.Count - 1; i >= 0; i--)
+            {
+                Case c = Irc._Case[i];
+                if (!c.IsClosed) continue;
+
+                DateTimeOffset endTime = c.GetMissionEndTime().ToLocalTime();
+
+                if (endTime.AddMinutes(60) < DateTime.Now)
+                {
+                    Irc._Case.Remove(c);
+                    Irc.RefreshCaseList();
+                }
+            }
         }
 
         private void CheckForUpdates(bool silentCheck)

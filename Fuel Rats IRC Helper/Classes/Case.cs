@@ -245,6 +245,11 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
+        public DateTimeOffset GetMissionEndTime()
+        {
+            return _EndTime;
+        }
+
         public void ShowCaseWindow()
         {
             if (_CaseWindow == null || !_CaseWindow.IsLoaded)
