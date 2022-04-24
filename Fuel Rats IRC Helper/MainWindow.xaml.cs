@@ -117,29 +117,51 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
-        private void UncheckAllCheckboxesExceptCasenumber()
+        /// <summary>
+        /// Returns true if all checkboxes were already unchecked.
+        /// </summary>
+        private bool UncheckAllCheckboxesExceptCasenumber()
         {
-            checkboxRgr.IsChecked = false;
-            checkboxRdy.IsChecked = false;
-            checkboxJumpcallout.IsChecked = false;
-            checkboxOwnPos.IsChecked = false;
-            checkboxFr.IsChecked = false;
-            checkboxOnlineStatus.IsChecked = false;
-            checkboxSysconf.IsChecked = false;
-            checkboxTm.IsChecked = false;
-            checkboxPrep.IsChecked = false;
-            checkboxNavcheck.IsChecked = false;
-            checkboxBc.IsChecked = false;
-            checkboxInst.IsChecked = false;
-            checkboxClientPos.IsChecked = false;
-            checkboxDistance.IsChecked = false;
-            checkboxFuel.IsChecked = false;
+            CheckBox[] checkBoxes = new CheckBox[]
+            {
+                    checkboxRgr,
+                    checkboxRdy,
+                    checkboxJumpcallout,
+                    checkboxOwnPos,
+                    checkboxFr,
+                    checkboxOnlineStatus,
+                    checkboxSysconf,
+                    checkboxTm,
+                    checkboxPrep,
+                    checkboxNavcheck,
+                    checkboxBc,
+                    checkboxInst,
+                    checkboxClientPos,
+                    checkboxDistance,
+                    checkboxFuel
+            };
+
+            bool wasChecked = false;
+            foreach (var c in checkBoxes)
+            {
+                bool? isChecked = c.IsChecked;
+                if (isChecked == null)
+                {
+                    c.IsChecked = false;
+                    continue;
+                }
+                if (isChecked == true)
+                    wasChecked = true;
+                c.IsChecked = false;
+            }
+
+            return !wasChecked;
         }
 
         private void UncheckAllCheckboxes()
         {
-            checkboxCasenumber.IsChecked = false;
-            UncheckAllCheckboxesExceptCasenumber();
+            if (UncheckAllCheckboxesExceptCasenumber())
+                checkboxCasenumber.IsChecked = false;
         }
 
         private void UpdateUserInterfaceColors()
