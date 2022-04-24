@@ -36,6 +36,11 @@ namespace Fuel_Rats_IRC_Helper
         private DateTimeOffset _EndTime;
         private CaseWindow _CaseWindow;
 
+        public override string ToString()
+        {
+            return $"{_CaseNumber} {_Status} {_ClientCmdrName}";
+        }
+
         public Case(string caseNumber, string clientIrcNick, string clientCmdrName, string clientSystem, string clientPlatform, string clientO2, string clientLanguage, IrcMessage ircMessage)
         {
             _Id = _NextId++;

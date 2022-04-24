@@ -599,7 +599,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxSysconf.IsChecked = true;
             textboxSysconfMinus.Focus();
-            Message.Replace("Sysconf", "syscorr: " + textboxSysconfMinus.Text);
+            Message.Replace("Sysconf", GetSysCorr() + textboxSysconfMinus.Text);
             textboxMessage.Text = Message.Generate();
         }
 
@@ -608,7 +608,7 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxSysconfMinus.Text != "")
             {
                 radiobuttonSysconfMinus.IsChecked = true;
-                Message.Replace("Sysconf", "syscorr: " + textboxSysconfMinus.Text);
+                Message.Replace("Sysconf", GetSysCorr() + textboxSysconfMinus.Text);
                 textboxMessage.Text = Message.Generate();
             }
 
@@ -616,6 +616,11 @@ namespace Fuel_Rats_IRC_Helper
             {
                 checkboxSysconf.IsChecked = false;
             }
+        }
+
+        private string GetSysCorr()
+        {
+            return $"sys {textboxCasenumber.Text} ";
         }
 
         private void textboxSysconfMinus_KeyDown(object sender, KeyEventArgs e)
