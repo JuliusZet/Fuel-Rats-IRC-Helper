@@ -60,9 +60,10 @@ namespace Fuel_Rats_IRC_Helper
             if (e.Data.Channel == Settings.Get("ircChannelRescue") || (e.Data.Channel == Settings.Get("ircChannelChat") && e.Data.Nick == Settings.Get("ircNickBot")))
             {
                 string message = e.Data.Message;
+                string channel = e.Data.Channel;
                 string nick = e.Data.Nick;
 
-                ProcessMessage(nick, message);
+                ProcessMessage(nick, channel, message);
             }
         }
 
@@ -111,7 +112,7 @@ namespace Fuel_Rats_IRC_Helper
             if (_IrcClient != null && _IrcClient.IsConnected)
             {
                 _IrcClient.SendMessage(SendType.Message, Settings.Get("ircChannelRescue"), message);
-                ProcessMessage(_IrcClient.Nickname, message);
+                ProcessMessage(_IrcClient.Nickname, Settings.Get("ircChannelRescue"), message);
                 return 0;
             }
 
@@ -122,9 +123,31 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
-        public static void ProcessMessage(string nick, string message)
+        public static void ProcessMessage(string nick, string channel, string message)
         {
             long unixTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+            // If message is an playback
+            if (nick.Equals("***") && message.ToLower().Contains("playback"))
+            {
+                string chatChannel = Settings.Get("ircChannelChat");
+                string rescueChannel = Settings.Get("ircChannelRescue");
+
+                if (message.Equals("Buffer Playback..."))
+                {
+                    if (rescueChannel.Equals(channel))
+                        Fuel_Rats_IRC_Helper.Case.RescueChannelPlaybackActive = true;
+                    if (chatChannel.Equals(channel))
+                        Fuel_Rats_IRC_Helper.Case.ChatChannelPlaybackActive = true;
+                }
+                else if (message.Equals("Playback Complete."))
+                {
+                    if (rescueChannel.Equals(channel))
+                        Fuel_Rats_IRC_Helper.Case.RescueChannelPlaybackActive = false;
+                    if (chatChannel.Equals(channel))
+                        Fuel_Rats_IRC_Helper.Case.ChatChannelPlaybackActive = false;
+                }
+            }
 
             // If the message is a Ratsignal
             if (message.Contains(Settings.Get("ratsignalStartsWith")) && nick == Settings.Get("ircNickBot"))

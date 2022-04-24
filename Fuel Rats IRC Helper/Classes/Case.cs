@@ -14,6 +14,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Windows;
 
 namespace Fuel_Rats_IRC_Helper
@@ -35,6 +36,9 @@ namespace Fuel_Rats_IRC_Helper
         private DateTimeOffset _StartTime;
         private DateTimeOffset _EndTime;
         private CaseWindow _CaseWindow;
+        private static SoundPlayer _NewCaseAlertSoundPlayer = null;
+        public static bool ChatChannelPlaybackActive = false;
+        public static bool RescueChannelPlaybackActive = false;
 
         public Case(string caseNumber, string clientIrcNick, string clientCmdrName, string clientSystem, string clientPlatform, string clientO2, string clientLanguage, IrcMessage ircMessage)
         {
@@ -65,6 +69,19 @@ namespace Fuel_Rats_IRC_Helper
                 {
 
                 }
+            }
+
+            if (RescueChannelPlaybackActive || ChatChannelPlaybackActive) return;
+
+            string newCaseSoundFile = Settings.Get("newCaseAlertSound");
+
+            if (System.IO.File.Exists(newCaseSoundFile))
+            {
+                if (_NewCaseAlertSoundPlayer == null)
+                    _NewCaseAlertSoundPlayer = new SoundPlayer();
+
+                _NewCaseAlertSoundPlayer.SoundLocation = newCaseSoundFile;
+                _NewCaseAlertSoundPlayer.Play();
             }
         }
 
