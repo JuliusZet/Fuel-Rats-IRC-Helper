@@ -244,6 +244,11 @@ namespace Fuel_Rats_IRC_Helper
             textboxRescueChannel.Text = Settings.Get("ircChannelRescue");
         }
 
+        private void textboxNewCaseAlertSound_Loaded(object sender, RoutedEventArgs e)
+        {
+            textboxNewCaseAlertSound.Text = Settings.Get("newCaseAlertSound");
+        }
+
         private void textboxRescueChannel_TextChanged(object sender, TextChangedEventArgs e)
         {
             Settings.Set("ircChannelRescue", textboxRescueChannel.Text);
@@ -252,6 +257,11 @@ namespace Fuel_Rats_IRC_Helper
             {
                 labelCaseTracker1.Content = "All messages in \"" + textboxRescueChannel.Text + "\" (rescue channel) are processed. Additionally,";
             }
+        }
+
+        private void textboxNewCaseAlertSound_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            Settings.Set("newCaseAlertSound", textboxNewCaseAlertSound.Text);
         }
 
         private void buttonRescueChannelResetToDefault_Click(object sender, RoutedEventArgs e)

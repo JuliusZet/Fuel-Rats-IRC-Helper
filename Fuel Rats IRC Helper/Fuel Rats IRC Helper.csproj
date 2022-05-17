@@ -150,7 +150,9 @@
     <Compile Include="Classes\Irc.cs" />
     <Compile Include="Classes\Log.cs" />
     <Compile Include="Classes\Rat.cs" />
-    <Compile Include="FormTranslateMessage.cs" />
+    <Compile Include="FormTranslateMessage.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormTranslateMessage.Designer.cs">
       <DependentUpon>FormTranslateMessage.cs</DependentUpon>
     </Compile>
