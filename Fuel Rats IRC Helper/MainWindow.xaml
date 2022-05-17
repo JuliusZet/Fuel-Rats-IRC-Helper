@@ -20,17 +20,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fuel_Rats_IRC_Helper"
         mc:Ignorable="d"
-        Title="Fuel Rats - IRC Helper | Reximized" Height="540" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
+        Title="Fuel Rats - IRC Helper" Height="540" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="33*"/>
-            <ColumnDefinition Width="127*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,36">
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
@@ -55,7 +51,7 @@
                 <Ellipse x:Name="ellipseIrcConnectionStatusLed" x:FieldModifier="public" Width="12" Height="12" Fill="Gray"/>
             </StatusBar>
         </Grid>
-        <ScrollViewer Grid.ColumnSpan="2" Margin="0,18,0,0" Grid.RowSpan="2">
+        <ScrollViewer Grid.Row="1">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
