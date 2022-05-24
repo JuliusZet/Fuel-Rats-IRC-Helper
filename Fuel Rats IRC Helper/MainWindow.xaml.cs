@@ -345,7 +345,10 @@ namespace Fuel_Rats_IRC_Helper
             if (Settings.Get("ircAutoconnect") == "yes")
             {
                 Irc.Connect();
+                menuitemToggleIrcConnection.Header = "_Disconnect IRC";
             }
+            else
+                menuitemToggleIrcConnection.Header = "_Connect IRC";
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -368,14 +371,18 @@ namespace Fuel_Rats_IRC_Helper
             Close();
         }
 
-        private void menuitemConnectToIrc_Click(object sender, RoutedEventArgs e)
+        private void menuitemToggleIrcConnection_Click(object sender, RoutedEventArgs e)
         {
-            Irc.Connect();
-        }
-
-        private void menuitemDisconnectFromIrc_Click(object sender, RoutedEventArgs e)
-        {
-            Irc.Disconnect();
+            if (Irc.IsConnected)
+            {
+                Irc.Disconnect();
+                menuitemToggleIrcConnection.Header = "_Connect IRC";
+            }
+            else
+            {
+                Irc.Connect();
+                menuitemToggleIrcConnection.Header = "_Disconnect IRC";
+            }
         }
 
         private void menuitemAbout_Click(object sender, RoutedEventArgs e)

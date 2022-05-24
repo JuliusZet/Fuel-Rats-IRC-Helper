@@ -107,6 +107,15 @@ namespace Fuel_Rats_IRC_Helper
             get { return _Case; }
         }
 
+        public static bool IsConnected
+        {
+            get
+            {
+                if (_IrcClient == null) return false;
+                return _IrcClient.IsConnected;
+            }
+        }
+
         public static int SendMessageToRescueChannel(string message)
         {
             if (_IrcClient != null && _IrcClient.IsConnected)

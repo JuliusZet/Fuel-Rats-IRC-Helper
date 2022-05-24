@@ -36,10 +36,7 @@
                     <MenuItem x:Name="menuitemSettings" Header="_Settings" Click="menuitemSettings_Click"/>
                     <MenuItem x:Name="menuitemClose" Header="_Close" Click="menuitemClose_Click"/>
                 </MenuItem>
-                <MenuItem Header="_IRC">
-                    <MenuItem x:Name="menuitemConnectToIrc" Header="_Connect to IRC" Click="menuitemConnectToIrc_Click"/>
-                    <MenuItem x:Name="menuitemDisconnectFromIrc" Header="_Disconnect from IRC" Click="menuitemDisconnectFromIrc_Click"/>
-                </MenuItem>
+                <MenuItem x:Name="menuitemToggleIrcConnection"  Header="_IRC" Click="menuitemToggleIrcConnection_Click"/>
                 <MenuItem Header="_Help">
                     <MenuItem x:Name="menuitemAbout" Header="_About Fuel Rats IRC Helper" Click="menuitemAbout_Click"/>
                     <MenuItem x:Name="menuitemChangelog" Header="_Changelog" Click="menuitemChangelog_Click"/>
