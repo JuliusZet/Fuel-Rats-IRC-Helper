@@ -285,11 +285,21 @@ namespace Fuel_Rats_IRC_Helper
 
         private void DataGridCell_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            DataGridCell dataGridCell = sender as DataGridCell;
+            TextBlock textBlock = dataGridCell.Content as TextBlock;
+            
+            if (dataGridCell.Column.DisplayIndex == 2)
+            {
+                IrcMessage IrcMessage = dataGridCell.DataContext as IrcMessage;
+                FormTranslateMessage.TranslateStatic(IrcMessage.SenderNickname, IrcMessage.Text);
+                return;
+            }
+
             if (textboxMessage.Text != "")
             {
                 textboxMessage.Text += ' ';
             }
-            textboxMessage.Text += ((sender as DataGridCell).Content as TextBlock).Text;
+            textboxMessage.Text += textBlock.Text;
             textboxMessage.Focus();
             textboxMessage.CaretIndex = textboxMessage.Text.Length;
         }

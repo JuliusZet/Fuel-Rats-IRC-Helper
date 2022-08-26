@@ -28,11 +28,33 @@ namespace Fuel_Rats_IRC_Helper
     public partial class MainWindow : Window
     {
         private readonly List<string> _DistanceUnit;
+        private System.Windows.Forms.Timer _caseCleanupTimer;
 
         public MainWindow()
         {
             _DistanceUnit = new List<string>(new string[]{ "m", "km", "Mm", "ls", "kls", "Mls", "ly" });
             InitializeComponent();
+            _caseCleanupTimer = new System.Windows.Forms.Timer();
+            _caseCleanupTimer.Interval = 60000;
+            _caseCleanupTimer.Tick += _caseCleanupTimer_Tick;
+            _caseCleanupTimer.Enabled = true;
+        }
+
+        private void _caseCleanupTimer_Tick(object sender, EventArgs e)
+        {
+            for (int i = Irc._Case.Count - 1; i >= 0; i--)
+            {
+                Case c = Irc._Case[i];
+                if (!c.IsClosed) continue;
+
+                DateTimeOffset endTime = c.GetMissionEndTime().ToLocalTime();
+
+                if (endTime.AddMinutes(60) < DateTime.Now)
+                {
+                    Irc._Case.Remove(c);
+                    Irc.RefreshCaseList();
+                }
+            }
         }
 
         private void CheckForUpdates(bool silentCheck)
@@ -117,29 +139,51 @@ namespace Fuel_Rats_IRC_Helper
             }
         }
 
-        private void UncheckAllCheckboxesExceptCasenumber()
+        /// <summary>
+        /// Returns true if all checkboxes were already unchecked.
+        /// </summary>
+        private bool UncheckAllCheckboxesExceptCasenumber()
         {
-            checkboxRgr.IsChecked = false;
-            checkboxRdy.IsChecked = false;
-            checkboxJumpcallout.IsChecked = false;
-            checkboxOwnPos.IsChecked = false;
-            checkboxFr.IsChecked = false;
-            checkboxOnlineStatus.IsChecked = false;
-            checkboxSysconf.IsChecked = false;
-            checkboxTm.IsChecked = false;
-            checkboxPrep.IsChecked = false;
-            checkboxNavcheck.IsChecked = false;
-            checkboxBc.IsChecked = false;
-            checkboxInst.IsChecked = false;
-            checkboxClientPos.IsChecked = false;
-            checkboxDistance.IsChecked = false;
-            checkboxFuel.IsChecked = false;
+            CheckBox[] checkBoxes = new CheckBox[]
+            {
+                    checkboxRgr,
+                    checkboxRdy,
+                    checkboxJumpcallout,
+                    checkboxOwnPos,
+                    checkboxFr,
+                    checkboxOnlineStatus,
+                    checkboxSysconf,
+                    checkboxTm,
+                    checkboxPrep,
+                    checkboxNavcheck,
+                    checkboxBc,
+                    checkboxInst,
+                    checkboxClientPos,
+                    checkboxDistance,
+                    checkboxFuel
+            };
+
+            bool wasChecked = false;
+            foreach (var c in checkBoxes)
+            {
+                bool? isChecked = c.IsChecked;
+                if (isChecked == null)
+                {
+                    c.IsChecked = false;
+                    continue;
+                }
+                if (isChecked == true)
+                    wasChecked = true;
+                c.IsChecked = false;
+            }
+
+            return !wasChecked;
         }
 
         private void UncheckAllCheckboxes()
         {
-            checkboxCasenumber.IsChecked = false;
-            UncheckAllCheckboxesExceptCasenumber();
+            if (UncheckAllCheckboxesExceptCasenumber())
+                checkboxCasenumber.IsChecked = false;
         }
 
         private void UpdateUserInterfaceColors()
@@ -301,7 +345,10 @@ namespace Fuel_Rats_IRC_Helper
             if (Settings.Get("ircAutoconnect") == "yes")
             {
                 Irc.Connect();
+                menuitemToggleIrcConnection.Header = "_Disconnect IRC";
             }
+            else
+                menuitemToggleIrcConnection.Header = "_Connect IRC";
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -324,14 +371,18 @@ namespace Fuel_Rats_IRC_Helper
             Close();
         }
 
-        private void menuitemConnectToIrc_Click(object sender, RoutedEventArgs e)
+        private void menuitemToggleIrcConnection_Click(object sender, RoutedEventArgs e)
         {
-            Irc.Connect();
-        }
-
-        private void menuitemDisconnectFromIrc_Click(object sender, RoutedEventArgs e)
-        {
-            Irc.Disconnect();
+            if (Irc.IsConnected)
+            {
+                Irc.Disconnect();
+                menuitemToggleIrcConnection.Header = "_Connect IRC";
+            }
+            else
+            {
+                Irc.Connect();
+                menuitemToggleIrcConnection.Header = "_Disconnect IRC";
+            }
         }
 
         private void menuitemAbout_Click(object sender, RoutedEventArgs e)
@@ -599,7 +650,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxSysconf.IsChecked = true;
             textboxSysconfMinus.Focus();
-            Message.Replace("Sysconf", "syscorr: " + textboxSysconfMinus.Text);
+            Message.Replace("Sysconf", GetSysCorr() + textboxSysconfMinus.Text);
             textboxMessage.Text = Message.Generate();
         }
 
@@ -608,7 +659,7 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxSysconfMinus.Text != "")
             {
                 radiobuttonSysconfMinus.IsChecked = true;
-                Message.Replace("Sysconf", "syscorr: " + textboxSysconfMinus.Text);
+                Message.Replace("Sysconf", GetSysCorr() + textboxSysconfMinus.Text);
                 textboxMessage.Text = Message.Generate();
             }
 
@@ -616,6 +667,11 @@ namespace Fuel_Rats_IRC_Helper
             {
                 checkboxSysconf.IsChecked = false;
             }
+        }
+
+        private string GetSysCorr()
+        {
+            return $"sys {textboxCasenumber.Text} ";
         }
 
         private void textboxSysconfMinus_KeyDown(object sender, KeyEventArgs e)

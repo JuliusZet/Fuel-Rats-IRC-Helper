@@ -32,7 +32,27 @@ namespace Fuel_Rats_IRC_Helper
         {
             if (File.Exists("debug.log"))
             {
-                Process.Start("debug.log");
+                try
+                {
+                    Process.Start("debug.log");
+                }
+                catch
+                {
+                    try
+                    {
+                        ProcessStartInfo info = new ProcessStartInfo()
+                        {
+                            UseShellExecute = true,
+                            FileName = Path.GetFullPath("debug.log")
+                        };
+
+                        Process.Start(info);
+                    }
+                    catch
+                    {
+                        Process.Start("notepad", Path.GetFullPath("debug.log"));
+                    }
+                }
             }
 
             else
