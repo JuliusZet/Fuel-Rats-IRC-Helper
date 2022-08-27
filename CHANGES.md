@@ -1,4 +1,15 @@
 ﻿# Changelog
+### Version 1.5.0.0 (2022-08-27)
++ Added translator: Double-click messages in a Case window to see them translated
++ Added New Case Alert - Specify path to your sound file in Settings
++ Changed "syscorr" callout to "sys [casenumber] [correct system]"
++ Replaced IRC menu item with an IRC toggle button
++ Other quality of life changes:
+    + You can delete cases from the list by middle-clicking on them
+    + Cases, that have been closed more than 1 hour ago, will be deleted from the list automatically
+    + Improved Clear button: It now unchecks the Case number, if all other boxes were unchecked
++ Fixed a bug that prevented the log file from being opened on some systems
++ Fixed a typo in the Case window
 ### Version 1.4.4.1 (2021-12-11)
 + Fixed the copy system name to clipboard function to also work when an Odyssey case comes in
 ### Version 1.4.4.0 (2021-11-25)

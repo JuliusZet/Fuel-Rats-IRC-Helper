@@ -35,6 +35,30 @@
                     <Run Text="Changelog"/>
                 </Paragraph>
                 <Paragraph>
+                    <Run Text="Version 1.5.0.0" FontSize="16" TextDecorations="Underline"/>
+                    <Run Text=" 2022-08-27"/>
+                    <LineBreak/>
+                    <Run Text="+ Added translator: Double-click messages in a Case window to see them translated"/>
+                    <LineBreak/>
+                    <Run Text="+ Added New Case Alert - Specify path to your sound file in Settings"/>
+                    <LineBreak/>
+                    <Run Text="* Changed &quot;syscorr&quot; callout to &quot;sys [casenumber] [correct system]&quot;"/>
+                    <LineBreak/>
+                    <Run Text="* Replaced IRC menu item with an IRC toggle button"/>
+                    <LineBreak/>
+                    <Run Text="* Other quality of life changes:"/>
+                    <LineBreak/>
+                    <Run Text="    - You can delete cases from the list by middle-clicking on them"/>
+                    <LineBreak/>
+                    <Run Text="    - Cases, that have been closed more than 1 hour ago, will be deleted from the list automatically"/>
+                    <LineBreak/>
+                    <Run Text="    - Improved Clear button: It now unchecks the Case number, if all other boxes were unchecked"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed a bug that prevented the log file from being opened on some systems"/>
+                    <LineBreak/>
+                    <Run Text="* Fixed a typo in the Case window"/>
+                </Paragraph>
+                <Paragraph>
                     <Run Text="Version 1.4.4.1" FontSize="16" TextDecorations="Underline"/>
                     <Run Text=" 2021-12-11"/>
                     <LineBreak/>
