@@ -11,12 +11,13 @@ Facilitating the use of the Fuel Rats IRC
 + Tracks cases by processing received messages from the Fuel Rats IRC server
 + Displays details about cases and filtered chats in separate windows
 + Provides some very useful functionality for dispatchers as well
-<img src="https://i.imgur.com/w3joC2T.png">
+<img src="https://i.imgur.com/xWGTMJ1.png">
 <img src="https://i.imgur.com/9xIjBuY.png">
-<img src="https://i.imgur.com/OMTV86k.png">
-<img src="https://i.imgur.com/BbkHXzJ.png">
-<img src="https://i.imgur.com/6Bggmsn.png">
-<img src="https://i.imgur.com/IB4o8Gy.png">
+<img src="https://i.imgur.com/l4ZoaGp.png">
+<img src="https://i.imgur.com/xS0jPRg.png">
+<img src="https://i.imgur.com/mgBQ8hd.png">
+<img src="https://i.imgur.com/goKNi1r.png">
+<img src="https://i.imgur.com/2S07fgX.png">
 
 ## Install
 + Download the setup.exe file from <a href="https://fuelrats.net/Fuel-Rats-IRC-Helper/setup.exe" target="_blank">here</a>
