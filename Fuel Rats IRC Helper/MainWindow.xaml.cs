@@ -381,7 +381,10 @@ namespace Fuel_Rats_IRC_Helper
             else
             {
                 Irc.Connect();
-                menuitemToggleIrcConnection.Header = "_Disconnect IRC";
+                if (Irc.IsConnected)
+                {
+                    menuitemToggleIrcConnection.Header = "_Disconnect IRC";
+                }
             }
         }
 
