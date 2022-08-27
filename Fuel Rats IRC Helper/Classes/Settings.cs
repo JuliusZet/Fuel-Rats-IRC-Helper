@@ -183,6 +183,8 @@ namespace Fuel_Rats_IRC_Helper
                     return Set("ircRealname", "myRealname");
                 case "ircUseSsl":
                     return Set("ircUseSsl", "no");
+                case "newCaseAlertSound":
+                    return Set("newCaseAlertSound", "");
                 case "ratsignalStartsWith":
                     return Set("ratsignalStartsWith", "00,07RATSIGNAL");
                 case "ratsignalAltStartsWith":
