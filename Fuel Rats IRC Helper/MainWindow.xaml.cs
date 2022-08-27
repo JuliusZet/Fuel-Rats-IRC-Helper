@@ -345,10 +345,15 @@ namespace Fuel_Rats_IRC_Helper
             if (Settings.Get("ircAutoconnect") == "yes")
             {
                 Irc.Connect();
-                menuitemToggleIrcConnection.Header = "_Disconnect IRC";
+                if (Irc.IsConnected)
+                {
+                    menuitemToggleIrcConnection.Header = "_Disconnect IRC";
+                }
             }
             else
+            {
                 menuitemToggleIrcConnection.Header = "_Connect IRC";
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -653,7 +658,7 @@ namespace Fuel_Rats_IRC_Helper
         {
             checkboxSysconf.IsChecked = true;
             textboxSysconfMinus.Focus();
-            Message.Replace("Sysconf", GetSysCorr() + textboxSysconfMinus.Text);
+            Message.Replace("Sysconf", "sys " + textboxCasenumber.Text + ' ' + textboxSysconfMinus.Text);
             textboxMessage.Text = Message.Generate();
         }
 
@@ -662,7 +667,7 @@ namespace Fuel_Rats_IRC_Helper
             if (textboxSysconfMinus.Text != "")
             {
                 radiobuttonSysconfMinus.IsChecked = true;
-                Message.Replace("Sysconf", GetSysCorr() + textboxSysconfMinus.Text);
+                Message.Replace("Sysconf", "sys " + textboxCasenumber.Text + ' ' + textboxSysconfMinus.Text);
                 textboxMessage.Text = Message.Generate();
             }
 
@@ -670,11 +675,6 @@ namespace Fuel_Rats_IRC_Helper
             {
                 checkboxSysconf.IsChecked = false;
             }
-        }
-
-        private string GetSysCorr()
-        {
-            return $"sys {textboxCasenumber.Text} ";
         }
 
         private void textboxSysconfMinus_KeyDown(object sender, KeyEventArgs e)
