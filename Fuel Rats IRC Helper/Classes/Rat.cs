@@ -27,12 +27,12 @@ namespace Fuel_Rats_IRC_Helper
             _CmdrName = cmdrName;
         }
 
-        public Rat(string ircNick) : this(ircNick, "unknwon")
+        public Rat(string ircNick) : this(ircNick, "unknown")
         {
 
         }
 
-        public Rat() : this("unknwon", "unknwon")
+        public Rat() : this("unknown", "unknown")
         {
 
         }
